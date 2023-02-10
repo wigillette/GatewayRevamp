@@ -1,4 +1,5 @@
 <h3>Documents:</h3>
-<a href="./Documents/Proposal.docx">Here is the download link to our proposal!</a>
+<embed src="./Documents/Proposal.pdf" type="application/pdf" />
 <br>
-<a href="./Documents/Requirements.docx">Here is the download link to our requirements!</a>
+<embed src="./Documents/Requirements.pdf" type="application/pdf" />
+<!-- <a href="./Documents/Requirements.pdf">Here is the download link to our requirements!</a> -->
