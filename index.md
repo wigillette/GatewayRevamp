@@ -1,3 +1,11 @@
+<!-- Summary Section -->
+<h1><b>Ursinus Student Access Portal Remastered</b></h1>
+<h2>A Modernized Degree Planning Software</h2>
+<h3>CS-375: Software Engineering, Dr. Mongan</h3>
+<h3>Will Gillette, Jess Sokolski, Kacey La, Ryan Fitzgerald, Matt Quigley</h3>
+
+----
+
 <!-- Navbar -->
 <p align="center">
 <strong><a href="#documents">Documents</a></strong>
@@ -9,11 +17,9 @@
 <strong><a href="#link4">Link 4</a></strong>
 </p>
 
-<!-- Summary Section -->
-<h1><b>Ursinus Student Access Portal Remastered</b></h1>
-<h2>A Modernized Degree Planning Software</h2>
-<h2>CS-375: Software Engineering, Dr. Mongan</h2>
-<h2>Will Gillette, Jess Sokolski, Kacey La, Ryan Fitzgerald, Matt Quigley</h2>
+----
+
+
 
 <!-- Documents Section -->
 <h3>Documents:</h3>
