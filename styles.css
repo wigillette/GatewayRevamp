@@ -8,11 +8,16 @@ a, p, h3 {
     font-family: "Open Sans", serif;
 }
 
+#Intro h3 {
+    text-align: center;
+}
+
 /* Navigation Stylings */
 a {
     text-decoration: none;
     color: rgb(255,255,255);
     padding: 5% 5% 5% 5%;
+    text-align: center;
 }
 
 #Nav {
@@ -23,5 +28,5 @@ a {
 
 /* Body Styling */
 body {
-    background-image: linear-gradient(rgb(255,255,255), rgb(230,230,230));
+    background-image: linear-gradient(rgb(255,255,255), rgb(240,240,240));
 }
