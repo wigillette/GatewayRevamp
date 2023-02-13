@@ -1,4 +1,9 @@
 /* Heading Stylings */
+#Intro {
+    height: 25%;
+    width: 100%;
+}
+
 h1, h2 {
     font-family: "Roboto Slab", serif;
     text-align:center;
