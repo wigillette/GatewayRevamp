@@ -1,6 +1,6 @@
 /* Heading Stylings */
 #Intro {
-    height: 25%;
+    height: 15%;
     width: 100%;
 }
 
@@ -30,6 +30,7 @@ a, p, h3 {
     background-image: linear-gradient(rgb(200,200,200), rgb(170,170,170));
     border-radius: 5%;
     box-shadow: 0px 2px 2px 0.5px rgba(0,0,0,0.5);
+    text-align: center;
 }
 
 #Nav ul {
