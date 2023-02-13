@@ -48,7 +48,7 @@ body {
 }
 
 /* Responsive Embed Styling */
-.EmbedWrapper {
+/* .EmbedWrapper {
     overflow: hidden;
     width:40%;
     height:45%;
@@ -56,4 +56,4 @@ body {
 .EmbedWrapper embed {
     width: 100%;
     height: 100%;
-}
+} */
