@@ -28,6 +28,7 @@ a, p, h3 {
 }
 
 #Nav ul {
+    position: relative;
     list-style: none;
     margin: 0 auto;
 }
@@ -44,6 +45,8 @@ body {
 /* Responsive Embed Styling */
 .EmbedWrapper {
     overflow: hidden;
+    width:50%;
+    height:25%;
 }
 .EmbedWrapper embed {
     width: 100%;
