@@ -37,6 +37,10 @@ a, p, h3 {
     display: inline;
 }
 
+#Nav ul li a:hover {
+    color: #FF8B28
+}
+
 /* Body Styling */
 body {
     background-image: linear-gradient(rgb(255,255,255), rgb(240,240,240));
