@@ -39,7 +39,7 @@ a, p, h3 {
 
 #Nav ul li a:hover {
     color: #FF8B28;
-    transition:0.2s;
+    transition: color 0.2s;
 }
 
 /* Body Styling */
