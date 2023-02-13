@@ -1,13 +1,27 @@
-h1, h2, h3 {
+/* Heading Stylings */
+h1, h2 {
     font-family: "Roboto Slab", serif;
+    text-align:center;
 }
 
-a, p {
+a, p, h3 {
     font-family: "Open Sans", serif;
 }
 
+/* Navigation Stylings */
+a {
+    text-decoration: none;
+    color: rgb(255,255,255);
+    padding: 5% 5% 5% 5%;
+}
+
 #Nav {
-    background-color: #dc3545;
-    border-radius: 0.5%;
+    background-image: linear-gradient(rgb(200,200,200), rgb(170,170,170));
+    border-radius: 5%;
     box-shadow: 0px 2px 2px 0.5px rgba(0,0,0,0.5);
+}
+
+/* Body Styling */
+body {
+    background-image: linear-gradient(rgb(255,255,255), rgb(230,230,230));
 }
