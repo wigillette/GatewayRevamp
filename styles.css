@@ -27,6 +27,15 @@ a, p, h3 {
     box-shadow: 0px 2px 2px 0.5px rgba(0,0,0,0.5);
 }
 
+#Nav ul {
+    list-style: none;
+    margin: 0 auto;
+}
+
+#Nav li {
+    display: inline;
+}
+
 /* Body Styling */
 body {
     background-image: linear-gradient(rgb(255,255,255), rgb(240,240,240));
@@ -35,6 +44,9 @@ body {
 /* Responsive Embed Styling */
 .EmbedWrapper {
     position: relative;
+    padding-bottom: 56.25%;
+    padding-top: 35px;
+    height: 0;
     overflow: hidden;
 }
 .EmbedWrapper embed {
