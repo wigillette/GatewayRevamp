@@ -38,7 +38,8 @@ a, p, h3 {
 }
 
 #Nav ul li a:hover {
-    color: #FF8B28
+    color: #FF8B28;
+    transition:0.2s;
 }
 
 /* Body Styling */
@@ -49,8 +50,8 @@ body {
 /* Responsive Embed Styling */
 .EmbedWrapper {
     overflow: hidden;
-    width:50%;
-    height:25%;
+    width:40%;
+    height:45%;
 }
 .EmbedWrapper embed {
     width: 100%;
