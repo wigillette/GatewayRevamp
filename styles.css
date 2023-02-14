@@ -67,6 +67,10 @@ body {
     height: 100%;
 }
 
+#proposal {
+    float: left;
+}
+
 /* .EmbedWrapper {
     overflow: hidden;
     width:40%;
