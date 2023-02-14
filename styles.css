@@ -57,7 +57,7 @@ body {
 /* Document Styling */
 .document {
     width: 40%;
-    height: 50%;
+    height: 75vh;
     padding: 0 5% 0 5%;
     float: left; 
     display:inline;
