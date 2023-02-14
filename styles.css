@@ -54,7 +54,19 @@ body {
     background-image: linear-gradient(rgb(255,255,255), rgb(240,240,240));
 }
 
-/* Responsive Embed Styling */
+/* Document Styling */
+.document {
+    width: 40%;
+    height: 50%;
+    display: inline-block;
+    padding: 0 5% 0 5%
+}
+
+.document embed {
+    width: 100%;
+    height: 100%;
+}
+
 /* .EmbedWrapper {
     overflow: hidden;
     width:40%;
