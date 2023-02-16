@@ -1,13 +1,17 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter } from "reactstrap";
+import { Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Label } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 
 const Header = () => {
   // Using state to handle the login form's visibility
   const [display, setDisplay] = useState(false);
   const toggle = () => setDisplay(!display);
-  
+
+  // Toggler for registration page vs. login page
+  const [onRegister, setOnRegister] = useState(false);
+  const toggleRegister = () => setOnRegister(!onRegister);
+
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
       {/*Navbar Component*/}
@@ -40,12 +44,60 @@ const Header = () => {
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>
         </ModalHeader>
         {/* Login Modal Body: this is where the login form will go */}
-        <ModalBody>Form stuff goes here</ModalBody>
+        <ModalBody>
+          {/* Conditionally render either registration form or login form? */}
+          <Form className="form">
+            {!onRegister ?
+              // Again using a fragment to conditonally render multiple elements at once
+              // Login Form:
+              <>
+                <FormGroup>
+                  <Label for="loginEmail">Username</Label>
+                  <Input type="email" name="email" id="loginEmail" placeholder="example@example.com"/>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="loginPassword">Password</Label>
+                  <Input type="password" name="password" id="loginPassword" placeholder="********"/>
+                </FormGroup>
+                <Button>LOGIN</Button>
+              </> : 
+              // Register Form:
+              <>
+                <FormGroup>
+                  <Label for="registerEmail">Input your email:</Label>
+                  <Input type="email" name="email" id="registerEmail" placeholder="example@example.com"/>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="registerPassword">Create a password:</Label>
+                  <Input type="password" name="password" id="registerPassword" placeholder="********"/>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="registerMajorSelect">Select your major:</Label>
+                  <Input id="registerMajorSelect" name="select" type="select">
+                    <option>Computer Science</option>
+                    <option>Mathematics</option>
+                  </Input>
+                </FormGroup>
+                <FormGroup>
+                  <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
+                  <Input id="anticipatedGraduationSelect" name="select" type="select">
+                    <option>2023</option>
+                    <option>2024</option>
+                    <option>2025</option>
+                    <option>2026</option>
+                  </Input>
+                </FormGroup>
+                <Button>REGISTER</Button>
+              </>  
+            }
+          </Form>
+         
+        </ModalBody>
         {/* Login Modal Footer: this is where the submit and registration buttons will go */}
         <ModalFooter>
           {/* Login Modal Login Button */}
-          <Button variant="primary" onClick={() => {alert("Submitting data to database"); toggle()}}>
-            LOGIN
+          <Button variant="danger" onClick={() => {toggleRegister()}}>
+            {onRegister ? "LOGIN" : "REGISTER"}
           </Button>
         </ModalFooter>
       </Modal>
