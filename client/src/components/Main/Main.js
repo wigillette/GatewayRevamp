@@ -7,7 +7,7 @@ import Header from "../Header/Header";
 const Main = () => (
   <div className={styles.Main}>
     <Header/>
-    <div classname="content-wrapper">
+    <div className="content-wrapper">
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/home" element={<HomePage/>} />

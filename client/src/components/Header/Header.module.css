@@ -17,7 +17,7 @@
 }
 
 /* Header Link Styling */
-.link_title, .header_title {
+.link_title, .header_title, .portal_title {
     display: inline-block;
     font-family: 'Roboto Slab', serif;
     text-shadow: 5% 5% 2% rgb(0,0,0);
@@ -45,4 +45,8 @@
     font-size: 3.5vh;
 }
 
-/* Login Button */
+/* Modal Portal Title */
+.portal_title {
+    color: rgb(0,0,0);
+    font-size: 3vh;
+}
