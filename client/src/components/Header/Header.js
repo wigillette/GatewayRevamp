@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Label } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 
 const Header = () => {
@@ -11,6 +11,18 @@ const Header = () => {
   // Toggler for registration page vs. login page
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
+
+  // Request to the server to login the user and receive a response (may need to add Redux store update here)
+  const attemptLogin = (event) => {
+    event.preventDefault();
+    alert("Attempting Login");
+  }
+
+  // Request to the server to register the new user and receive a response (may need to add Redux store update here)
+  const attemptRegister = (event) => {
+    event.preventDefault();
+    alert("Attempting registration");
+  }
 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
@@ -46,58 +58,89 @@ const Header = () => {
         {/* Login Modal Body: this is where the login form will go */}
         <ModalBody>
           {/* Conditionally render either registration form or login form? */}
-          <Form className="form">
-            {!onRegister ?
-              // Again using a fragment to conditonally render multiple elements at once
-              // Login Form:
-              <>
-                <FormGroup>
-                  <Label for="loginEmail">Username</Label>
-                  <Input type="email" name="email" id="loginEmail" placeholder="example@example.com"/>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="loginPassword">Password</Label>
-                  <Input type="password" name="password" id="loginPassword" placeholder="********"/>
-                </FormGroup>
-                <Button>LOGIN</Button>
-              </> : 
-              // Register Form:
-              <>
-                <FormGroup>
-                  <Label for="registerEmail">Input your email:</Label>
-                  <Input type="email" name="email" id="registerEmail" placeholder="example@example.com"/>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="registerPassword">Create a password:</Label>
-                  <Input type="password" name="password" id="registerPassword" placeholder="********"/>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="registerMajorSelect">Select your major:</Label>
-                  <Input id="registerMajorSelect" name="select" type="select">
-                    <option>Computer Science</option>
-                    <option>Mathematics</option>
-                  </Input>
-                </FormGroup>
-                <FormGroup>
-                  <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
-                  <Input id="anticipatedGraduationSelect" name="select" type="select">
-                    <option>2023</option>
-                    <option>2024</option>
-                    <option>2025</option>
-                    <option>2026</option>
-                  </Input>
-                </FormGroup>
-                <Button>REGISTER</Button>
-              </>  
-            }
-          </Form>
-         
+          {!onRegister ?
+            // Login Form:
+            <Form className="form" onSubmit={attemptLogin} >
+              <FormGroup floating>
+                <Input type="email" name="email" id="loginEmail" placeholder="example@example.com" required/>
+                <Label for="loginEmail">Username</Label>
+              </FormGroup>
+              <FormGroup floating>
+                <Input type="password" name="password" id="loginPassword" placeholder="********" required/>
+                <Label for="loginPassword">Password</Label>
+              </FormGroup>
+              <Button type="submit">LOGIN</Button>
+            </Form> : 
+            // Register Form:
+            <Form className="form" onSubmit={attemptRegister} >
+              <Row>
+                <Col md={6}>
+                  <FormGroup floating>
+                    <Input type="text" name="firstname" id="registerFName" placeholder="Jane" required/>
+                    <Label for="registerFName">First Name:</Label>
+                  </FormGroup>  
+                </Col>
+                <Col md={6}>
+                  <FormGroup floating>
+                    <Input type="text" name="lastname" id="registerLName" placeholder="Doe" required/>
+                    <Label for="registerLName">Last Name:</Label>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <FormGroup floating>
+                    <Input type="email" name="email" id="registerEmail" placeholder="example@example.com" required />
+                    <Label for="registerEmail">Input your email:</Label>
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup floating>
+                    <Input type="password" name="password" id="registerPassword" placeholder="********" required/>
+                    <Label for="registerPassword">Create a password:</Label>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <Row>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="registerMajorSelect">Select your major:</Label>
+                    <Input id="registerMajorSelect" name="select" type="select" required>
+                      <option>Computer Science</option>
+                      <option>Mathematics</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col md={6}>
+                  <FormGroup>
+                    <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
+                    <Input id="anticipatedGraduationSelect" name="select" type="select" required>
+                      <option>Spring 2023</option>
+                      <option>Fall 2023</option>
+                      <option>Spring 2024</option>
+                      <option>Fall 2024</option>
+                      <option>Spring 2025</option>
+                      <option>Fall 2025</option>
+                      <option>Spring 2026</option>
+                    </Input>
+                  </FormGroup>
+                </Col>
+              </Row>
+              <FormGroup>
+                <Label for="headshotUpload">Upload your Avatar:</Label>
+                <Input id="headshotUpload" name="file" type="file" required/>
+                <FormText>Please upload your headshot.</FormText>
+              </FormGroup>
+              
+              <Button type="submit">REGISTER</Button>
+            </Form>
+          }
         </ModalBody>
         {/* Login Modal Footer: this is where the submit and registration buttons will go */}
         <ModalFooter>
           {/* Login Modal Login Button */}
           <Button variant="danger" onClick={() => {toggleRegister()}}>
-            {onRegister ? "LOGIN" : "REGISTER"}
+            {onRegister ? "VIEW LOGIN" : "VIEW REGISTER"}
           </Button>
         </ModalFooter>
       </Modal>
