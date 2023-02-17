@@ -25,49 +25,50 @@ const Header = ({ setToken }) => {
   const toggleRegister = () => setOnRegister(!onRegister);
 
   // Log in Request/Response
-  const loginUser = credentials => {
+  const loginUser = async credentials => {
     // We are making a HTTP request to the server to return whether the login is successful
-    fetch("localhost:3001/login", {
+    const res = await fetch("http://localhost:3001/login", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(credentials)
     })
-    .then((data) => data.json()) // Receiving unique user token from the server
-    .catch((err) => console.log(err))
+    return await res.json(); // Receiving unique user token from the server
   }
 
   // Handling login Submission asynchronously
-  const attemptLogin = async e => {
+  const attemptLogin = (e) => {
     e.preventDefault();
-    const token = await loginUser({
-      email, password
-    });
-    setToken(token); // Update the token from token.js
-  }
+    loginUser({ email, password }).then((token) => {
+      // Need to add functionality to check if the user can authenticate based on token's value
+      setToken(token)
+      toggleModal();
+    }) // After receiving token from server, update the token in token.js and close the modal
+  };
 
-  // Request to the server to register the new user and receive a response (may need to add Redux store update here)
-  const registerUser = userInfo => {
+  // Asynchronous request to the server to register the new user and receive a response (may need to add Redux store update here)
+  const registerUser = async userInfo => {
     // We are making a HTTP request to the server to return whether the login is successful
-    fetch("localhost:3001/register", {
+    const res = await fetch("http://localhost:3001/register", {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify(userInfo)
     })
-    .then((data) => {alert(data); return data.json() }) // Receiving unique user token from the server
-    .catch((err) => console.log(err))
+    return await res.json(); // Receiving unique user token from the server
   }
 
-  // Handle register Submission asynchronously
-  const attemptRegister = async e => {
+  // Set up a promise to update the token after receiving it from the server
+  const attemptRegister = (e) => {
     e.preventDefault();
-    const token = await registerUser({
-      email, password, fName, lName, gradDate, major, headshot
-    });
-    setToken(token); // Update the token from token.js
+    registerUser({ email, password, fName, lName, gradDate, major, headshot })
+    .then((token) => {
+      // Need to add functionality to check if the user can register based on token's value
+      setToken(token)
+      toggleModal();
+    }) // After receiving token from server, update the token in token.js
   };
 
   // Handle user log out
