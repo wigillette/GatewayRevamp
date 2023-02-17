@@ -1,20 +1,12 @@
 // client/src/App.js
 import "./App.css";
 
-import { BrowserRouter } from "react-router-dom";
 import React from "react";
 import Main from "./components/Main/Main";
 
-function App() {
-
-
-  return (
-    <BrowserRouter>
-      <div className="App">
-        <Main />
-      </div>
-    </BrowserRouter>
-  );
-}
+const App = () =>
+    (<div className="App">
+      <Main />
+    </div>)
 
 export default App;

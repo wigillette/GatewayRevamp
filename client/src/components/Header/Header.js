@@ -1,28 +1,51 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, FormFeedback, Input, Label, FormText } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
+import { useAuth0 } from '@auth0/auth0-react';
 
 const Header = () => {
   // Using state to handle the login form's visibility
-  const [display, setDisplay] = useState(false);
-  const toggle = () => setDisplay(!display);
+  const [displayModal, setDisplayModal] = useState(false);
+  const toggleModal = () => setDisplayModal(!displayModal);
 
   // Toggler for registration page vs. login page
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
 
   // Request to the server to login the user and receive a response (may need to add Redux store update here)
-  const attemptLogin = (event) => {
-    event.preventDefault();
-    alert("Attempting Login");
-  }
+  const { loginWithRedirect } = useAuth0();
+  const { logout } = useAuth0();
+  const { isAuthenticated } = useAuth0();
+
+  const attemptLogin = async () => {
+    await loginWithRedirect({
+      appState: {
+        returnTo: "/progress",
+      },
+    });
+  };
 
   // Request to the server to register the new user and receive a response (may need to add Redux store update here)
-  const attemptRegister = (event) => {
-    event.preventDefault();
-    alert("Attempting registration");
-  }
+  const attemptRegister = async () => {
+    await loginWithRedirect({
+      appState: {
+        returnTo: "/progress",
+      },
+      authorizationParams: {
+        screen_hint: "signup",
+      },
+    });
+  };
+
+  // Handle user log out
+  const handleLogout = () => {
+    logout({
+      logoutParams: {
+        returnTo: window.location.origin,
+      },
+    });
+  };
 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
@@ -42,17 +65,17 @@ const Header = () => {
               <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
-            {/* Login Form Button: use state to toggle it */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={toggle}>
+            {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? handleLogout : toggleModal}>
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
         </Container>
       </Navbar>
       {/* Login Form Modal: conditionally display using the display boolean above */}
-      <Modal isOpen={display} toggle={toggle} backdrop="static" fade={false}>
+      <Modal isOpen={displayModal} toggle={toggleModal} backdrop="static" fade={false}>
         {/* Login Modal Header */}
-        <ModalHeader toggle={toggle}>
+        <ModalHeader toggle={toggleModal}>
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>
         </ModalHeader>
         {/* Login Modal Body: this is where the login form will go */}
