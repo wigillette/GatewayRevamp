@@ -7,17 +7,12 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'bootstrap/dist/js/bootstrap.min.js';
 import 'jquery/dist/jquery.min.js';
 import { BrowserRouter } from "react-router-dom";
-import { Auth0Provider } from '@auth0/auth0-react';
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <BrowserRouter>
-      {/* <Auth0ProviderWithNavigate> */}
-      <Auth0Provider>
         <App />
-      </Auth0Provider>
-      {/* </Auth0ProviderWithNavigate> */}
     </BrowserRouter>
   </React.StrictMode>
 );

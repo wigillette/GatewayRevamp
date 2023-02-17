@@ -3,10 +3,14 @@ import "./App.css";
 
 import React from "react";
 import Main from "./components/Main/Main";
+import useToken from "./useToken";
 
-const App = () =>
-    (<div className="App">
-      <Main />
-    </div>)
+const App = () => {
+    const { token, setToken } = useToken();    
+    
+    return <div className="App">
+      <Main setToken={setToken} />
+    </div>
+}
 
 export default App;

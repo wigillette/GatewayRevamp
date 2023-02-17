@@ -2,9 +2,20 @@ import React, { useState } from 'react';
 import styles from './Header.module.css';
 import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
-import { useAuth0 } from '@auth0/auth0-react';
+import PropTypes from 'prop-types';
 
-const Header = () => {
+const Header = ({ setToken }) => {
+  const isAuthenticated = false; // Change to correct value
+
+  // Storing form data in state
+  const [email, setEmail] = useState();
+  const [password, setPassword] = useState();
+  const [fName, setFName] = useState();
+  const [lName, setLName] = useState();
+  const [gradDate, setGradDate] = useState();
+  const [major, setMajor] = useState();
+  const [headshot, setHeadshot] = useState();
+
   // Using state to handle the login form's visibility
   const [displayModal, setDisplayModal] = useState(false);
   const toggleModal = () => setDisplayModal(!displayModal);
@@ -13,38 +24,55 @@ const Header = () => {
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
 
-  // Request to the server to login the user and receive a response (may need to add Redux store update here)
-  const { loginWithRedirect } = useAuth0();
-  const { logout } = useAuth0();
-  const { isAuthenticated } = useAuth0();
-
-  const attemptLogin = async () => {
-    await loginWithRedirect({
-      appState: {
-        returnTo: "/progress",
+  // Log in Request/Response
+  const loginUser = credentials => {
+    // We are making a HTTP request to the server to return whether the login is successful
+    fetch("localhost:3001/login", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
+      body: JSON.stringify(credentials)
+    })
+    .then((data) => data.json()) // Receiving unique user token from the server
+    .catch((err) => console.log(err))
+  }
+
+  // Handling login Submission asynchronously
+  const attemptLogin = async e => {
+    e.preventDefault();
+    const token = await loginUser({
+      email, password
     });
-  };
+    setToken(token); // Update the token from token.js
+  }
 
   // Request to the server to register the new user and receive a response (may need to add Redux store update here)
-  const attemptRegister = async () => {
-    await loginWithRedirect({
-      appState: {
-        returnTo: "/progress",
+  const registerUser = userInfo => {
+    // We are making a HTTP request to the server to return whether the login is successful
+    fetch("localhost:3001/register", {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
       },
-      authorizationParams: {
-        screen_hint: "signup",
-      },
+      body: JSON.stringify(userInfo)
+    })
+    .then((data) => {alert(data); return data.json() }) // Receiving unique user token from the server
+    .catch((err) => console.log(err))
+  }
+
+  // Handle register Submission asynchronously
+  const attemptRegister = async e => {
+    e.preventDefault();
+    const token = await registerUser({
+      email, password, fName, lName, gradDate, major, headshot
     });
+    setToken(token); // Update the token from token.js
   };
 
   // Handle user log out
   const handleLogout = () => {
-    logout({
-      logoutParams: {
-        returnTo: window.location.origin,
-      },
-    });
+    
   };
 
   return (
@@ -66,7 +94,7 @@ const Header = () => {
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? handleLogout : toggleModal}>
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? handleLogout : toggleModal}> 
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
@@ -85,11 +113,11 @@ const Header = () => {
             // Login Form:
             <Form className="form" onSubmit={attemptLogin} >
               <FormGroup floating>
-                <Input type="email" name="email" id="loginEmail" placeholder="example@example.com" required/>
+                <Input type="email" name="email" id="loginEmail" placeholder="example@example.com" onChange={e => setEmail(e.target.value)} required/>
                 <Label for="loginEmail">Username</Label>
               </FormGroup>
               <FormGroup floating>
-                <Input type="password" name="password" id="loginPassword" placeholder="********" required/>
+                <Input type="password" name="password" id="loginPassword" placeholder="********" onChange={e => setPassword(e.target.value)} required/>
                 <Label for="loginPassword">Password</Label>
               </FormGroup>
               <Button type="submit">LOGIN</Button>
@@ -99,13 +127,13 @@ const Header = () => {
               <Row>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="text" name="firstname" id="registerFName" placeholder="Jane" required/>
+                    <Input type="text" name="firstname" id="registerFName" placeholder="Jane" onChange={e => setFName(e.target.value)} required/>
                     <Label for="registerFName">First Name:</Label>
                   </FormGroup>  
                 </Col>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="text" name="lastname" id="registerLName" placeholder="Doe" required/>
+                    <Input type="text" name="lastname" id="registerLName" placeholder="Doe" onChange={e => setLName(e.target.value)} required/>
                     <Label for="registerLName">Last Name:</Label>
                   </FormGroup>
                 </Col>
@@ -113,13 +141,13 @@ const Header = () => {
               <Row>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="email" name="email" id="registerEmail" placeholder="example@example.com" required />
+                    <Input type="email" name="email" id="registerEmail" placeholder="example@example.com" onChange={e => setEmail(e.target.value)} required />
                     <Label for="registerEmail">Input your email:</Label>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="password" name="password" id="registerPassword" placeholder="********" required/>
+                    <Input type="password" name="password" id="registerPassword" placeholder="********" onChange={e => setPassword(e.target.value)} required/>
                     <Label for="registerPassword">Create a password:</Label>
                   </FormGroup>
                 </Col>
@@ -128,7 +156,7 @@ const Header = () => {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="registerMajorSelect">Select your major:</Label>
-                    <Input id="registerMajorSelect" name="select" type="select" required>
+                    <Input id="registerMajorSelect" name="select" type="select" onChange={e => setMajor(e.target.value)} required>
                       <option>Computer Science</option>
                       <option>Mathematics</option>
                     </Input>
@@ -137,7 +165,7 @@ const Header = () => {
                 <Col md={6}>
                   <FormGroup>
                     <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
-                    <Input id="anticipatedGraduationSelect" name="select" type="select" required>
+                    <Input id="anticipatedGraduationSelect" name="select" type="select" onChange={e => setGradDate(e.target.value)} required>
                       <option>Spring 2023</option>
                       <option>Fall 2023</option>
                       <option>Spring 2024</option>
@@ -151,7 +179,7 @@ const Header = () => {
               </Row>
               <FormGroup>
                 <Label for="headshotUpload">Upload your Avatar:</Label>
-                <Input id="headshotUpload" name="file" type="file" required/>
+                <Input id="headshotUpload" name="file" type="file" onChange={e => setHeadshot(e.target.value)} required/>
                 <FormText>Please upload your headshot.</FormText>
               </FormGroup>
               
@@ -170,7 +198,10 @@ const Header = () => {
     </>
   );
 }
-Header.propTypes = {};
+
+Header.propTypes = {
+  setToken: PropTypes.func.isRequired
+};
 
 Header.defaultProps = {};
 

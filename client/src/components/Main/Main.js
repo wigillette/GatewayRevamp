@@ -5,17 +5,16 @@ import HomePage from "../../routes/Home/Home"
 import PlannerPage from "../../routes/Planner/Planner";
 import ProgressPage from "../../routes/Progress/Progress";
 import Header from "../Header/Header";
-import { AuthenticationGuard } from '../Authentication/authentication-guard';
 
-const Main = () => (
+const Main = ({ setToken }) => (
   <div className={styles.Main}>
-    <Header/>
+    <Header setToken={setToken}/>
     <div className="content-wrapper">
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/home" element={<HomePage/>} />
-        <Route path="/progress" element={<AuthenticationGuard component={ProgressPage}/>} />
-        <Route path="/planner" element={<AuthenticationGuard component={PlannerPage}/>} />
+        <Route path="/progress" element={<ProgressPage/>} />
+        <Route path="/planner" element={<PlannerPage/>} />
       </Routes>
     </div>
   </div>
