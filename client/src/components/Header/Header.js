@@ -3,10 +3,9 @@ import styles from './Header.module.css';
 import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import PropTypes from 'prop-types';
+import { isAuthenticated, logout } from '../../services/useToken';
 
 const Header = ({ setToken }) => {
-  const isAuthenticated = false; // Change to correct value
-
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -41,7 +40,7 @@ const Header = ({ setToken }) => {
   const attemptLogin = (e) => {
     e.preventDefault();
     loginUser({ email, password }).then((token) => {
-      // Need to add functionality to check if the user can authenticate based on token's value
+      alert(token?.token);
       setToken(token)
       toggleModal();
     }) // After receiving token from server, update the token in token.js and close the modal
@@ -65,16 +64,12 @@ const Header = ({ setToken }) => {
     e.preventDefault();
     registerUser({ email, password, fName, lName, gradDate, major, headshot })
     .then((token) => {
-      // Need to add functionality to check if the user can register based on token's value
+      alert(token?.token);
       setToken(token)
       toggleModal();
     }) // After receiving token from server, update the token in token.js
   };
 
-  // Handle user log out
-  const handleLogout = () => {
-    
-  };
 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
@@ -95,7 +90,7 @@ const Header = ({ setToken }) => {
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? handleLogout : toggleModal}> 
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated() ? logout : toggleModal}> 
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
