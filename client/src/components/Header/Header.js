@@ -32,11 +32,12 @@ const Header = () => {
   const attemptRegister = (e) => {
     e.preventDefault();
     register(email, password, fName, lName, gradDate, major, headshot)
-    .then((userString) => {
-      console.log(userString);
-      const userInfo = userString.json();
-      alert(userInfo.accessToken);
-      toggleModal();
+    .then((userInfo) => {
+      if (userInfo && userInfo.accessToken) {
+        toggleModal();
+      } else {
+        alert("Failed to register");
+      }
     }) // After receiving token from server, update the token in token.js
   };
 
