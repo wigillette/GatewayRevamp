@@ -6,10 +6,12 @@ import PlannerPage from "../../routes/Planner/Planner";
 import ProgressPage from "../../routes/Progress/Progress";
 import Header from "../Header/Header";
 
-const Main = ({ setToken }) => (
+const Main = () => (
   <div className={styles.Main}>
-    <Header setToken={setToken}/>
+    {/* Header */}
+    <Header/>
     <div className="content-wrapper">
+      {/* React Router */}
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/home" element={<HomePage/>} />
@@ -17,6 +19,7 @@ const Main = ({ setToken }) => (
         <Route path="/planner" element={<PlannerPage/>} />
       </Routes>
     </div>
+    {/* Add Footer */}
   </div>
 );
 

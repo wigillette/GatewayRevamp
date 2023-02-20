@@ -2,10 +2,9 @@ import React, { useState } from 'react';
 import styles from './Header.module.css';
 import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
-import PropTypes from 'prop-types';
-import { isAuthenticated, logout } from '../../services/useToken';
+import { login, register, logout, isAuthenticated } from '../../services/auth-service';
 
-const Header = ({ setToken }) => {
+const Header = () => {
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -23,49 +22,20 @@ const Header = ({ setToken }) => {
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
 
-  // Log in Request/Response
-  const loginUser = async credentials => {
-    // We are making a HTTP request to the server to return whether the login is successful
-    const res = await fetch("http://localhost:3001/login", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(credentials)
-    })
-    return await res.json(); // Receiving unique user token from the server
-  }
-
-  // Handling login Submission asynchronously
+  // Calls the login function in the auth-service
   const attemptLogin = (e) => {
     e.preventDefault();
-    loginUser({ email, password }).then((token) => {
-      alert(token?.token);
-      setToken(token)
-      toggleModal();
-    }) // After receiving token from server, update the token in token.js and close the modal
+    login(email, password).then((userInfo) => toggleModal()) // After receiving token from server, update the token in token.js and close the modal
   };
 
-  // Asynchronous request to the server to register the new user and receive a response (may need to add Redux store update here)
-  const registerUser = async userInfo => {
-    // We are making a HTTP request to the server to return whether the login is successful
-    const res = await fetch("http://localhost:3001/register", {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(userInfo)
-    })
-    return await res.json(); // Receiving unique user token from the server
-  }
-
-  // Set up a promise to update the token after receiving it from the server
+  // Calls the register function in the auth-service
   const attemptRegister = (e) => {
     e.preventDefault();
-    registerUser({ email, password, fName, lName, gradDate, major, headshot })
-    .then((token) => {
-      alert(token?.token);
-      setToken(token)
+    register(email, password, fName, lName, gradDate, major, headshot)
+    .then((userString) => {
+      console.log(userString);
+      const userInfo = userString.json();
+      alert(userInfo.accessToken);
       toggleModal();
     }) // After receiving token from server, update the token in token.js
   };
@@ -195,9 +165,7 @@ const Header = ({ setToken }) => {
   );
 }
 
-Header.propTypes = {
-  setToken: PropTypes.func.isRequired
-};
+Header.propTypes = {};
 
 Header.defaultProps = {};
 
