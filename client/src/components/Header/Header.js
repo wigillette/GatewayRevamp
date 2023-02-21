@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
 import logo from "../../images/UCLogo.png";
-import { login, register, logout, isAuthenticated } from '../../services/auth-service';
+import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
+import { connect } from 'react-redux';
 
-const Header = () => {
+const Header = ({ isAuthenticated }) => { // isAuthenticated is a prop that we mapped from the redux store
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -22,23 +23,59 @@ const Header = () => {
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
 
-  // Calls the login function in the auth-service
+  // Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
+  const validateLogin = () => {
+    const emailFilled = email.length > 0;
+    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
+    const passwordFilled = password.length > 0;
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
+    return emailFilled && emailValid && passwordFilled && passwordValid;
+  }
+
+  // Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
+  const validateRegistration = () => {
+    const emailFilled = email.length > 0;
+    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
+    const passwordFilled = password.length > 0;
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
+    const fNameFilled = fName.length > 0;
+    const fNameValid = fName.match(/[A-Za-z]/);
+    const lNameFilled = lName.length > 0;
+    const lNameValid = lName.match(/[A-Za-z]/);
+    const gradDateValid = gradDate !== null;
+    const majorValid = major !== null;
+    const headshotValid = headshot !== null;
+    return emailFilled && emailValid && passwordFilled && passwordValid && fNameFilled && fNameValid && lNameFilled && lNameValid && gradDateValid && majorValid && headshotValid;
+  }
+
+  // Calls the login function in the auth-action
   const attemptLogin = (e) => {
     e.preventDefault();
-    login(email, password).then((userInfo) => toggleModal()) // After receiving token from server, update the token in token.js and close the modal
+    if (validateLogin()) {
+      loginAction(email, password).then((userInfo) => {
+        alert(userInfo.accessToken)
+        toggleModal();
+      }).catch((err) => {
+        alert("Error with Login");
+      })
+    } else {
+      alert("Invalid email or password!");
+    }
   };
 
-  // Calls the register function in the auth-service
+  // Calls the register function in the auth-action
   const attemptRegister = (e) => {
     e.preventDefault();
-    register(email, password, fName, lName, gradDate, major, headshot)
-    .then((userInfo) => {
-      if (userInfo && userInfo.accessToken) {
+    if (validateRegistration()) {
+      registerAction(email, password, fName, lName, gradDate, major, headshot).then((userInfo) => {
+        console.log(userInfo);
         toggleModal();
-      } else {
-        alert("Failed to register");
-      }
-    }) // After receiving token from server, update the token in token.js
+      }).catch((err) => {
+        alert("Error with registration");
+      })
+    } else {
+      alert("Some registration fields are invalid!")
+    }
   };
 
 
@@ -52,7 +89,7 @@ const Header = () => {
             />{' '}
             <h4 className={styles.header_title}>STUDENT ACCESS PORTAL</h4>
           </NavbarBrand>
-          {/* <NavbarToggle aria-controls="basic-navbar-nav" /> */}
+          <NavbarToggler aria-controls="basic-navbar-nav" />
           <Collapse navbar>
             {/* Navbar Links */}
             <Nav className="me-auto" navbar>
@@ -61,7 +98,7 @@ const Header = () => {
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated() ? logout : toggleModal}> 
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? logoutAction : toggleModal}> 
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
@@ -149,7 +186,6 @@ const Header = () => {
                 <Input id="headshotUpload" name="file" type="file" onChange={e => setHeadshot(e.target.value)} required/>
                 <FormText>Please upload your headshot.</FormText>
               </FormGroup>
-              
               <Button type="submit">REGISTER</Button>
             </Form>
           }
@@ -167,7 +203,15 @@ const Header = () => {
 }
 
 Header.propTypes = {};
-
 Header.defaultProps = {};
 
-export default Header;
+// Map the props in our component to the store's state so that the component
+// updates every time there is a change in the respective part of the store's state
+const mapStateToProps = (state) => {
+  const { authenticated } = state.authReducer;
+  return {
+    isAuthenticated: authenticated,
+  }
+}
+
+export default connect(mapStateToProps)(Header);

@@ -10,16 +10,12 @@ export const login = async (email, password) => {
 
   const userInfo = await userString.json();
   if (userInfo && userInfo.accessToken) {
-    // Dispatch LOGIN_SUCCESS
     alert(userInfo.accessToken);
     localStorage.setItem('user', JSON.stringify(userInfo));
-  } else {
-    // Dispatch LOGIN_FAIL
   }
   return userInfo;
 } 
  
-// Possibly add a similar structure as Login for Register?
 export const register = async (email, password, fName, lName, gradDate, major, headshot) => {
   const userString = await fetch("http://localhost:3001/register", {
     method: 'POST',
@@ -30,11 +26,10 @@ export const register = async (email, password, fName, lName, gradDate, major, h
   })
   const userInfo = await userString.json();
   if (userInfo && userInfo.accessToken) {
-    // Dispatch REGISTER_SUCCESS
+    console.log("HERE");
     localStorage.setItem('user', JSON.stringify(userInfo));
-  } else {
-    // Dispatch REGISTER_FAIL
   }
+  alert(userInfo)
   return userInfo;
 }
 

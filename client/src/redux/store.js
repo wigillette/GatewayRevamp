@@ -1,9 +1,5 @@
-import { applyMiddleware } from 'redux';
-import { composeWithDevTools } from 'redux-devtools-extension';
 import { configureStore } from '@reduxjs/toolkit';
-import thunk from 'redux-thunk';
-import rootReducer from "./reducers";
+import rootReducer  from "./reducers/index";
 
-const middleware = [thunk];
-const store = configureStore(rootReducer, composeWithDevTools(applyMiddleware(...middleware)));
+const store = configureStore({reducer: rootReducer});
 export default store;
