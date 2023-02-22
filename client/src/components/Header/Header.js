@@ -5,7 +5,7 @@ import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
 
-const Header = ({ isAuthenticated }) => { // isAuthenticated is a prop that we mapped from the redux store
+const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -25,39 +25,29 @@ const Header = ({ isAuthenticated }) => { // isAuthenticated is a prop that we m
 
   // Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
   const validateLogin = () => {
-    const emailFilled = email.length > 0;
     const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordFilled = password.length > 0;
     const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
-    return emailFilled && emailValid && passwordFilled && passwordValid;
+    return emailValid && passwordValid;
   }
 
   // Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
   const validateRegistration = () => {
-    const emailFilled = email.length > 0;
     const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordFilled = password.length > 0;
     const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
-    const fNameFilled = fName.length > 0;
     const fNameValid = fName.match(/[A-Za-z]/);
-    const lNameFilled = lName.length > 0;
     const lNameValid = lName.match(/[A-Za-z]/);
     const gradDateValid = gradDate !== null;
     const majorValid = major !== null;
-    const headshotValid = headshot !== null;
-    return emailFilled && emailValid && passwordFilled && passwordValid && fNameFilled && fNameValid && lNameFilled && lNameValid && gradDateValid && majorValid && headshotValid;
+    return emailValid && passwordValid && fNameValid && lNameValid && gradDateValid && majorValid;
   }
 
   // Calls the login function in the auth-action
   const attemptLogin = (e) => {
     e.preventDefault();
     if (validateLogin()) {
-      loginAction(email, password).then((userInfo) => {
-        alert(userInfo.accessToken)
-        toggleModal();
-      }).catch((err) => {
-        alert("Error with Login");
-      })
+      dispatch(loginAction(email, password))
+      .then(toggleModal)
+      .catch((err) => alert("Failed to register"));
     } else {
       alert("Invalid email or password!");
     }
@@ -67,12 +57,9 @@ const Header = ({ isAuthenticated }) => { // isAuthenticated is a prop that we m
   const attemptRegister = (e) => {
     e.preventDefault();
     if (validateRegistration()) {
-      registerAction(email, password, fName, lName, gradDate, major, headshot).then((userInfo) => {
-        console.log(userInfo);
-        toggleModal();
-      }).catch((err) => {
-        alert("Error with registration");
-      })
+      dispatch(registerAction(email, password, fName, lName, gradDate, major, headshot))
+      .then(toggleModal)
+      .catch((err) => alert("Failed to register"));
     } else {
       alert("Some registration fields are invalid!")
     }
