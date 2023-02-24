@@ -17,7 +17,7 @@ const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop
 
   // Using state to handle the login form's visibility
   const [displayModal, setDisplayModal] = useState(false);
-  const toggleModal = () => setDisplayModal(!displayModal);
+  const toggleModal = () => setDisplayModal(!displayModal)
 
   // Toggler for registration page vs. login page
   const [onRegister, setOnRegister] = useState(false);
@@ -84,8 +84,8 @@ const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop
               <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
-            {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? logoutAction : toggleModal}> 
+            {/* isAuthenticated ? logoutAction  Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
+            <Button variant="primary" size="lg" className="d-flex" onClick={toggleModal}>
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
@@ -94,7 +94,7 @@ const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop
       {/* Login Form Modal: conditionally display using the display boolean above */}
       <Modal isOpen={displayModal} toggle={toggleModal} backdrop="static" fade={false}>
         {/* Login Modal Header */}
-        <ModalHeader toggle={toggleModal}>
+        <ModalHeader>
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>
         </ModalHeader>
         {/* Login Modal Body: this is where the login form will go */}
