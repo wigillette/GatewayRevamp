@@ -10,6 +10,8 @@ export const login = (email, password) => {
 } 
  
 export const register = (email, password, fName, lName, gradDate, major, headshot) => {
+  major = major || "Mathematics";
+  gradDate = gradDate || "2024";
   return fetch("http://localhost:3001/register", {
     method: 'POST',
     headers: {
@@ -20,5 +22,3 @@ export const register = (email, password, fName, lName, gradDate, major, headsho
 }
 
 export const logout = () => localStorage.removeItem('user');
-
-export const isAuthenticated = () => localStorage.getItem('user') !== null;

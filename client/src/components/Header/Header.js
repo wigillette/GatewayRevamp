@@ -5,7 +5,7 @@ import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
 
-const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
+const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -74,7 +74,7 @@ const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop
           <NavbarBrand href="/home">
             <img alt="" src={logo} width="35" height="40" className="d-inline-block align-top"
             />{' '}
-            <h4 className={styles.header_title}>STUDENT ACCESS PORTAL</h4>
+            <h4 className={styles.header_title}>STUDENT ACCESS PORTAL | {user?.email || "Logged Out"}</h4>
           </NavbarBrand>
           <NavbarToggler aria-controls="basic-navbar-nav" />
           <Collapse navbar>
@@ -84,8 +84,8 @@ const Header = ({ isAuthenticated, dispatch }) => { // isAuthenticated is a prop
               <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
-            {/* isAuthenticated ? logoutAction  Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={toggleModal}>
+            {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? logoutAction : toggleModal}>
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
@@ -195,9 +195,10 @@ Header.defaultProps = {};
 // Map the props in our component to the store's state so that the component
 // updates every time there is a change in the respective part of the store's state
 const mapStateToProps = (state) => {
-  const { authenticated } = state.authReducer;
+  const { authenticated, user } = state.authReducer;
   return {
     isAuthenticated: authenticated,
+    user: user
   }
 }
 
