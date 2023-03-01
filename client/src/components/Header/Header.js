@@ -74,7 +74,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
       {/*Navbar Component*/}
-      <Navbar className={styles.header} bg="danger" expand="lg" light>
+      <Navbar className={styles.header} bg="danger" expand="lg" fixed='top' light>
         <Container>
           <NavbarBrand href="/home">
             <img alt="" src={logo} width="35" height="40" className="d-inline-block align-top"

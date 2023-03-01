@@ -10,7 +10,7 @@ const Main = () => (
   <div className={styles.Main}>
     {/* Header */}
     <Header/>
-    <div className="content-wrapper">
+    <div className={styles.contentWrapper}>
       {/* React Router */}
       <Routes>
         <Route path="/" element={<HomePage/>} />

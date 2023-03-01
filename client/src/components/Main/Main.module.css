@@ -1,1 +1,10 @@
-.Main {}
+.Main {
+    width: 100vw;
+    height: 100vh;
+}
+
+.contentWrapper {
+    width: 100vw;
+    height: 75vh;
+    margin-top: 5%;
+}
