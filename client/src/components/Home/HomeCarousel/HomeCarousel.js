@@ -30,56 +30,56 @@ const items = [
   },
 ];
 
-const HomeCarousel = (args) => {
+const HomeCarousel = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
   const next = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
-    setActiveIndex(nextIndex);
+    if (!animating) {
+      const nextIndex = activeIndex === items.length - 1 ? 0 : activeIndex + 1;
+      setActiveIndex(nextIndex);
+    }
   };
 
   const previous = () => {
-    if (animating) return;
-    const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
-    setActiveIndex(nextIndex);
+    if (!animating) {
+      const nextIndex = activeIndex === 0 ? items.length - 1 : activeIndex - 1;
+      setActiveIndex(nextIndex);
+    }
   };
 
   const goToIndex = (newIndex) => {
-    if (animating) return;
-    setActiveIndex(newIndex);
+    if (!animating) {
+      setActiveIndex(newIndex);
+    }
   };
-
-  const slides = items.map((item) => {
-    return (
-      <CarouselItem
-        onExiting={() => setAnimating(true)}
-        onExited={() => setAnimating(false)}
-        key={item.src}
-      >
-        <img src={item.src} alt={item.altText} />
-        <CarouselCaption
-          captionText={item.caption}
-          captionHeader={item.caption}
-        />
-      </CarouselItem>
-    );
-  });
 
   return (
     <Carousel
       activeIndex={activeIndex}
       next={next}
       previous={previous}
-      {...args}
+      fade = {true}
+      slide = {true}
     >
       <CarouselIndicators
         items={items}
         activeIndex={activeIndex}
         onClickHandler={goToIndex}
       />
-      {slides}
+      {items.map((item) => 
+        <CarouselItem
+          onExiting={() => setAnimating(true)}
+          onExited={() => setAnimating(false)}
+          key={item.src}
+        >
+          <img src={item.src} alt={item.altText} />
+          <CarouselCaption
+            captionText={item.caption}
+            captionHeader={item.caption}
+          />
+        </CarouselItem>
+      )}
       <CarouselControl
         direction="prev"
         directionText="Previous"
