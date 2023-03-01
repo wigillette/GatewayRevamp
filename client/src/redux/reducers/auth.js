@@ -7,27 +7,27 @@ const initial = user !== {} ? { authenticated: true, user } : { authenticated: f
 const authReducer = (state = initial, action) => {
     // Action has a type (to dictate how to update the state) 
     // and a payload (information passed when it is dispatched)
-    let oldState = state; // Note that we are not mutating the old state
+    let newState = state; // Note that we are not mutating the old state
     switch(action.type) {
         case REGISTER_SUCCESS:
-            oldState = {...state, authenticated: false, user: action.payload.user};
+            newState = {...state, authenticated: true, user: action.payload.user};
             break;
         case REGISTER_FAIL:
-            oldState = {...state, authenticated: false, user: null};
+            newState = {...state, authenticated: false, user: null};
             break;
         case LOGIN_SUCCESS:
-            oldState = {...state, authenticated: true, user: action.payload.user};
+            newState = {...state, authenticated: true, user: action.payload.user};
             break;
         case LOGIN_FAIL:
-            oldState = {...state, authenticated: false, user: null};
+            newState = {...state, authenticated: false, user: null};
             break;
         case LOGOUT:
-            oldState = {...state, authenticated: false, user: null};
+            newState = {...state, authenticated: false, user: null};
             break;
         default:
-            oldState = state;
+            newState = state;
     }
-    return oldState;
+    return newState;
 }
 
 export default authReducer;

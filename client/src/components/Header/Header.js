@@ -65,6 +65,11 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
     }
   };
 
+  const attemptLogout = (e) => {
+    e.preventDefault();
+    dispatch(logoutAction())
+  }
+
 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
@@ -85,7 +90,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
               <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? logoutAction : toggleModal}>
+            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? attemptLogout :  toggleModal}>
               <span className ="fa fa-sign-in fa-lg"></span>
             </Button>
           </Collapse>
@@ -196,6 +201,7 @@ Header.defaultProps = {};
 // updates every time there is a change in the respective part of the store's state
 const mapStateToProps = (state) => {
   const { authenticated, user } = state.authReducer;
+  console.log(authenticated, user);
   return {
     isAuthenticated: authenticated,
     user: user
