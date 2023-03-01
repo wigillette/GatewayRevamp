@@ -10,7 +10,8 @@ exports.login = (req, res) => {
     const userId = 0; // change to user Id in the database
     const token = jwt.sign({ token: userId }, config.secret, {expiresIn: config.jwtExpiration} );
     res.status(200).json({
-        token: token
+        token: token,
+        email: email
     })
 }
 

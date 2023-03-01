@@ -74,7 +74,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   return (
     <>  {/* Using a fragment here to return both the navbar and the login modal */}
       {/*Navbar Component*/}
-      <Navbar className={styles.header} bg="danger" expand="lg" fixed='top' light>
+      <Navbar className={styles.header} bg="danger" expand="lg" light>
         <Container>
           <NavbarBrand href="/home">
             <img alt="" src={logo} width="35" height="40" className="d-inline-block align-top"
@@ -201,7 +201,6 @@ Header.defaultProps = {};
 // updates every time there is a change in the respective part of the store's state
 const mapStateToProps = (state) => {
   const { authenticated, user } = state.authReducer;
-  console.log(authenticated, user);
   return {
     isAuthenticated: authenticated,
     user: user
