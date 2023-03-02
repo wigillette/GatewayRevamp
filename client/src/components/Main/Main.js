@@ -5,6 +5,7 @@ import HomePage from "../../routes/Home/Home"
 import PlannerPage from "../../routes/Planner/Planner";
 import ProgressPage from "../../routes/Progress/Progress";
 import Header from "../Header/Header";
+import ProtectedRoute from '../../routes/ProtectedRoute';
 
 const Main = () => (
   <div className={styles.Main}>
@@ -15,8 +16,10 @@ const Main = () => (
       <Routes>
         <Route path="/" element={<HomePage/>} />
         <Route path="/home" element={<HomePage/>} />
-        <Route path="/progress" element={<ProgressPage/>} />
-        <Route path="/planner" element={<PlannerPage/>} />
+        <Route element = {<ProtectedRoute/>}>
+          <Route path="/progress" element={<ProgressPage/>}/>
+          <Route path="/planner" element={<PlannerPage/>}/>
+        </Route>
       </Routes>
     </div>
     {/* Add Footer */}

@@ -61,6 +61,7 @@ const HomeCarousel = () => {
       previous={previous}
       fade = {true}
       slide = {true}
+      className={styles.HomeCarousel}
     >
       <CarouselIndicators
         items={items}

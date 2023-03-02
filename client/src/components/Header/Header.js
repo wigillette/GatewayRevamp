@@ -87,7 +87,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
             <Nav className="me-auto" navbar>
               <NavLink className={styles.nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
               <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
-              <NavLink className={styles.nav_link} href="/planning"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
+              <NavLink className={styles.nav_link} href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
             <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? attemptLogout :  toggleModal}>

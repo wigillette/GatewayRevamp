@@ -1,1 +1,6 @@
-.HomeCarousel {}
+.HomeCarousel {
+    width: 50vw;
+    height: 57vh;
+    margin: 0 auto;
+    border-radius: 20%;
+}
