@@ -10,20 +10,23 @@ const LinkTower = ({heading, linkList}) => (
 )
 
 const Footer = () => (
-    <Navbar className={styles.Footer} fixed='bottom'>
+  <div className={styles.footer_wrapper}>
+    <Navbar className={styles.footer}>
       <Container className={styles.tower_container}>
-        <NavbarBrand>
+        <NavbarBrand className={styles.brand}>
           <h4 className={styles.footer_title}>A Modernized Degree Planning Software</h4>
         </NavbarBrand>
         <Row className={styles.tower_row}>
-          <LinkTower heading={"About Us"} linkList={[{url: "/", title: "Aim"}, {url: "/", title: "Vision"}, {url: "/", title: "Testimonials"}]} />
-          <LinkTower heading={"Services"} linkList={[{url: "/", title: "Writing"}, {url: "/", title: "Internships"}, {url: "/", title: "Coding"}, {url: "/", title: "Teaching"}]} />
-          <LinkTower heading={"Contact Us"} linkList={[{url: "/", title: "Will"}, {url: "/", title: "Jess"}, {url: "/", title: "Kacey"}, {url: "/", title: "Ryan"}, {url: "/", title: "Matt"}]} />
+          <LinkTower heading={"About Us"} linkList={[{url: "/", title: "Example"}]} />
+          <LinkTower heading={"Services"} linkList={[{url: "/", title: "Example"}]} />
+          <LinkTower heading={"Contact Us"} linkList={[{url: "/", title: "Example"}]} />
+          <LinkTower heading={"Social Media"} linkList={[{url: "/", title: "Example"}]} />
         </Row>
         <Row><hr className={styles.footer_divider}></hr></Row>
       </Container>
       <Container className={styles.footer_credit}><Row><p>&copy;{new Date().getFullYear()} Ursinus Student Access Portal | All rights reserved</p></Row></Container>
     </Navbar>
+  </div>
 );
 
 Footer.propTypes = {};
