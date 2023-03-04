@@ -1,0 +1,84 @@
+/* Footer Container Styling */
+.Footer {
+    position: fixed;
+    padding: 1vw, 1vh;
+    box-shadow: 0px -1px 2px 0.5px rgba(0,0,0,0.5);
+    background-image: linear-gradient(rgb(200,0,0), rgb(160,0,0));
+    border-radius: 0.5%;  
+    width: 100%;
+    bottom: -50%; 
+    z-index: 10;
+    overflow: hidden;
+}
+
+/* Styling the footer title */
+.footer_title {
+    text-align: center;
+    margin-top: 1vh;
+    font-size: 1vw;
+    font-family: 'Roboto Slab', serif;
+}
+
+/* Media Query: Reduce Padding on Mobile */
+@media screen and (max-width: 1000px) {
+    .Footer {
+        padding: 0.8vw, 0.8vh;
+    }
+}
+
+/* Styling the link tower holder */
+.tower_container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    height: 100%;
+}
+
+/* Styling the link towers */
+.link_tower {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    margin-left: 2%;
+}
+
+/* Styling the individual links */
+.tower_link {
+    font-family: 'Open Sans', serif;
+    color: #fff;
+    margin-bottom: 1%;
+    font-size: 1vw;
+    text-decoration: none;
+    text-shadow: 5% 5% 2% rgb(0,0,0);
+}
+
+.tower_link:hover {
+    color: #FFA500;
+    transition: color 0.25s;
+}
+
+/* Styling the headings in the link towers */
+.tower_heading {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1vw;
+    color: #686161;
+    margin-bottom: 2%;
+    font-weight: bold;
+    text-shadow: 5% 5% 2% rgb(0,0,0);
+}
+
+/* Styling the divider */
+.footer_divider {
+    border: solid 1px rgb(220, 220, 220);
+    width: 75%;
+}
+
+/* Styling the credits */
+.footer_credit {
+    justify-content: center;
+    margin: 0 auto;
+    font-family: 'Open Sans', serif;
+}

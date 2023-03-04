@@ -6,6 +6,7 @@ import PlannerPage from "../../routes/Planner/Planner";
 import ProgressPage from "../../routes/Progress/Progress";
 import Header from "../Header/Header";
 import ProtectedRoute from '../../routes/ProtectedRoute';
+import Footer from '../Footer/Footer';
 
 const Main = () => (
   <div className={styles.Main}>
@@ -22,7 +23,8 @@ const Main = () => (
         </Route>
       </Routes>
     </div>
-    {/* Add Footer */}
+    {/* Footer */}
+    <Footer/>
   </div>
 );
 

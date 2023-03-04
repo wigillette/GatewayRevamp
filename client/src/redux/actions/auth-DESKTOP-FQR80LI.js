@@ -18,6 +18,7 @@ export const registerAction = (email, password, fName, lName, gradDate, major, h
 export const loginAction = (email, password) => async (dispatch) => {
     return login(email, password).then(
     (res) => res.json().then((userInfo) =>  {
+        console.log(userInfo);
         if (userInfo && userInfo.accessToken) {
             dispatch({ type: LOGIN_SUCCESS, payload: { user: userInfo } });
             localStorage.setItem('user', JSON.stringify(userInfo));
