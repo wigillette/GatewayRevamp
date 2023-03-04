@@ -50,6 +50,7 @@
 }
 
 .link_title {
+    text-decoration: none;
     font-family: 'Roboto Slab', serif;
     text-shadow: 5% 5% 2% rgb(0,0,0);
     white-space: nowrap;
@@ -82,7 +83,7 @@
 } 
 
 /* Media Query: display for large resolution PCs */
-@media screen and (min-width: 1300px) {
+@media screen and (min-width: 1300px) and (max-width: 1999px) {
     .link_title {
         display: inline-block;
     }
@@ -90,5 +91,15 @@
     .link_item {
         margin-right: 8%;
         margin-left: 8%;
+    }
+}
+
+@media screen and (min-width: 2000px) {
+    .link_title, .header_title, .nav_link span {
+        font-size: 1.5vh;
+    }
+
+    .brand {
+        float: left;
     }
 }

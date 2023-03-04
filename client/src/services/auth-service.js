@@ -1,3 +1,5 @@
+import { redirect } from "react-router-dom";
+
 // Adapted from: https://github.com/bezkoder/react-redux-jwt-auth/blob/master/src/services/auth.service.js
 export const login = (email, password) => {
   return fetch("http://localhost:3001/login", {
@@ -21,4 +23,7 @@ export const register = (email, password, fName, lName, gradDate, major, headsho
   })
 }
 
-export const logout = () => localStorage.removeItem('user');
+export const logout = () => {
+  redirect("/home") 
+  localStorage.removeItem('user');
+}

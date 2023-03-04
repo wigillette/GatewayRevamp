@@ -20,8 +20,8 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   const toggleModal = () => setDisplayModal(!displayModal)
 
   // Toggler for registration page vs. login page
-  const [onRegister, setOnRegister] = useState(false);
-  const toggleRegister = () => setOnRegister(!onRegister);
+  const [isViewingRegister, setIsViewingRegister] = useState(false);
+  const toggleRegister = () => setIsViewingRegister(!isViewingRegister);
 
   // Toggler for navbar links
   const [isNavOpen, setIsNavOpen] = useState(false);
@@ -29,16 +29,16 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   // Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
   const validateLogin = () => {
     const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
     return emailValid && passwordValid;
   }
 
   // Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
   const validateRegistration = () => {
     const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/);
-    const fNameValid = fName.match(/[A-Za-z]/);
-    const lNameValid = lName.match(/[A-Za-z]/);
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
+    const fNameValid = fName.match(/[A-Za-z]/) !== null;
+    const lNameValid = lName.match(/[A-Za-z]/) !== null;
     const gradDateValid = gradDate !== null;
     const majorValid = major !== null;
     return emailValid && passwordValid && fNameValid && lNameValid && gradDateValid && majorValid;
@@ -48,11 +48,12 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   const attemptLogin = (e) => {
     e.preventDefault();
     if (validateLogin()) {
+      console.log("LOGIN VALIDATED")
       dispatch(loginAction(email, password))
       .then(toggleModal)
       .catch((err) => alert("Failed to register"));
     } else {
-      alert("Invalid email or password!");
+      console.log("INVALID");
     }
   };
 
@@ -79,14 +80,15 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
       {/*Navbar Component*/}
       <Navbar className={styles.header} bg="danger" expand="lg" fixed='top' light>
         <Container>
-          <NavbarBrand href="/home">
+          <NavbarBrand href="/home" className="brand">
             <img alt="" src={logo} width="35" height="40" className="d-inline-block align-top"
             />{' '}
-            <h4 className={styles.header_title}>STUDENT ACCESS PORTAL | {user?.email || "Logged Out"}</h4>
+            <h4 className={styles.header_title}>STUDENT ACCESS PORTAL</h4>
           </NavbarBrand>
           <NavbarToggler className={styles.menu_toggler} onClick={() => setIsNavOpen(!isNavOpen)} aria-controls="basic-navbar-nav" />
           <Button variant="primary" size="lg" className={styles.login_button} onClick={isAuthenticated ? attemptLogout :  toggleModal}>
-            <span className ="fa fa-sign-in fa-lg"></span>
+            <span className ="fa fa-sign-in fa-lg"></span>{' '}
+            {isAuthenticated ? "LOGOUT" : "LOGIN"}
           </Button>
           <Collapse isOpen={isNavOpen} navbar>
             {/* Navbar Links */}
@@ -115,7 +117,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
         {/* Login Modal Body: this is where the login form will go */}
         <ModalBody>
           {/* Conditionally render either registration form or login form? */}
-          {!onRegister ?
+          {!isViewingRegister ?
             // Login Form:
             <Form className="form" onSubmit={attemptLogin} >
               <FormGroup floating>
@@ -196,7 +198,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
         <ModalFooter>
           {/* Login Modal Login Button */}
           <Button variant="danger" onClick={() => {toggleRegister()}}>
-            {onRegister ? "VIEW LOGIN" : "VIEW REGISTER"}
+            {isViewingRegister ? "VIEW LOGIN" : "VIEW REGISTER"}
           </Button>
         </ModalFooter>
       </Modal>
