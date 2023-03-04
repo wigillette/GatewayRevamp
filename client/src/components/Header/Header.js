@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
@@ -22,6 +22,9 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   // Toggler for registration page vs. login page
   const [onRegister, setOnRegister] = useState(false);
   const toggleRegister = () => setOnRegister(!onRegister);
+
+  // Toggler for navbar links
+  const [isNavOpen, setIsNavOpen] = useState(false);
 
   // Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
   const validateLogin = () => {
@@ -81,19 +84,26 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
             />{' '}
             <h4 className={styles.header_title}>STUDENT ACCESS PORTAL | {user?.email || "Logged Out"}</h4>
           </NavbarBrand>
-          <NavbarToggler aria-controls="basic-navbar-nav" />
-          <Collapse navbar>
+          <NavbarToggler className={styles.menu_toggler} onClick={() => setIsNavOpen(!isNavOpen)} aria-controls="basic-navbar-nav" />
+          <Button variant="primary" size="lg" className={styles.login_button} onClick={isAuthenticated ? attemptLogout :  toggleModal}>
+            <span className ="fa fa-sign-in fa-lg"></span>
+          </Button>
+          <Collapse isOpen={isNavOpen} navbar>
             {/* Navbar Links */}
             <Nav className="me-auto" navbar>
-              <NavLink className={styles.nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
-              <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
-              <NavLink className={styles.nav_link} href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
+              <NavItem className={styles.link_item}>
+                <NavLink className={styles.nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
+              </NavItem>
+              <NavItem className={styles.link_item}>
+                <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
+              </NavItem>
+              <NavItem className={styles.link_item}>
+                <NavLink className={styles.nav_link} href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
+              </NavItem>
             </Nav>
             {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
-            <Button variant="primary" size="lg" className="d-flex" onClick={isAuthenticated ? attemptLogout :  toggleModal}>
-              <span className ="fa fa-sign-in fa-lg"></span>
-            </Button>
           </Collapse>
+          
         </Container>
       </Navbar>
       {/* Login Form Modal: conditionally display using the display boolean above */}
