@@ -19,14 +19,14 @@
 /* Styling the footer title */
 .footer_title {
     text-align: center;
-    margin: 0 auto;
     margin-bottom: 3%;
-    font-size: 1vw;
+    font-size: 1vh;
     font-family: 'Roboto Slab', serif;
 }
 
 .brand {
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Media Query: Reduce Padding on Mobile */
@@ -41,7 +41,8 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin: 0 auto;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 /* Styling the link towers */
@@ -70,7 +71,7 @@
 /* Styling the headings in the link towers */
 .tower_heading {
     font-family: 'Roboto Slab', serif;
-    font-size: 1vw;
+    font-size: 1vh;
     color: #686161;
     margin-bottom: 2%;
     font-weight: bold;
