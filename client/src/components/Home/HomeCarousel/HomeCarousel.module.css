@@ -1,12 +1,12 @@
+/* Centering and scaling the carousel */
 .HomeCarousel {
-    width: 50vw;
-    height: 40%;
+    width: 80vw;
+    height: 100%;
     margin: 0 auto;
-    border-radius: 20%;
 }
 
-.indicators {
-    margin-left: auto;
-    margin-right: auto;
-    justify-content: center;
-}
+/* Adding important here to override the reactstrap style for the indicators */
+.carousel_indicators {
+    margin-left: auto !important;
+    margin-right: auto !important;
+} 

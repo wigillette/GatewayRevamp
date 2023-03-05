@@ -7,6 +7,10 @@
     min-height: 100%;
 }
 
+.footer .container-fluid {
+    padding-top: 0.1rem !important;
+}
+
 .footer_wrapper {
     position: fixed;
     width: 100%;
@@ -17,23 +21,23 @@
 }
 
 /* Styling the footer title */
-.footer_title {
+/* .footer_title {
     text-align: center;
     margin-bottom: 3%;
-    font-size: 1vh;
+    font-size: 1.5vh;
     font-family: 'Roboto Slab', serif;
-}
+} */
 
-.brand {
-    margin-left: auto;
-    margin-right: auto;
-}
+/* .brand {
+    margin-left: auto !important;
+    margin-right: auto !important;
+} */
 
-/* Media Query: Reduce Padding on Mobile */
+/* Media Query: Mobile View */
 @media screen and (max-width: 1000px) {
-    /* .Footer {
+    .Footer {
         padding: 0.8vw, 0.8vh;
-    } */
+    }
 }
 
 /* Styling the link tower holder */
@@ -41,15 +45,14 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-left: auto;
-    margin-right: auto;
+    margin-bottom: 2%;
 }
 
 /* Styling the link towers */
 .link_tower {
     display: flex;
     flex-direction: column;
-    text-align: left;
+    text-align: center;
     margin-left: 2%;
 }
 
@@ -58,9 +61,8 @@
     font-family: 'Open Sans', serif;
     color: #fff;
     margin-bottom: 1%;
-    font-size: 1vw;
+    font-size: 1.25vw;
     text-decoration: none;
-    text-shadow: 5% 5% 2% rgb(0,0,0);
 }
 
 .tower_link:hover {
@@ -71,7 +73,7 @@
 /* Styling the headings in the link towers */
 .tower_heading {
     font-family: 'Roboto Slab', serif;
-    font-size: 1vh;
+    font-size: 1.5vw;
     color: #686161;
     margin-bottom: 2%;
     font-weight: bold;
@@ -80,13 +82,20 @@
 
 /* Styling the divider */
 .footer_divider {
+    margin-left: auto !important;
+    margin-right: auto !important;
+    width: 100%;
+}
+.footer_divider hr {
     border: solid 1px rgb(220, 220, 220);
-    width: 75%;
+    width: 100% !important;
+    min-width: 100%;
+    height: 100%;
 }
 
 /* Styling the credits */
 .footer_credit {
-    justify-content: center;
+    font-size: 1vw;
     margin: 0 auto;
     font-family: 'Open Sans', serif;
 }

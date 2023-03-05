@@ -67,7 +67,7 @@ const HomeCarousel = () => {
         items={items}
         activeIndex={activeIndex}
         onClickHandler={goToIndex}
-        className={styles.indicators}
+        className={styles.carousel_indicators}
       />
       {items.map((item) => 
         <CarouselItem
