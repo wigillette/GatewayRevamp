@@ -41,5 +41,4 @@ exports.refreshToken = async (req, res) => {
     if (requestToken == null) {
         return res.status(403).json({ message: "Refresh Token is required" });
     }
-
 }

@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import PropTypes from 'prop-types';
 import styles from './Semester.module.css';
 import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from 'react-redux';
+import { removeCourse } from '../../services/plan-service';
 /* Idea is to structure courses within plannedCourses as courseInfo dictionaries:
    semesterPlan: [{
               id: string
@@ -12,10 +12,12 @@ import { connect } from 'react-redux';
               creditAmount: number
               }, ...]
 */
-const CourseInfo = ({courseInfo, semesterKey, dispatch}) => {
+const CourseInfo = ({courseInfo, semesterKey, message, dispatch}) => {
   const attemptCourseRemoval = (courseId) => {
     console.log(courseId, semesterKey);
-    // TO-DO: Set up action handler and services for planning page and dispatch remove course action handler
+    dispatch(removeCourse(courseId, semesterKey))
+    .then(() => alert(message))
+    .catch((err) => alert(message));
   }
 
   return (<Card className={styles.course_info}>
@@ -46,7 +48,7 @@ const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
   </UncontrolledButtonDropdown>
 )
 
-const Semester = ({fullPlan, dispatch}) => {
+const Semester = ({fullPlan, message, dispatch}) => {
   const [semesterKey, setSemesterKey] = useState(0);
 
   // Adding a check here to see if the fullPlan prop was correctly initialized
@@ -55,7 +57,9 @@ const Semester = ({fullPlan, dispatch}) => {
         <h3 className={styles.semester_header}>{Object.keys(fullPlan)[semesterKey]} Course Plan</h3>
         <SemesterDropdown keyList={Object.keys(fullPlan)} activeIndex={semesterKey} setSemesterKey={setSemesterKey} />
         <div className={styles.plan_container}>
-          {fullPlan[Object.keys(fullPlan)[semesterKey]].map((courseInfo) => <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(fullPlan)[semesterKey]} dispatch={dispatch}/>)}
+          {fullPlan[Object.keys(fullPlan)[semesterKey]].map((courseInfo) => 
+            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(fullPlan)[semesterKey]} message={message} dispatch={dispatch}/>
+          )}
         </div>
       </div>) 
     : <p>Failed to initialize the full semester plan or display the specified semester's plan.</p>
@@ -66,9 +70,10 @@ Semester.propTypes = {};
 Semester.defaultProps = {};
 
 const mapStateToProps = (state) => {
-  // const { authenticated, user } = state.authReducer;
+  const { fullPlan, message } = state.planReducer;
   return {
-    fullPlan: {} // TO-DO: Change this to the updated full plan
+    fullPlan: fullPlan,
+    message: message
   }
 }
 

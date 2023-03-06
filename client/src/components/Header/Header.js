@@ -48,12 +48,9 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
   const attemptLogin = (e) => {
     e.preventDefault();
     if (validateLogin()) {
-      console.log("LOGIN VALIDATED")
       dispatch(loginAction(email, password))
       .then(toggleModal)
       .catch((err) => alert("Failed to register"));
-    } else {
-      console.log("INVALID");
     }
   };
 
@@ -64,8 +61,6 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
       dispatch(registerAction(email, password, fName, lName, gradDate, major, headshot))
       .then(toggleModal)
       .catch((err) => alert("Failed to register"));
-    } else {
-      alert("Some registration fields are invalid!")
     }
   };
 
