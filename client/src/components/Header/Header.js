@@ -104,7 +104,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
         </Container>
       </Navbar>
       {/* Login Form Modal: conditionally display using the display boolean above */}
-      <Modal isOpen={displayModal} toggle={toggleModal} backdrop="static" fade={false}>
+      <Modal isOpen={displayModal} toggle={toggleModal} fade={false}>
         {/* Login Modal Header */}
         <ModalHeader>
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>

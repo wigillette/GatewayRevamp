@@ -1,1 +1,83 @@
-.Semester {}
+.Semester {
+    width: 100%;
+    height: 100%;
+}
+
+.semester_dropdown {
+    float: right;
+}
+
+.course_title, .semester_header {
+    font-family: 'Roboto Slab', serif;
+}
+
+.course_title {
+    font-size: 2rem;
+    float: left;
+    margin-left: 5%;
+}
+
+.semester_header {
+    font-size: 2vw;
+    font-weight: bold;
+    float: left;
+    text-align: left;
+    width: 50%;
+}
+
+.semester_label, .course_credits {
+    font-family: 'Open Sans', serif;
+}
+
+.plan_container {
+    float: left;
+    width: 60%;
+}
+
+.course_label {
+    font-size: 1.75rem;
+}
+
+.course_credits {
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.course_info {
+    float: left;
+    margin-top: 2%;
+    margin-bottom: 4%;
+    margin-right: 5%;
+    width: 45%;
+}
+
+.browser_toggle, .remove_course {
+    float: right;
+    margin-right: 3%;
+    margin-left: 3%;
+}
+
+.browser_toggle, .dropdown_toggle {
+    font-size: 1.5rem !important;
+}
+
+.plan_header {
+    width: 100%;
+    height: 10%;
+}
+
+.semester_divider {
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 4%;
+    width: 100%;
+    height: 0%;
+    border: solid 1.5px rgb(160, 160, 160);
+}
+
+.message_notif  {
+    margin: 0 auto;
+    width: 35%;
+    height: 10%;
+    font-size: 1.5rem;
+}

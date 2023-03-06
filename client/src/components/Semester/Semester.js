@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Semester.module.css';
-import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
+import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
 /* Idea is to structure courses within plannedCourses as courseInfo dictionaries:
@@ -12,33 +12,35 @@ import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../red
               creditAmount: number
               }, ...]
 */
-const CourseInfo = ({courseInfo, semesterKey, message, removeCourse}) => {
+const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
   const attemptCourseRemoval = (courseId) => {
     removeCourse(courseId, semesterKey)
-    .then(() => alert(message))
-    .catch((err) => alert(message));
+    .catch((err) => alert(err));
   }
 
   return (<Card className={styles.course_info}>
-    <CardHeader><p className={styles.semester_title}>{courseInfo?.title || "No Title"}</p></CardHeader>
-    <Button className={styles.remove_course} onClick={() => courseInfo?.id ? attemptCourseRemoval(courseInfo.id) : alert("Invalid Course")}>
-      <p className={styles.semester_label}>Remove Course</p>
-    </Button>
+    <CardHeader>
+      <p className={styles.course_title}>{courseInfo?.title || "No Title"}</p> 
+      <Button className={styles.remove_course} size='lg' color='danger' onClick={() => courseInfo?.id !== null ? attemptCourseRemoval(courseInfo.id) : alert("Invalid Course")}>
+        <span className ="fa fa-minus-circle fa-lg"></span>{'  '}REMOVE
+      </Button>
+    </CardHeader>
+    
     <ListGroup flush>
       <ListGroupItem>
-        <p className={styles.semester_label}>{courseInfo?.description || "No Description"}</p>
+        <p className={styles.course_label}>{courseInfo?.description || "No Description"}</p>
       </ListGroupItem>
       <ListGroupItem>
-        <p className={styles.semester_label}>{courseInfo?.cores ? courseInfo.cores.join(', ') : "No Core Requirements" }</p>
+        <p className={styles.course_label}><b>Core Requirements: </b>{courseInfo?.cores?.length > 0 ? courseInfo.cores.join(', ') : "None" }</p>
       </ListGroupItem>
     </ListGroup>
-    <CardFooter><p className={styles.course_credits}>{courseInfo.creditAmount}</p></CardFooter>
+    <CardFooter><p className={styles.course_credits}>Credit Total: {courseInfo.creditAmount}</p></CardFooter>
   </Card>)
 }
 
 const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
-  <UncontrolledButtonDropdown className='me-2' direction='down'>
-    <DropdownToggle caret color='primary'><p className={styles.semester_title}>Semester Viewing</p></DropdownToggle>
+  <UncontrolledButtonDropdown className={styles.semester_dropdown} direction='down'>
+    <DropdownToggle caret color='primary' className={styles.dropdown_toggle} size='lg'><span className ="fa fa-eye fa-lg"></span>{'  '}SWITCH</DropdownToggle>
     <DropdownMenu>
       {keyList.map((semesterKey, index) => (<DropdownItem onClick={() => setSemesterKey(index)} active={semesterKey === keyList[activeIndex]}>
         <p className={styles.semester_label}>{semesterKey}</p>
@@ -63,13 +65,18 @@ class Semester extends React.Component {
   }
 
   render() {
-    return (Object.keys(this.props.fullPlan).length > 0) ? (
+    return (this.props.fullPlan && Object.keys(this.props.fullPlan).length > 0) ? (
       <div className={styles.Semester}>
-        <h3 className={styles.semester_header}>{Object.keys(this.props.fullPlan)[this.state.semesterKey]} Course Plan</h3>
-        <SemesterDropdown keyList={Object.keys(this.props.fullPlan)} activeIndex={this.state.semesterKey} setSemesterKey={this.setSemesterKey} />
+        <div className={styles.plan_header}>
+          <h3 className={styles.semester_header}>{Object.keys(this.props.fullPlan)[this.state.semesterKey]} Course Plan</h3>
+          <SemesterDropdown keyList={Object.keys(this.props.fullPlan)} activeIndex={this.state.semesterKey} setSemesterKey={this.setSemesterKey} />
+          <Button color='primary' size="lg" onClick={() => alert("Opening Course Browser Form")} className={styles.browser_toggle}><span className ="fa fa-search fa-lg"></span>{'  '}COURSE BROWSER</Button>
+          <hr className={styles.semester_divider}></hr>
+        </div>
+        {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
         <div className={styles.plan_container}>
           {this.props.fullPlan[Object.keys(this.props.fullPlan)[this.state.semesterKey]].map((courseInfo) => 
-            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(this.props.fullPlan)[this.state.semesterKey]} message={this.props.message} removeCourse={this.props.removeCourse}/>
+            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(this.props.fullPlan)[this.state.semesterKey]} removeCourse={this.props.removeCourse}/>
           )}
         </div>
       </div>) 
@@ -83,6 +90,7 @@ Semester.defaultProps = {};
 
 const mapStateToProps = (state) => {
   const { fullPlan, message } = state.planReducer;
+  console.log(fullPlan, message);
   return {
     fullPlan: fullPlan,
     message: message
@@ -92,7 +100,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlan: () => dispatch(fetchPlanAction()),
-    removeCourse: (courseId, semesterKey) => dispatch(removeCourseAction(courseId, semesterKey))
+    removeCourse: (courseId, semesterKey) => dispatch(removeCourseAction(courseId, semesterKey)),
+    addCourses: (courseIdList, semesterKey) => dispatch(addCoursesAction(courseIdList, semesterKey))
   }
 }
 
