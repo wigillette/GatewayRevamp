@@ -12,10 +12,9 @@ import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../red
               creditAmount: number
               }, ...]
 */
-const CourseInfo = ({courseInfo, semesterKey, message, dispatch}) => {
+const CourseInfo = ({courseInfo, semesterKey, message, removeCourse}) => {
   const attemptCourseRemoval = (courseId) => {
-    console.log(courseId, semesterKey);
-    dispatch(removeCourseAction(courseId, semesterKey))
+    removeCourse(courseId, semesterKey)
     .then(() => alert(message))
     .catch((err) => alert(message));
   }
@@ -48,25 +47,35 @@ const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
   </UncontrolledButtonDropdown>
 )
 
-const Semester = ({fullPlan, message, dispatch}) => {
-  const [semesterKey, setSemesterKey] = useState(0);
+class Semester extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {semesterKey: 0}
+    this.setSemesterKey = this.setSemesterKey.bind(this);
+  }
 
-  // Fetch the courses when the component first loads
-  useEffect(() => dispatch(fetchPlanAction()), [dispatch])
+  setSemesterKey(key) { 
+    this.setState({semesterKey: key})
+  };
 
-  // Adding a check here to see if the fullPlan prop was correctly initialized
-  return (Object.keys(fullPlan).length > 0) ? (
+  componentDidMount() { // Using a class component here to fetch the initial plan upon mounting the semester component
+    this.props.fetchPlan();
+  }
+
+  render() {
+    return (Object.keys(this.props.fullPlan).length > 0) ? (
       <div className={styles.Semester}>
-        <h3 className={styles.semester_header}>{Object.keys(fullPlan)[semesterKey]} Course Plan</h3>
-        <SemesterDropdown keyList={Object.keys(fullPlan)} activeIndex={semesterKey} setSemesterKey={setSemesterKey} />
+        <h3 className={styles.semester_header}>{Object.keys(this.props.fullPlan)[this.state.semesterKey]} Course Plan</h3>
+        <SemesterDropdown keyList={Object.keys(this.props.fullPlan)} activeIndex={this.state.semesterKey} setSemesterKey={this.setSemesterKey} />
         <div className={styles.plan_container}>
-          {fullPlan[Object.keys(fullPlan)[semesterKey]].map((courseInfo) => 
-            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(fullPlan)[semesterKey]} message={message} dispatch={dispatch}/>
+          {this.props.fullPlan[Object.keys(this.props.fullPlan)[this.state.semesterKey]].map((courseInfo) => 
+            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(this.props.fullPlan)[this.state.semesterKey]} message={this.props.message} removeCourse={this.props.removeCourse}/>
           )}
         </div>
       </div>) 
     : <p>Failed to initialize the full semester plan or display the specified semester's plan.</p>
-};
+  }
+}
 
 Semester.propTypes = {};
 
@@ -80,4 +89,11 @@ const mapStateToProps = (state) => {
   }
 }
 
-export default connect(mapStateToProps)(Semester);
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchPlan: () => dispatch(fetchPlanAction()),
+    removeCourse: (courseId, semesterKey) => dispatch(removeCourseAction(courseId, semesterKey))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Semester);
