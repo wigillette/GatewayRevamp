@@ -24,6 +24,6 @@ export const register = (email, password, fName, lName, gradDate, major, headsho
 }
 
 export const logout = () => {
-  localStorage.removeItem('user');
-  redirect("/home") 
+  redirect("/home")
+  // localStorage.removeItem('user');
 }

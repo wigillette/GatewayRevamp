@@ -11,6 +11,7 @@ module.exports = function(app) {
   });
 
   // Adapted from: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/routes/user.routes.js
-  app.get("/removeCourse", [authJwt.verifyToken], controller.removeCourse);
-  app.get("/addCourses", [authJwt.verifyToken], controller.addCourses);
+  app.post("/removeCourse", [authJwt.verifyToken], controller.removeCourse);
+  app.post("/addCourses", [authJwt.verifyToken], controller.addCourses);
+  app.get("/fetchPlan", [authJwt.verifyToken], controller.fetchPlan);
 };

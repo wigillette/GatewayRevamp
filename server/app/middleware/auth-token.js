@@ -19,6 +19,7 @@ const verifyToken = (req, res, next) => {
     } else {
         jwt.verify(token, config.secret, (err, decoded) => {
             if (err) {
+                console.log(token, err);
                 return catchError(err, res);
             }
             req.userId = decoded.id;
@@ -27,6 +28,8 @@ const verifyToken = (req, res, next) => {
     }
 }
 
-module.exports = {
+const authJwt = {
     verifyToken: verifyToken
 }
+
+module.exports = authJwt;

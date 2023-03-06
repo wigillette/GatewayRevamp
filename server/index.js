@@ -8,6 +8,7 @@ const bodyParser = require('body-parser')
 
 // Modules
 const userAuth = require("./app/routes/auth-routes")
+const planner = require("./app/routes/planner-routes")
 
 app.use(cors());
 app.use(bodyParser.json())
@@ -17,7 +18,7 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.static(path.resolve(__dirname, '../client/build')));
 
 userAuth(app);
-
+planner(app);
 
 // All other GET requests not handled before will return our React app
 app.get('*', (req, res) => {

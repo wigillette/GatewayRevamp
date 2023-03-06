@@ -19,4 +19,13 @@ export const addCourses = (courseIdList, semesterKey) => {
         body: JSON.stringify({ courseIdList, semesterKey })
     })
 }
+
+export const fetchPlan = () => {
+    return fetch("http://localhost:3001/fetchPlan", {
+        method: 'GET',
+        headers: Object.assign({}, {
+        'Content-Type': 'application/json'
+        }, authHeader()),
+    })
+}
   

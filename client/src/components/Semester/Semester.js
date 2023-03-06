@@ -1,8 +1,8 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import styles from './Semester.module.css';
 import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem } from 'reactstrap';
 import { connect } from 'react-redux';
-import { removeCourse } from '../../services/plan-service';
+import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
 /* Idea is to structure courses within plannedCourses as courseInfo dictionaries:
    semesterPlan: [{
               id: string
@@ -15,7 +15,7 @@ import { removeCourse } from '../../services/plan-service';
 const CourseInfo = ({courseInfo, semesterKey, message, dispatch}) => {
   const attemptCourseRemoval = (courseId) => {
     console.log(courseId, semesterKey);
-    dispatch(removeCourse(courseId, semesterKey))
+    dispatch(removeCourseAction(courseId, semesterKey))
     .then(() => alert(message))
     .catch((err) => alert(message));
   }
@@ -38,10 +38,10 @@ const CourseInfo = ({courseInfo, semesterKey, message, dispatch}) => {
 }
 
 const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
-  <UncontrolledButtonDropdown className='me-2' direction='up'>
+  <UncontrolledButtonDropdown className='me-2' direction='down'>
     <DropdownToggle caret color='primary'><p className={styles.semester_title}>Semester Viewing</p></DropdownToggle>
     <DropdownMenu>
-      {keyList.map((semesterKey, index) => (<DropdownItem onClick={() => setSemesterKey(index)} divider active={semesterKey === keyList[activeIndex]}>
+      {keyList.map((semesterKey, index) => (<DropdownItem onClick={() => setSemesterKey(index)} active={semesterKey === keyList[activeIndex]}>
         <p className={styles.semester_label}>{semesterKey}</p>
       </DropdownItem>))}
     </DropdownMenu>
@@ -51,8 +51,11 @@ const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
 const Semester = ({fullPlan, message, dispatch}) => {
   const [semesterKey, setSemesterKey] = useState(0);
 
+  // Fetch the courses when the component first loads
+  useEffect(() => dispatch(fetchPlanAction()), [dispatch])
+
   // Adding a check here to see if the fullPlan prop was correctly initialized
-  return (Object.keys(fullPlan).length > 0 && Object.keys(fullPlan).includes(semesterKey)) ? (
+  return (Object.keys(fullPlan).length > 0) ? (
       <div className={styles.Semester}>
         <h3 className={styles.semester_header}>{Object.keys(fullPlan)[semesterKey]} Course Plan</h3>
         <SemesterDropdown keyList={Object.keys(fullPlan)} activeIndex={semesterKey} setSemesterKey={setSemesterKey} />

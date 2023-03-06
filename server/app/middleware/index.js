@@ -1,2 +1,3 @@
-const authToken = require("./auth-token");
-module.exports = { authToken }
+const authJwt = require("./auth-token");
+const middleware = { authJwt }
+module.exports = middleware
