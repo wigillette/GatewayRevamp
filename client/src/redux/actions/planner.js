@@ -18,7 +18,7 @@ export const addCoursesAction = (courseIdList, semesterKey) => async (dispatch) 
 
 export const fetchPlanAction = () => async (dispatch) => {
     return fetchPlan().then(
-        (res) => res.json().then((data) => dispatch({ type: FETCH_PLAN, payload: { fullPlan: data.fullPlan } }), 
+        (res) => res.json().then((data) => dispatch({ type: FETCH_PLAN, payload: { fullPlan: data.fullPlan, courseCatalog: data.courseCatalog } }), 
         (error) => dispatch(logoutAction())) // Added this for token expired errors
     );
 }
