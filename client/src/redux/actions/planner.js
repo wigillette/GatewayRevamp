@@ -11,7 +11,7 @@ export const removeCourseAction = (courseId, semesterKey) => async (dispatch) =>
 
 export const addCoursesAction = (courseIdList, semesterKey) => async (dispatch) => {
     return addCourses(courseIdList, semesterKey).then(
-        (res) => res.json().then((data) => dispatch({ type: ADD_SUCCESS, payload: { fullPlan: data.fullPlan, message: data.message } }), 
+        (res) => res.json().then((data) => { console.log(data); dispatch({ type: ADD_SUCCESS, payload: { fullPlan: data.fullPlan, message: data.message } }) }, 
         (error) => dispatch({ type: ADD_FAIL, payload: { message: "Add Failed" } }))
     );    
 }

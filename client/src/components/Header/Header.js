@@ -130,13 +130,13 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
               <Row>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="text" name="firstname" id="registerFName" placeholder="Jane" onChange={e => setFName(e.target.value)} required/>
+                    <Input type="text" name="firstname" id="registerFName" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} placeholder="Jane" onChange={e => setFName(e.target.value)} required/>
                     <Label for="registerFName">First Name:</Label>
                   </FormGroup>  
                 </Col>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="text" name="lastname" id="registerLName" placeholder="Doe" onChange={e => setLName(e.target.value)} required/>
+                    <Input type="text" name="lastname" id="registerLName" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} placeholder="Doe" onChange={e => setLName(e.target.value)} required/>
                     <Label for="registerLName">Last Name:</Label>
                   </FormGroup>
                 </Col>
@@ -144,13 +144,13 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
               <Row>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="email" name="email" id="registerEmail" placeholder="example@example.com" onChange={e => setEmail(e.target.value)} required />
+                    <Input type="email" name="email" id="registerEmail" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} placeholder="example@example.com" onChange={e => setEmail(e.target.value)} required />
                     <Label for="registerEmail">Input your email:</Label>
                   </FormGroup>
                 </Col>
                 <Col md={6}>
                   <FormGroup floating>
-                    <Input type="password" name="password" id="registerPassword" placeholder="********" onChange={e => setPassword(e.target.value)} required/>
+                    <Input type="password" name="password" id="registerPassword" placeholder="********" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} onChange={e => setPassword(e.target.value)} required/>
                     <Label for="registerPassword">Create a password:</Label>
                   </FormGroup>
                 </Col>

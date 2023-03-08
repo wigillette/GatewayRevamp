@@ -24,7 +24,7 @@ const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
 
   return (<Card className={styles.course_info}>
     <CardHeader>
-      <p className={styles.course_title}>{courseInfo?.title || "No Title"}</p> 
+      <p className={styles.course_id}>{courseInfo?.id || "No Title"}</p> 
       <Button className={styles.remove_course} size='lg' color='danger' onClick={() => courseInfo?.id !== null ? attemptCourseRemoval(courseInfo.id) : alert("Invalid Course")}>
         <span className ="fa fa-minus-circle fa-lg"></span>{'  '}REMOVE
       </Button>
@@ -32,13 +32,13 @@ const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
     
     <ListGroup flush>
       <ListGroupItem>
-        <p className={styles.course_label}>{courseInfo?.description || "No Description"}</p>
+        <h3 className={styles.course_title}>{courseInfo?.title}</h3>
       </ListGroupItem>
       <ListGroupItem>
-        <p className={styles.course_label}><b>Core Requirements: </b>{courseInfo?.cores?.length > 0 ? courseInfo.cores.join(', ') : "None" }</p>
+        <p className={styles.course_label}>{courseInfo?.description || "No Description"}</p>
       </ListGroupItem>
     </ListGroup>
-    <CardFooter><p className={styles.course_credits}>Credit Total: {courseInfo.creditAmount}</p></CardFooter>
+    <CardFooter><p className={styles.course_credits}>{courseInfo?.cores?.length > 0 ? courseInfo?.cores?.join(', ') : "None"} | Credit Total: {courseInfo?.creditAmount}</p></CardFooter>
   </Card>)
 }
 
@@ -68,20 +68,20 @@ const BrowserCourse = ({courseInfo, selectedCourses, setSelectedCourses}) => {
   return (
   <Card className={styles.browser_course}>
     <CardHeader>
-      <p className={styles.browser_course_title}>{courseInfo?.title || "No Title"}</p>
+      <p className={styles.browser_course_id}>{courseInfo?.id || "No Title"}</p>
       <FormGroup check className={styles.course_select_toggle}>
         <Label check><Input type="checkbox" onChange={(e) => updateSelection(e.target.checked)}></Input>{' '}Select</Label>
       </FormGroup>
     </CardHeader>
     <ListGroup flush>
       <ListGroupItem>
-        <p>{courseInfo?.description || "No Description"}</p>
+        <h3 className={styles.browser_course_title}>{courseInfo?.title}</h3>
       </ListGroupItem>
       <ListGroupItem>
-        <p><b>Core Requirements: </b>{courseInfo?.cores?.length > 0 ? courseInfo.cores.join(', ') : "None" }</p>
+        <p>{courseInfo?.description || "No Description"}</p>
       </ListGroupItem>
     </ListGroup>
-    <CardFooter><p><b>Credit Total: {courseInfo.creditAmount}</b></p></CardFooter>
+    <CardFooter><p><b>{courseInfo?.cores?.length > 0 ? courseInfo?.cores?.join(', ') : "None"} | Credit Total: {courseInfo?.creditAmount}</b></p></CardFooter>
   </Card>) 
 };
 
@@ -91,16 +91,16 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   const [displayedCourses, setDisplayedCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   // Will eventually replace the below filters with filters fetched from and defined by the server
-  const [appliedFilters, setAppliedFilters] = useState({Fall: false, Spring: false, Even: false, Odd: false});
+  const [appliedFilters, setAppliedFilters] = useState({Fall: false, Spring: false, Even: false, Odd: false, A: false, H: false, SS: false, S: false, O: false, GN: false, LINQ: false, CCAP: false, R: false, Q: false, LANG: false, CIE: false});
   // SemesterViewingId is the semester the user is currently viewing outside of the modal
   const [semester, selectSemester] = useState(semesterViewingId);
   // Updates the displayedCourses by applying the selected filters and search queries
   const renderFilteredCourses = () => {
     // also use state to make a setQuery query variable
     const appliedKeys = Object.keys(appliedFilters).filter((key) => appliedFilters[key]);
-    let filteredCatalog = courseCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo.offered.includes(filterKey)));
+    let filteredCatalog = courseCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo?.offered?.includes(filterKey) || courseInfo?.cores?.includes(filterKey)));
     if (searchQuery.length > 0) {
-      filteredCatalog = filteredCatalog.filter((courseInfo) => searchQuery === courseInfo.title.substring(0,searchQuery.length))
+      filteredCatalog = filteredCatalog.filter((courseInfo) => searchQuery.toLowerCase() === courseInfo?.title?.substring(0,searchQuery.length).toLowerCase())
     }
     setDisplayedCourses(filteredCatalog);
   }
@@ -108,51 +108,52 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   // Update the displayed courses each time a changed is made to the appliedFilters
   useEffect(renderFilteredCourses, [appliedFilters, courseCatalog])
 
-  const addCoursesAction = () => {
+  const addCoursesAction = (e) => {
+    e.preventDefault();
     addCourses(selectedCourses, semester)
     toggleFunction();
   }
 
   return (
     <Modal isOpen={isBrowserActive} toggle={toggleFunction} fade={false}>
-      <ModalHeader toggle={toggleFunction} className={styles.browser_header}>Course Browser</ModalHeader>
-      <ModalBody>
-        <Form onSubmit={addCoursesAction}>
-          {/* Semester Dropdown */}
-          <FormGroup>
-            <Label for="selectSemester">Select Semester:</Label>
-            <Input type="select" name="select" id="selectSemester" onChange={e => selectSemester(e.target.value)}>{semesterKeys.map((semesterId) => <option>{semesterId}</option>)}</Input>
-          </FormGroup>
-          {/* Filters */}
-          <FormGroup check >
-            <Row>
-              {Object.keys(appliedFilters).map((filterKey) => (
-                <Col md={3}>
-                  <Label check>
-                    <Input type="checkbox" onChange={(e) => setAppliedFilters({...appliedFilters, [filterKey]: e.target.checked})}></Input>{' '}{filterKey}
-                  </Label>
-                </Col>
-              ))}
-            </Row>
-          </FormGroup>
-          <br/>
-          {/* Course Search Bar */}
-          <FormGroup>
-            <InputGroup>
-              <Button className={styles.course_search_button} onClick={renderFilteredCourses}><span className='fa fa-search fa-lg'></span></Button>
-              <Input type="text" onChange={e => setSearchQuery(e.target.value)} placeholder="Search for a course directly!"></Input>
-            </InputGroup>
-          </FormGroup>
-          {/* Course Container */}
-          <div className={styles.course_container}>
-            <p className={styles.course_container_title}>Course List</p>
-            <Container fluid>
-              <Row>{displayedCourses.map((courseInfo) => <Col md={4}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
-            </Container>
-          </div>
-        </Form>
-      </ModalBody>
-      <ModalFooter><Button color="primary" className={styles.add_courses} type="submit">ADD COURSES</Button></ModalFooter>
+      <Form onSubmit={(e) => addCoursesAction(e)}>
+        <ModalHeader toggle={toggleFunction} className={styles.browser_header}>Course Browser</ModalHeader>
+        <ModalBody>
+            {/* Semester Dropdown */}
+            <FormGroup>
+              <Label for="selectSemester">Select Semester:</Label>
+              <Input type="select" name="select" id="selectSemester" defaultValue={semesterViewingId} onChange={e => selectSemester(e.target.value)}>{semesterKeys.map((semesterId) => <option>{semesterId}</option>)}</Input>
+            </FormGroup>
+            {/* Filters */}
+            <FormGroup check >
+              <Row className={styles.filters_container}>
+                {Object.keys(appliedFilters).map((filterKey) => (
+                  <Col md={3}>
+                    <Label check>
+                      <Input type="checkbox" onChange={(e) => setAppliedFilters({...appliedFilters, [filterKey]: e.target.checked})}></Input>{' '}{filterKey}
+                    </Label>
+                  </Col>
+                ))}
+              </Row>
+            </FormGroup>
+            <br/>
+            {/* Course Search Bar */}
+            <FormGroup>
+              <InputGroup>
+                <Button className={styles.course_search_button} onClick={renderFilteredCourses}><span className='fa fa-search fa-lg'></span></Button>
+                <Input type="text" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} onChange={e => setSearchQuery(e.target.value)} placeholder="Search for a course directly!"></Input>
+              </InputGroup>
+            </FormGroup>
+            {/* Course Container */}
+            <div className={styles.course_container}>
+              <p className={styles.course_container_title}>Course List</p>
+              <Container fluid>
+                <Row>{displayedCourses.map((courseInfo) => <Col md={4}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
+              </Container>
+            </div>
+        </ModalBody>
+        <ModalFooter><Button color="primary" className={styles.add_courses} type="submit"><span className ="fa fa-calendar-circle-plus fa-lg"></span>{'  '}ADD COURSES</Button></ModalFooter>
+      </Form>
     </Modal>
   )
 }
@@ -192,9 +193,11 @@ class Semester extends React.Component {
         </div>
         {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
         <div className={styles.plan_container}>
-          {this.props.fullPlan[Object.keys(this.props.fullPlan)[this.state.semesterKey]].map((courseInfo) => 
-            <CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(this.props.fullPlan)[this.state.semesterKey]} removeCourse={this.props.removeCourse}/>
-          )}
+          <Row>
+            {this.props.fullPlan[Object.keys(this.props.fullPlan)[this.state.semesterKey]].map((courseInfo) => 
+              <Col md={3}><CourseInfo courseInfo={courseInfo} semesterKey={Object.keys(this.props.fullPlan)[this.state.semesterKey]} removeCourse={this.props.removeCourse}/></Col>
+            )}
+          </Row>
         </div>
         <BrowserModal addCourses={this.props.addCourses} semesterViewingId={Object.keys(this.props.fullPlan)[this.state.semesterKey]} isBrowserActive={this.state.isBrowserActive} toggleFunction={this.toggleBrowser} semesterKeys={Object.keys(this.props.fullPlan)} courseCatalog={this.props.courseCatalog} />
       </div>) 
