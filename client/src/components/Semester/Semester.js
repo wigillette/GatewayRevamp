@@ -12,6 +12,17 @@ import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../red
               creditAmount: number,
               offered: ["Fall", "Spring", "Odd", "Even"]
               }, ...]
+
+      {
+        "id": "STAT-451-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Topics in Adv Stat",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+        }, ...]
 */
 
 /* CourseInfo Component
@@ -38,7 +49,7 @@ const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
         <p className={styles.course_label}>{courseInfo?.description || "No Description"}</p>
       </ListGroupItem>
     </ListGroup>
-    <CardFooter><p className={styles.course_credits}>{courseInfo?.cores?.length > 0 ? courseInfo?.cores?.join(', ') : "None"} | Credit Total: {courseInfo?.creditAmount}</p></CardFooter>
+    <CardFooter><p className={styles.course_credits}>{courseInfo?.cores?.length > 0 && courseInfo?.cores?.join(', ') + " | "}Credits: {courseInfo?.creditAmount}</p></CardFooter>
   </Card>)
 }
 
@@ -81,7 +92,7 @@ const BrowserCourse = ({courseInfo, selectedCourses, setSelectedCourses}) => {
         <p>{courseInfo?.description || "No Description"}</p>
       </ListGroupItem>
     </ListGroup>
-    <CardFooter><p><b>{courseInfo?.cores?.length > 0 ? courseInfo?.cores?.join(', ') : "None"} | Credit Total: {courseInfo?.creditAmount}</b></p></CardFooter>
+    <CardFooter><p><b>{courseInfo?.cores?.length > 0 && courseInfo?.cores?.join(', ') + " | "}Credits: {courseInfo?.creditAmount}</b></p></CardFooter>
   </Card>) 
 };
 
@@ -95,18 +106,39 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   // SemesterViewingId is the semester the user is currently viewing outside of the modal
   const [semester, selectSemester] = useState(semesterViewingId);
   // Updates the displayedCourses by applying the selected filters and search queries
+  
   const renderFilteredCourses = () => {
-    // also use state to make a setQuery query variable
+    /*
+    semesterPlan: [{
+        id: string
+        title: string,
+        description: string,
+        cores: string[],
+        creditAmount: number,
+        yearOffered: "Odd" or "Even" or "Every"
+        semesterOffered: "Fall" or "Spring" or "Every"
+        }, ...]
+
+    */
+    
+    // Checking whether the semester is an even or odd year and only adding courses that are offered in that year before applying filters
+    const isEvenYear = parseInt(semester.charAt(semester.length-1)) % 2 === 0;
+    let filteredCatalog = isEvenYear ? courseCatalog.filter((courseInfo) => courseInfo?.yearOffered === "Even") : courseCatalog.filter((courseInfo) => courseInfo?.yearOffered === "Odd");
+    
+    // Apply the filters that the client enabled
     const appliedKeys = Object.keys(appliedFilters).filter((key) => appliedFilters[key]);
-    let filteredCatalog = courseCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo?.offered?.includes(filterKey) || courseInfo?.cores?.includes(filterKey)));
+    filteredCatalog = filteredCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo?.yearOffered === filterKey || courseInfo?.semesterOffered === filterKey || courseInfo?.cores?.includes(filterKey)));
+    
+    // Apply the client's search query
     if (searchQuery.length > 0) {
-      filteredCatalog = filteredCatalog.filter((courseInfo) => searchQuery.toLowerCase() === courseInfo?.title?.substring(0,searchQuery.length).toLowerCase())
+      filteredCatalog = filteredCatalog.filter((courseInfo) => searchQuery.toLowerCase() === courseInfo?.title?.substring(0,searchQuery.length).toLowerCase() || searchQuery.toLowerCase() === courseInfo?.id?.substring(0,searchQuery.length).toLowerCase())
     }
+    // Update the list of valid courses
     setDisplayedCourses(filteredCatalog);
   }
 
   // Update the displayed courses each time a changed is made to the appliedFilters
-  useEffect(renderFilteredCourses, [appliedFilters, courseCatalog])
+  useEffect(renderFilteredCourses, [appliedFilters, courseCatalog, semester])
 
   const addCoursesAction = (e) => {
     e.preventDefault();
@@ -141,7 +173,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
             <FormGroup>
               <InputGroup>
                 <Button className={styles.course_search_button} onClick={renderFilteredCourses}><span className='fa fa-search fa-lg'></span></Button>
-                <Input type="text" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} onChange={e => setSearchQuery(e.target.value)} placeholder="Search for a course directly!"></Input>
+                <Input type="text" onKeyPress={(e) => e.key==='Enter' && e.preventDefault()} onChange={e => setSearchQuery(e.target.value)} placeholder="Search for a course by inputting its title or id!"></Input>
               </InputGroup>
             </FormGroup>
             {/* Course Container */}
@@ -152,7 +184,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
               </Container>
             </div>
         </ModalBody>
-        <ModalFooter><Button color="primary" className={styles.add_courses} type="submit"><span className ="fa fa-calendar-circle-plus fa-lg"></span>{'  '}ADD COURSES</Button></ModalFooter>
+        <ModalFooter><Button color="primary" className={styles.add_courses} type="submit"><i className ="fa fa-calendar-plus-o fa-lg"></i>{'  '}ADD COURSES</Button></ModalFooter>
       </Form>
     </Modal>
   )

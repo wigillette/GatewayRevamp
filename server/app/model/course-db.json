@@ -1,0 +1,4848 @@
+[
+    {
+      "id": "DANC-100-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro to Dance",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-100-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro to Dance",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-240-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Dance Repertory",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-330-A",
+      "cores": [
+        "DN",
+        "H",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Hist of JazzDance",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-104W-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Afrofuturism",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-325-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Black Atlas",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-332-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Liberated Minds",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "LAS-215-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "US Latino/a Lit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ANSO-210-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Using Soc Theory",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ANSO-460W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Seminar",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ANTH-100-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Sociocult Anth",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ANTH-251-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Forensic Anth",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SOC-100-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Thinking Sociolog",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SOC-100-B",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Thinking Sociolog",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SOC-260-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Lat Racial&EthForm",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SOC-288-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Animals & Society",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-101-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Drawing I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-101-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Drawing I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Painting I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-104-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Photography I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-104-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Photography I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-105-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Printmaking I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-150-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hist of Art I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-232-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Scene Design",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-250-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "The Ancient Andes",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-250-B",
+      "cores": [
+        "H",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Shamanic Art",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-291W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Crit Perspectives",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-350-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "The Ancient Andes",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-350-B",
+      "cores": [
+        "H",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Shamanic Art",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ART-455-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Studio Capstone",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BCMB-202-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Foundations",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BCMB-429W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Structural Bio",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BCMB-433W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Molecular Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BCMB-452L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Biochem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BCMB-452W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Biochemistry II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-AA",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-AB",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-BA",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-BB",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-CA",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-CB",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-DA",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-DB",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-EA",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102L-EB",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Cell Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cell Biology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102Q-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cell Biology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102Q-C",
+      "cores": [],
+      "creditAmount": "Cancelled",
+      "title": "Cell Biology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102Q-D",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cell Biology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-102Q-E",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cell Biology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-220-A",
+      "cores": [
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Innovation in Bio",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-225-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Glial Cell Bio",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-234-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Nature of Food",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-305-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human Anatomy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-305L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human Anat Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-305L-B",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human Anat Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-324-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Darwin&Evolution",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-324-B",
+      "cores": [
+        "CCAP "
+      ],
+      "creditAmount": 4,
+      "title": "Darwin&Evolution",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-328-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Protein Biogenesis",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-328L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Protein Bio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-345-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Microbiology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-345L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Microbio Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-346-A",
+      "cores": [],
+      "creditAmount": "Cancelled",
+      "title": "Developmental",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-346L-A",
+      "cores": [],
+      "creditAmount": "Cancelled",
+      "title": "Develop Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-429L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Structural Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-429W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Structural Bio",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-433L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Molec Neuro Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-433W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Molecular Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-442L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Mammalogy Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-442W-A",
+      "cores": [
+        "O",
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Mammalogy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-444W-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "AdvIntegrativePhys",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ACCT-140-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Financial Acct",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ACCT-140-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Financial Acct",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ACCT-241-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Management Acct",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BE-007-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Media on Main",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-101-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Microeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-101-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Microeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-101-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Microeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Macroeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-102-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Macroeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-102-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Macroeconomics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-150-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Analytic Found",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-150-B",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Analytic Found",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-200W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-200W-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-201-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intermed Micro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-202-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intermed Macro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-213-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "EnergyEcon/PubPol",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-231-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Behavioral Econ",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-300Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Econometrics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-300Q-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Econometrics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ECON-330-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Strategic Analysis",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CCAP  ECON-403W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Seminar in Econ",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-001-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Endowment",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-001-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Stock",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-001-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO Women",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-002-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Endowment",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-002-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Stock",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-002-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO Women",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-003-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Endowment",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-003-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Stock",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-003-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO Women",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-004-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Endowment",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-004-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO - Stock",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-004-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "UCIMCO Women",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-270-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro to Finance",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-302-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Fin Scholars II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-372-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Investments",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-372-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Investments",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-402-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Fin Scholars IV",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FIN-403W-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Sem:Finance&Accounting",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MGT-200-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Management",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MGT-300-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Leadership Ethics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MGT-300-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human Resources",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-102LQ-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Forensic Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-102Q-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Forensic Chem",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Gen Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108-B",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Gen Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108-C",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Gen Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108-D",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Gen Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108L-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Gen Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108L-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Gen Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108L-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Gen Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108L-D",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Gen Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-108L-E",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Gen Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-202W-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Rhet Resp Scientist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Organic Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208-B",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Organic Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208-C",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Organic Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208L-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Org Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208L-B",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Org Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208L-C",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Org Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-208L-D",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Org Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-310-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Physical Chem II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-310L-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Phys Chem II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-322-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Inorganic Chem",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-322L-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Inorganic Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-340-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Nanomaterials",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-340-B",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Med Chem",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHEM-400-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Seminar",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "LAT-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elementary Latin",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "LAT-202-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Intermed Lat II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CLAS-350-A",
+      "cores": [
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "AncientMagic",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EAS-299-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Japanese Film",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-250S-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EAS-352-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 2,
+      "title": "Re-Inventing Jpn",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EAS-398-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Japan Pre-Depart",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EAS-400W-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Research in EAS",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-100-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Critical Issues",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-265-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Educ Psychology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-320-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Diversity/Learners",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-346-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Educ & the Law",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-360-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Teaching ELL",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-443-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Methods Practicum",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "EDUC-450-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Seminar",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-106-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intr Creative Wrtg",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-106-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intr Creative Wrtg",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-205-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Fiction Writing",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-215-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Poems That Rhyme",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-216-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Humor Writing",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENCW-420-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sr Portfolio CW",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-214-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Structure Eng Lang",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-220-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Shakespeare",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-240-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Roms to Mods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-250-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Adapting Books",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-250-B",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Graphic Narratives",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-290W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Methods in Lit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-301-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Literary Theory",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-310-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Austen & Brontes",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENGL-315-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Poetry of Protest",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CCAP  ENGL-440W-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Shx Problems",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-100-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Intro to Env",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-102Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Earth Around Us",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-234-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Nature of Food",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-266-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Hazards & Risks",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-288-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Animals & Society",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-350-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Circular Economies",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-350-B",
+      "cores": [
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Energy & Env",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-350-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "REL ENV Justice",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ENV-350L-B",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Topics Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GEOL-102Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Earth Around Us",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-101-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Intr Film Studies",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-101S-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-250-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Japanese Film",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-251-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Teen Film & TV",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-251S-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-252-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Queer Cinema",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-252S-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-253-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Adapting Books",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-253S-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-253-B",
+      "cores": [
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Religious Film",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FS-253S-B",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Screenings",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-102-A",
+      "cores": [
+        "DN",
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Modern World Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-102-B",
+      "cores": [
+        "DN",
+        "GN   H"
+      ],
+      "creditAmount": 4,
+      "title": "Modern World Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-126-A",
+      "cores": [
+        "DN",
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Modern U.S. Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-214-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human Sexuality",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-227-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Witches, Drudges",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-250-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Biomed Ethics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-250-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "FemKnowledge",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-250-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Queer Cinema",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-332-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Liberated Minds",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-350-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Autonomy & Depend",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-441-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Kin and Care",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-206-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human A & P II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-206-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human A & P II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "BIO-206-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human A & P II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-100-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Wellness/Fit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-100-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Wellness/Fit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-100-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Wellness/Fit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-202-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Public Health",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-206L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human A & P II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-206L-B",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human A & P II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-206L-C",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human A & P II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-206L-D",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Human A & P II Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-209B-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Martial Arts",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-210-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Scientific Lit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-210-B",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Medical Term",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-220-A",
+      "cores": [],
+      "creditAmount": 3,
+      "title": "Conditioning",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-223-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Team Sports",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-225-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Basic Movement",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-232W-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Current Trends",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-235-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Lifeguarding",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-240-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Stress Management",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-245-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Leadership Actvty",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-275-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Health Ethics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-333-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Drugs & Alcohol",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-334-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Nutrition",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-351-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Struct Kines",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-351L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Struct Kines Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-352L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Ex Phys Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-352Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Ex Physiology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-356-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Meth H&PE",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-356L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Elem Methods Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-360-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Ex Prescrip + Prog",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-360-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Clinical Ex Phys",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-360-C",
+      "cores": [
+        "GN",
+        "O",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "African Health",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-365-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Phil&Prin Coach",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-366W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sport Psych",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-413-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Pathophysiology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-447-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Community Health",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HEP-464-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Adapted PE",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-102-A",
+      "cores": [
+        "DN  GN   H"
+      ],
+      "creditAmount": 4,
+      "title": "Modern World Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-102-B",
+      "cores": [
+        "DN",
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Modern World Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-126-A",
+      "cores": [
+        "DN",
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Modern U.S. Hist",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-227-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Witches, Drudges",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-250-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hist of Everything",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-250-B",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Non-West Mod Med",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-255-A",
+      "cores": [
+        "GN   H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Rulers and Ruled",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-307-A",
+      "cores": [
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Rev Atlantic World",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HIST-450W-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Global Migrations",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-150-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE Transition",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-AA   NEW",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-D",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-E",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-F",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-G",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-H",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-I",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-J",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-K",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-L",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-M",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-N",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-P",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-R",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-T",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CIE-200-U",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "CIE II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HSOC-150-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Med, Hlth, + Human",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "HSOC-150-B",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Non-West Mod Med",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "IDS-050-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Entrepreneurship",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "IDS-301-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Prob Solv Python",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "IDS-441-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Kin and Care",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSJ-200-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Peace&Social Justice",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-173-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro Comp Sci",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-173-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro Comp Sci",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-174-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "OO Programming",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-274-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Comp Arch & Org",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-372-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Dig Mus Aud Process",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-375-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Software Engineer",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CS-475-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Computer Networks",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-111-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Calculus I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-111-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Calculus I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Calculus II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-112-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Calculus II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-211-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Multivar Calc",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-236W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Discrete Math",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-236W-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Discrete Math",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-310-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Diff Eq & Model",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-322-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Modern Geometry",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-335-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Abstract Alg I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MATH-442-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Math Statistics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-140Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Stat Reasoning",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-141Q-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Statistics I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-141Q-D",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Statistics I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-141Q-E",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Statistics I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-240-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Comp Stat (SAS)",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-242-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Statistics II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "STAT-451-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Topics in Adv Stat",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-201-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Public Speaking",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-201-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Public Speaking",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-205-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Media & Society",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-205-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Media & Society",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-206-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sports Journalism",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-225-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Digital Filmmaking",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-268-A",
+      "cores": [
+        "DN",
+        "O",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Disability & Media",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-292W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Comm Theory & Res",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-292W-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Comm Theory & Res",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-315-A",
+      "cores": [
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Media Ethics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-335-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Media, Activism,",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-344-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Childhood & Media",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-352-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Teen Film & TV",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-363-A",
+      "cores": [
+        "O",
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Audience Studies",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MCS-460W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sem:Media Crit",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ARA-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Arabic II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "ARA-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Adv Elem Arabic II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHN-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Chinese II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHN-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Adv Elem CHN II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "CHN-212-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Interm Chinese II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intro to Fren II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Fren II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-202-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Writing in French",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-252-A",
+      "cores": [
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Le Monde Franco",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-341-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Junior Seminar",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "FREN-440W-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Seminar",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GER-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Ger II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GER-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Ger II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GER-202-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Conv & Comp",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GER-252-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "German Lit&Film",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "JPN-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Jpn II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "JPN-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Adv Elem Jpn II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "JPN-212-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Interm Jpn II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "JPN-312-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Adv Japanese II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-102-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-102-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-102-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-102-D",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-102-E",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Elem Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-111-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-111-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-111-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-111-D",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-112-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-112-C",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Interm Span II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-202-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hisp Lit & Cult",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-202-B",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hisp Lit & Cult",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-252-A",
+      "cores": [
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hisp Cultural Studies",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-317-A",
+      "cores": [
+        "GN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hispanic World",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-340-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Topics:HispStud",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "SPAN-440W-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Sem:Hisp Studie",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-012-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Voices of Ursinus",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-022-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Concert Band",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-032-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "Jazz Ensemble",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-052-A",
+      "cores": [],
+      "creditAmount": 1,
+      "title": "String Ensemble",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-121-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Found of Theory",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-206W-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Hist Music 1750 to",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-207-A",
+      "cores": [
+        "DN",
+        "H",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "History of Jazz",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-222-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Music Theory II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-226-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Music Technology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-301-A",
+      "cores": [
+        "H",
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "What Is Music?",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "MUS-322-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Counterpoint",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-100-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Fund of Neurosci",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-150-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Brain on College",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-200Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-225-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Glial Cell Bio",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-332-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cognitive Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-430W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "ARM Behav Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-433W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Molecular Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "NEUR-464-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sem: Psychopharmac",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHIL-237-A",
+      "cores": [
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Pol Philosophy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHIL-246-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Biomed Ethics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHIL-309-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "ProblemFaves",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHIL-309-B",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "FemKnowledge",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHIL-337-A",
+      "cores": [
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Class Pol Phil",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "RELS-233-A",
+      "cores": [
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Christianity",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-112-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Gen Physics II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-112L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Gen Physics Lab II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-112L-B",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Gen Physics Lab II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-112L-C",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Gen Physics Lab II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-122L-A",
+      "cores": [],
+      "creditAmount": 0,
+      "title": "Elec, Mag, Waves Lab",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-122Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Electromagnetism",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-207W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Modern Physics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-299-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Math Physics I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-305-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Gen Relativity",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-339W-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Advanced Lab II",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PHYS-410-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Classical Mech",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-050-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Trial Advocacy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-218-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "American Govt",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-237-A",
+      "cores": [
+        "H   O"
+      ],
+      "creditAmount": 4,
+      "title": "Pol Philosophy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-252-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Intn'l Politics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-252-B",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Intn'l Politics",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-300-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-336-A",
+      "cores": [
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Sci & Common Good",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-337-A",
+      "cores": [
+        "H",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Class Pol Phil",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-346-A",
+      "cores": [
+        "GN"
+      ],
+      "creditAmount": 4,
+      "title": "Middle East Pol",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-350B-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Intn'l Organiz",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-356-A",
+      "cores": [
+        "DN  GN",
+        "O"
+      ],
+      "creditAmount": 4,
+      "title": "Human Rights",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-399-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Civility, Or What?",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "POL-452W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sem: Intn'l Pol",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-100-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intr Psychology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-100-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Intr Psychology",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-150-A",
+      "cores": [
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Brain on College",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-200Q-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-200Q-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Research Methods",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-214-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Human Sexuality",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-220-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Mntl Hlth-Abnormal",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-220-B",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Mntl Hlth-Abnormal",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-240-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Lifespan Development",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-252-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Relationship Sci",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-268-A",
+      "cores": [
+        "DN",
+        "O",
+        "LINQ"
+      ],
+      "creditAmount": 4,
+      "title": "Disability & Media",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-274-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Func Behav Analy",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-274-B",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Psych Professions",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-312-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Health Beliefs",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-322-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Personality",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-332-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Cognitive Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-352-A",
+      "cores": [
+        "DN"
+      ],
+      "creditAmount": 4,
+      "title": "Self&Interperson",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-430W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "ARM Behav Neuro",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-440W-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "ARM Development",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-462-A",
+      "cores": [
+        "GN",
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Sem:Cultural Psych",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-464-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Sem: Psychopharmac",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "PSYC-472-A",
+      "cores": [
+        "CCAP"
+      ],
+      "creditAmount": 4,
+      "title": "Sem:Dev in Context",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-214-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Hip Hop",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-235-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Int/Adv Jazz",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "DANC-250-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Int/Adv African",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "GWSS-215-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Dramatic Dames",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "TD-150-A",
+      "cores": [],
+      "creditAmount": 2,
+      "title": "Basic Stagecraft",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "TD-232-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Scene Design",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "THEA-215-A",
+      "cores": [
+        "DN",
+        "H"
+      ],
+      "creditAmount": 4,
+      "title": "Dramatic Dames",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "THEA-260-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Acting: Objectives&",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+    {
+      "id": "THEA-370-A",
+      "cores": [],
+      "creditAmount": 4,
+      "title": "Directing I",
+      "description": "",
+      "yearOffered": "",
+      "semesterOffered": "",
+      "prerequisites": []
+    },
+
+    {
+        "id": "CS-173-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Intro Comp Sci",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-173-B",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Intro Comp Sci",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-174-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "OO Programming",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-274-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Comp Arch & Org",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-372-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Dig Mus Aud Process",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-375-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Software Engineer",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "CS-475-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Computer Networks",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-111-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Calculus I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-111-B",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Calculus I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-112-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Calculus II",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-112-B",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Calculus II",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-211-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Multivar Calc",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-236W-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Discrete Math",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-236W-B",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Discrete Math",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-310-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Diff Eq & Model",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-322-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Modern Geometry",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-335-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Abstract Alg I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "MATH-442-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Math Statistics",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-140Q-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Stat Reasoning",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-141Q-B",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Statistics I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-141Q-D",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Statistics I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-141Q-E",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Statistics I",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-240-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Comp Stat (SAS)",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-242-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Statistics II",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    },
+    {
+        "id": "STAT-451-A",
+        "cores": [],
+        "creditAmount": 4,
+        "title": "Topics in Adv Stat",
+        "description": "",
+        "yearOffered": "",
+        "semesterOffered": "",
+        "prerequisites": []
+    }
+  ]

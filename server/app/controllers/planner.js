@@ -2,18 +2,21 @@
 
 /*
 {
-id: string
-title: string,
-description: string,
-cores: string[],
-creditAmount: number
+"id": "STAT-451-A",
+"cores": [],
+"creditAmount": 4,
+"title": "Topics in Adv Stat",
+"description": "",
+"yearOffered": "",
+"semesterOffered": "",
+"prerequisites": []
 }, ...]
 */
+const COURSE_DATA = require("../model/course-db.json")
 const PLAN_TEMPLATE = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
-const COURSE_TEMPLATE = (id, title, description, cores, creditAmount, offered) => {return {id: id, title: title, description: description, cores: cores, creditAmount: creditAmount, offered: offered}}
-const SAMPLE_COURSES = [COURSE_TEMPLATE("MATH-112", "Calculus 2", "Advanced Integration", ["Q"], 4, ["Fall", "Spring", "Odd", "Even"]), COURSE_TEMPLATE("CS-173", "Introduction to Computer Science", "An introduction to elementary computing practices", [], 4, ["Fall", "Spring", "Odd", "Even"]), COURSE_TEMPLATE("MATH-211", "Calculus 3", "Multivariate Calculus", ["Q", "R"], 4, ["Fall", "Spring", "Even"])]
-
-const TEST_TEMPLATE = {F2019: [SAMPLE_COURSES[0], SAMPLE_COURSES[1]], S2020: [SAMPLE_COURSES[2]], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
+const SAMPLE_COURSE_IDS = ["CS-173", "CS-174", "MATH-112", "MATH-111", "MATH-211", "CS-274", "STAT-141", "MATH-236", "ECON-101"]
+const SAMPLE_COURSES = SAMPLE_COURSE_IDS.map((id) => COURSE_DATA.find((course) => course.id && course.id.includes(id, 0))); 
+const TEST_TEMPLATE = {F2019: [SAMPLE_COURSES[0], SAMPLE_COURSES[1]], S2020: [SAMPLE_COURSES[2], SAMPLE_COURSES[3], SAMPLE_COURSES[4], SAMPLE_COURSES[5]], F2020: [SAMPLE_COURSES[6], SAMPLE_COURSES[7]], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
 
 exports.removeCourse = (req, res) => {
     const [courseId, semesterKey] = Object.values(req.body);

@@ -93,7 +93,7 @@
 }
 
 .course_container {
-    overflow-y: scroll;
+    overflow-y: auto;
     border-radius: 3%;
     border: 0.5px solid rgb(160, 160, 160);
     padding-bottom: 3%;
@@ -123,4 +123,13 @@
 
 .filters_container {
     margin: 0 auto;
+}
+
+.browser_course_title {
+    font-size: 1rem;
+}
+
+.browser_header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
 }
