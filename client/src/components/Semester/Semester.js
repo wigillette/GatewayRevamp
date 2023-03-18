@@ -102,28 +102,23 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   const [displayedCourses, setDisplayedCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
   // Will eventually replace the below filters with filters fetched from and defined by the server
-  const [appliedFilters, setAppliedFilters] = useState({Fall: false, Spring: false, Even: false, Odd: false, A: false, H: false, SS: false, S: false, O: false, GN: false, LINQ: false, CCAP: false, R: false, Q: false, LANG: false, CIE: false});
+  const [appliedFilters, setAppliedFilters] = useState({Fall: false, Spring: false, Even: false, Odd: false, A: false, H: false, SS: false, S: false, O: false, GN: false, LINQ: false, CCAP: false, R: false, Q: false, LANG: false, CIE: false, DN: false});
   // SemesterViewingId is the semester the user is currently viewing outside of the modal
   const [semester, selectSemester] = useState(semesterViewingId);
-  // Updates the displayedCourses by applying the selected filters and search queries
-  
-  const renderFilteredCourses = () => {
-    /*
-    semesterPlan: [{
-        id: string
-        title: string,
-        description: string,
-        cores: string[],
-        creditAmount: number,
-        yearOffered: "Odd" or "Even" or "Every"
-        semesterOffered: "Fall" or "Spring" or "Every"
-        }, ...]
+  const CONTAINER_SIZE = 50;
+  const COL_SIZE = 3;
 
-    */
-    
+  const reshapeFiltered = (filteredCatalog) => {
+    const filteredReshaped = [];
+    while (filteredCatalog.length) filteredReshaped.push(filteredCatalog.splice(0, COL_SIZE)); 
+    return filteredReshaped
+  }
+
+  // Updates the displayedCourses by applying the selected filters and search queries
+  const renderFilteredCourses = () => {
     // Checking whether the semester is an even or odd year and only adding courses that are offered in that year before applying filters
     const isEvenYear = parseInt(semester.charAt(semester.length-1)) % 2 === 0;
-    let filteredCatalog = isEvenYear ? courseCatalog.filter((courseInfo) => courseInfo?.yearOffered === "Even") : courseCatalog.filter((courseInfo) => courseInfo?.yearOffered === "Odd");
+    let filteredCatalog = courseCatalog.filter((courseInfo) => (courseInfo?.yearOffered === "Every" || courseInfo?.yearOffered === "") || (isEvenYear ? courseInfo?.yearOffered === "Even" : courseInfo?.yearOffered === "Odd"));
     
     // Apply the filters that the client enabled
     const appliedKeys = Object.keys(appliedFilters).filter((key) => appliedFilters[key]);
@@ -133,6 +128,12 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
     if (searchQuery.length > 0) {
       filteredCatalog = filteredCatalog.filter((courseInfo) => searchQuery.toLowerCase() === courseInfo?.title?.substring(0,searchQuery.length).toLowerCase() || searchQuery.toLowerCase() === courseInfo?.id?.substring(0,searchQuery.length).toLowerCase())
     }
+
+    // Make the catalog a 2D array to help with the layout in the DOM
+    filteredCatalog = reshapeFiltered(filteredCatalog);
+    // Finally, only include the first 50 courses on the view
+    filteredCatalog = filteredCatalog.slice(0, CONTAINER_SIZE);
+
     // Update the list of valid courses
     setDisplayedCourses(filteredCatalog);
   }
@@ -180,7 +181,9 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
             <div className={styles.course_container}>
               <p className={styles.course_container_title}>Course List</p>
               <Container fluid>
-                <Row>{displayedCourses.map((courseInfo) => <Col md={4}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
+                {displayedCourses.map((courseInfoRow) => 
+                  <Row className={styles.course_container_row}>{courseInfoRow.map((courseInfo) => <Col md={4}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
+                )}
               </Container>
             </div>
         </ModalBody>

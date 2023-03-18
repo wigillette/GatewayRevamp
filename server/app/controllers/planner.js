@@ -35,7 +35,7 @@ exports.addCourses = (req, res) => {
     const userId = req.userId;
     res.status(200).json({
         // TO-DO: replace PLAN_TEMPLATE with the user's plan data in the database and SAMPLE_COURSES with the full list of all courses
-        fullPlan: {...PLAN_TEMPLATE, [semesterKey]: [...PLAN_TEMPLATE[semesterKey], ...SAMPLE_COURSES.filter((courseInfo) => courseIdList.includes(courseInfo.id))]},
+        fullPlan: {...PLAN_TEMPLATE, [semesterKey]: [...PLAN_TEMPLATE[semesterKey], ...COURSE_DATA.filter((courseInfo) => courseIdList.includes(courseInfo.id))]},
         message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`
     })
 }
@@ -43,6 +43,5 @@ exports.addCourses = (req, res) => {
 exports.fetchPlan = (req, res) => {
     // TO-DO: fill this in
     const userId = req.userId;
-    console.log(userId);
-    res.status(200).json({fullPlan: TEST_TEMPLATE, courseCatalog: SAMPLE_COURSES});
+    res.status(200).json({fullPlan: TEST_TEMPLATE, courseCatalog: COURSE_DATA});
 }

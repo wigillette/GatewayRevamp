@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcryptjs");
 const config = require("../config/auth-config");
+const { createToken } = require("./refresh-token");
 // User Authentication Module: Controls the encryption of user passwords and generates an authentication token for user login
 
 exports.login = (req, res) => {
@@ -8,9 +9,11 @@ exports.login = (req, res) => {
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     const userId = 0; // change to user Id in the database
     const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
+    let refreshToken = createToken(userId);
     res.status(200).json({
         accessToken: token,
-        email: email
+        email: email,
+        refreshToken: refreshToken
     })
 }
 
@@ -21,7 +24,8 @@ exports.register = (req, res) => {
     const userId = 0; // change to user Id in the database
     // Encrypt password
     const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
-    
+    let refreshToken = createToken(userId);
+
     res.status(200).json({
         accessToken: token,
         email: email,
@@ -29,7 +33,8 @@ exports.register = (req, res) => {
         lName: lName,
         gradDate: gradDate,
         major: major,
-        headshot: headshot
+        headshot: headshot,
+        refreshToken: refreshToken
     })
 }
 
