@@ -1,0 +1,345 @@
+[
+  {
+    "id": "CS-173",
+    "cores": ["Q", "R"],
+    "creditAmount": 4,
+    "title": "Intro Comp Sci",
+    "description": "Introduction to the field of computer science. Topics include: methods for computational problem solving, algorithm development techniques, processes for development of new technologies, and programming projects of increasing complexity in a high-level language with emphasis on good programming style. The course also includes exposure to advanced topics in computer science such as graphics, human-computer interaction, and software engineering. Recommended for students in mathematics; business and economics; and the natural sciences. No prior computer programming experience is assumed.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "CS-174",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "OO Programming",
+    "description": "A continuation of CS-173. More detailed exploration of classes and instances, and an introduction to collection classes such as vectors, lists, maps and sets. Larger programs and/or team projects.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": ["CS-173"]
+  },
+  {
+    "id": "CS-274",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Comp Arch & Org",
+    "description": "Hierarchical structure of computer architecture, number systems, arithmetic operations, codes, switching algebra, logic gates, assembly language programming.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["CS-174"]
+  },
+  {
+    "id": "CS-372",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Dig Mus Aud Process",
+    "description": "This hands-on course will take a broad overview of how to represent, analyze, and morph/transform digital musical audio with a computer. Topics include time-domain audio processing, digital instrument synthesis (including FM synthesis), frequency domain audio processing and Fourier analysis, vocoders and cross-synthesis, audio novelty for tempo estimation / beat-tracking, pitch and timbre features, content-based music audio retrieval (e.g., version identification and the \"Shazam algorithm\"), automatic source separation, and audio mosaicing.",
+    "yearOffered": "EVEN",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["CS-174", "MATH-111"]
+  },
+  {
+    "id": "CS-375",
+    "cores": ["Q"],
+    "creditAmount": 4,
+    "title": "Software Engineer",
+    "description": "Topics integral to the design, implementation and testing of a medium-scale software system combined with the practical experience of implementing such a project as a member of a programming team. Use of the Unified Modeling Language (UML) for software design. Prerequisite: A grade of C- or higher in CS-271.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["CS-271"]
+  },
+  {
+    "id": "CS-394",
+    "cores": ["XLP"],
+    "creditAmount": 4,
+    "title": "Indep Study",
+    "description": "investigation of an area of computer science not covered in regular courses. Prerequisite: Written consent of a department faculty member. An oral presentation to the department is required.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "CS-475",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Computer Networks",
+    "description": "Architecture and protocols of computer networks. Protocol layers; network topology; data-communication principles, including circuit switching, packet switching and error control techniques; sliding window protocols, protocol analysis and verification; routing and flow control; local and wide area networks; network interconnection; client-server interaction; emerging networking trends and technologies; topicsin security and privacy. This course will satisfy the College requirement for a capstone experience in the major.",
+    "yearOffered": "EVEN",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["CS-274"]
+  },
+  {
+    "id": "MATH-111",
+    "cores": ["R","Q"],
+    "creditAmount": 4,
+    "title": "Calculus I",
+    "description": "Limits; derivatives; applications of derivatives; trigonometric, inverse trigonometric, logarithmic, and exponential functions; applications of these functions; indeterminate forms; the Fundamental Theorem of Calculus. Use of a computer algebra system. Prerequisite: Placement based on the high school record and a placement test, or a grade of C- or better in MATH-110.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "MATH-112",
+    "cores": ["R","Q"],
+    "creditAmount": 4,
+    "title": "Calculus II",
+    "description": "A continuation of MATH-111.Techniques of integration, applications of integration, improper integrals, polar coordinates, parametric equations, infinite sequences and series. Use of a computer algebra system. Prerequisite: Placement based on the high school record and a placement test, or a grade of C- or better in MATH-111.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": ["MATH-111"]
+  },
+  {
+    "id": "MATH-211",
+    "cores": ["R","Q"],
+    "creditAmount": 4,
+    "title": "Multivar Calc",
+    "description": "Functions of several variables, including three-dimensional geometry and vectors, space curves and motion in space, partial differentiation, multiple integration, line and surface integrals, and the theorems of Green, Gauss, and Stokes. Use of a computer algebra system. Prerequisite: A grade of C- or better in MATH-112, or permission of the department.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["MATH-112"]
+  },
+  {
+    "id": "MATH-235",
+    "cores": ["R"],
+    "creditAmount": 4,
+    "title": "Linear Algebra",
+    "description": "Systems of linear equations, matrix algebra, vector spaces, linear transformations, eigenvectors and eigenvalues, inner products and orthogonality, applications. The computer as a computational tool. Prerequisite: MATH-112 or equivalent, or permission of the instructor.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "FALL",
+    "prerequisites": ["MATH-112"]
+  },
+  {
+    "id": "MATH-236W",
+    "cores": ["R"],
+    "creditAmount": 4,
+    "title": "Discrete Math",
+    "description": "A course designed to bridge the gap between computation-oriented introductory courses and proof-oriented advanced courses. The language of contemporary mathematics, including the proper way to write mathematics, and the nature of mathematical reasoning. Extensive writing projects. Topics studied may include axiomatic systems, logic, set theory, functions, mathematical induction, graph theory and trees, permutations and combinations. Prerequisite: MATH-111, placement or permission of the instructor.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": ["MATH-111"]
+  },
+  {
+    "id": "MATH-310",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Diff Eq & Model",
+    "description": "Mathematical methods for developing models in the physical, biological, and social sciences. Emphasis on models involving differential equations. Solutions, visualizations, and interpretations of first order, second order, and systems of linear and non-linear differential equations. Numerical, graphical and analytic methods, with extensive qualitative analysis approaches. Laplace transforms. Independent projects. Additional topics chosen from forcing and resonance, discrete dynamical systems, and power series solutions. Use of a computer algebra system.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["MATH-211"]
+  },
+  {
+    "id": "MATH-322",
+    "cores": ["R"],
+    "creditAmount": 4,
+    "title": "Modern Geometry",
+    "description": "Topics in Euclidean and non-Euclidean geometry, including some of the following: geometry from an axiomatic viewpoint, synthetic Euclidean geometry, transformation geometry and symmetry, affine and projective geometry, inversive geometry, spherical geometry, and hyperbolic geometry.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["MATH-236W"]
+  },
+  {
+    "id": "MATH-335",
+    "cores": ["R"],
+    "creditAmount": 4,
+    "title": "Abstract Alg I",
+    "description": "An introduction to algebraic structures, with emphasis on groups: Subgroups, quotient groups, homomorphisms, isomorphism theorems, Cayley's theorem, permutation groups. An introduction to the theory of rings. Additional topics may include: series of groups, free groups, and the Sylow theorems.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["MATH-236W", "MATH-235"]
+  },
+  {
+    "id": "MATH-341",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Probability",
+    "description": "An introduction to probability theory, discrete and continuous probability distributions, moments and moment-generating functions of random variables, and transformations of random variables.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "FALL",
+    "prerequisites": ["MATH-211"]
+  },
+  {
+    "id": "MATH-442",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Math Statistics",
+    "description": "The mathematical background of modern statistics, including the development of sampling distributions, the theory and application of estimation, tests of hypotheses. This course will satisfy the College requirement for a capstone experience in the major.",
+    "yearOffered": "EVEN",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["MATH-341"]
+  },
+  {
+    "id": "STAT-140Q",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Stat Reasoning",
+    "description": "",
+    "yearOffered": "",
+    "semesterOffered": "",
+    "prerequisites": []
+  },
+  {
+    "id": "ART-101",
+    "cores": ["A"],
+    "creditAmount": 4,
+    "title": "Drawing I",
+    "description": "This course teaches students perceptual drawing, including drawing technique, the study of form through the use of line, shape, light and shade, and pictorial composition. We will work with still life, landscape and the figure. Students are expected to develop a portfolio of work outside of the formal class meetings. We will work in a variety of drawing mediums such as pencil, charcoal, conte, pen and ink, and pastels. Intended for freshmen and sophomores. Four hours per week plus extensive individual work in the studio.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "ART-150",
+    "cores": [
+      "A",
+      "H"
+    ],
+    "creditAmount": 4,
+    "title": "Hist of Art I",
+    "description": "An exploration of the stylistic and conceptual developments of Western architecture, painting and sculpture from prehistory through the Medieval period. A chronological survey and inquiry into questions of form and meaning will guide an investigation of the relationship between art and society. An interdisciplinary approach will be taken. Three hours per week plus museum trips.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-126",
+    "cores": [
+      "DN",
+      "GN",
+      "H"
+    ],
+    "creditAmount": 4,
+    "title": "Modern U.S. Hist",
+    "description": "What makes the United States of America unique, and what does it mean to be American? This course explores the stories of working people, economic elites, the descendants of the enslaved, government officials, cultural icons, and innovators of all races, genders, and physical abilities. Such stories offer us multiple perspectives on the past, and by understanding and questioning them, we will study the country's relationship to slavery, suffrage, civil and human rights, and accessibility, as well as its political, technological, economic, and ideological contributions, obligations, and shortcomings. Ultimately, we will gain an appreciation of what it means to be American and what America means to the world, beginning in the aftermath of the American Civil War and extending to the present.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-227",
+    "cores": [
+      "DN",
+      "H"
+    ],
+    "creditAmount": 4,
+    "title": "Witches, Drudges",
+    "description": "How can we recover the experiences of individuals based upon archival fragments? How did social hierarchies based on the intersections of gender, race, and sex shape individuals' lives in early America and contribute to their historical erasure? While considering biography as a mode of historical investigation, we will work to define evolving conceptions of gender, race, and sex in early America, and we will uncover the lives of individuals whose experiences were shaped by the communities in which they found themselves and whose stories some sought to appropriate, hide, or silence altogether. In doing so, we will learn much about these individuals and will better understand the forces that sought and perpetuated their erasure. Students will complete a biographical project on a figure of their choosing.",
+    "yearOffered": "EVEN",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-255",
+    "cores": [
+      "GN",
+      "H",
+      "O"
+    ],
+    "creditAmount": 4,
+    "title": "Rulers and Ruled",
+    "description": "In this course, students will explore how Western colonial rule, foreign intervention, and domestic actors have contributed to authoritarian rule in postcolonial and post-imperial states from the nineteenth century onward. Students will examine the historical factors-colonial, international, and domestic-that can influence states' development of authoritarian practices. Each semester, course content will compare the histories of two states, including the nations' past histories with foreign rule. Examples include South Africa and Indonesia, or Fascist Spain and Communist China. Students will therefore gain the skills to be able to analyze holistically and comparatively the resurgence of authoritarianism and challenges to democracy in the twenty-first century. We will consider what contemporary post-colonial and post-imperial states and citizens should do in order to reconcile their complicated pasts and create more equitable societies.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-332",
+    "cores": [
+      "DN",
+      "H"
+    ],
+    "creditAmount": 4,
+    "title": "Liberated Minds",
+    "description": "People of African descent have occupied a unique sociopolitical position in the United States. The realities of their captivity and enslavement, and their resilience in the face of discrimination and racial terrorism, have given them a distinct place in national and world history. Throughout their time in America, they developed a multitude of ideas about economics, citizenship and nationalism, legislation, U.S. foreign policy, education, health, and art and culture. This course will explore the diverse ideas that have developed from this distinct, yet internally diverse, community. We will read about the major bodies of African American thought and research specific aspects of Black intellectual production since the late nineteenth century, including Black nationalism, feminism, liberalism, conservativism, and radicalism. Special priority will be given to how sex and gender inform intellectual production.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-200W",
+    "cores": [],
+    "creditAmount": 4,
+    "title": "Theories & Methods",
+    "description": "What has been, is, and arguably should be \"history\"? How has the study and knowledge of history been connected to the exercise of power in societies past and present? How can we study and generate historical knowledge-i.e., how can we \"do\" history? In this course we consider the \"history of history\" from antiquity onwards and around the globe, analyzing in particular how cultural trends and theoretical approaches have affected the study of history and how power and privilege have influenced historical knowledge. We explore and acquire historical skills such as critical reading and analysis, argument construction, historical synthesis, and research, and we learn how to apply them in digital contexts. This course is open to History, American Studies, and East Asian Studies majors and History minors with second-year standing or higher; and to other students with the permission of the instructor.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "FALL",
+    "prerequisites": []
+  },
+  {
+    "id": "HIST-450W",
+    "cores": [
+      "CCAP"
+    ],
+    "creditAmount": 4,
+    "title": "Global Migrations",
+    "description": "A Capstone Seminar dealing with special subject areas and periods that are not regularly taught. The course devotes particular time and attention to the four open questions that frame the Ursinus Quest, in particular What will I do? Prerequisite: HIST-200W and at least one 300-level history course; or permission of the instructor.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": ["HIST-200W"]
+  },
+  {
+    "id": "DANC-330",
+    "cores": [
+      "A", 
+      "DN", 
+      "H", 
+      "LINQ"
+    ],
+    "creditAmount": 4,
+    "title": "Hist of JazzDance",
+    "description": "This course investigates the unique origin and evolution of jazz dance in America. The course will follow the chronological development of jazz dance, including: African dance and music source material; African American vernacular dance forms; the relationship to jazz music; the contributions of specific choreographers and styles; and the impact of popular entertainment, such as vaudeville, musical theater, films, television, and music videos. Students will develop an understanding of jazz dance in the United States as related to socio-political and cultural contexts in the 20th century and the beginning of the 21st century, including a study of race and gender relations and the dynamics of power and privilege. Throughout the course of the semester, students will have the opportunity to embody basic jazz dance movement principles of rhythm, improvisation, and musicality.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "PSYC-100",
+    "cores": [
+      "SS"
+    ],
+    "creditAmount": 4,
+    "title": "Intr Psychology",
+    "description": "This course will cover key concepts, principles, and overarching themes in psychology. A range of topics will be covered, such as biological psychology, sensation and perception, consciousness, learning, memory, cognition, intelligence, human development, personality, social behavior, stress and health, and psychological disorders and treatment.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  },
+  {
+    "id": "CHN-101",
+    "cores": [
+      "L"
+    ],
+    "creditAmount": 4,
+    "title": "Elem Chinese I",
+    "description": "An introduction to the Chinese language. The course is designed to introduce the student to the basic rules of spoken and written Chinese while providing basic communicative skills. Four hours per week plus one hour of practice with the language assistant.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "FALL",
+    "prerequisites": []
+  },
+  {
+    "id": "CHN-102",
+    "cores": [
+      "L"
+    ],
+    "creditAmount": 4,
+    "title": "Elem Chinese II",
+    "description": "Continuation of CHN-101. The focus is placed on situation-sensitive language use and the systematic introduction of basic grammar and sentence patterns, along with continued study of characters. Prerequisite: CHN-101 or equivalent. Four hours per week plus one hour of practice with the language assistant.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "SPRING",
+    "prerequisites": ["CHN-101"]
+  },
+  {
+    "id": "BIO-102Q",
+    "cores": [
+      "Q",
+      "S"
+    ],
+    "creditAmount": 4,
+    "title": "Cell Biology",
+    "description": "Approaches the fundamental principles of cell biology using the examination of specific case studies and the current scientific literature. Principles will include molecular structure and function of cells, generation of biochemical energy, cell cycle regulation and cancer, and neuronal communication. Lecture readings and laboratory exercises will employ the scientific method and emphasize quantitative analysis of data. Three hours of lecture; an average of one and one-half hours of laboratory per week.",
+    "yearOffered": "EVERY",
+    "semesterOffered": "EVERY",
+    "prerequisites": []
+  }
+]

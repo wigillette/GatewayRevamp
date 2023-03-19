@@ -3,27 +3,7 @@ import styles from './Semester.module.css';
 import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, Row, Col, Container } from 'reactstrap';
 import { connect } from 'react-redux';
 import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
-/* Idea is to structure courses within plannedCourses as courseInfo dictionaries:
-   semesterPlan: [{
-              id: string
-              title: string,
-              description: string,
-              cores: string[],
-              creditAmount: number,
-              offered: ["Fall", "Spring", "Odd", "Even"]
-              }, ...]
-
-      {
-        "id": "STAT-451-A",
-        "cores": [],
-        "creditAmount": 4,
-        "title": "Topics in Adv Stat",
-        "description": "",
-        "yearOffered": "",
-        "semesterOffered": "",
-        "prerequisites": []
-        }, ...]
-*/
+import cores from "../../shared/cores.json";
 
 /* CourseInfo Component
    Displays information about a respective course*/
@@ -45,9 +25,9 @@ const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
       <ListGroupItem>
         <h3 className={styles.course_title}>{courseInfo?.title}</h3>
       </ListGroupItem>
-      <ListGroupItem>
-        <p className={styles.course_label}>{courseInfo?.description || "No Description"}</p>
-      </ListGroupItem>
+      {courseInfo?.description?.length > 0 && <ListGroupItem>
+        <p>{courseInfo?.description}</p>
+      </ListGroupItem>}
     </ListGroup>
     <CardFooter><p className={styles.course_credits}>{courseInfo?.cores?.length > 0 && courseInfo?.cores?.join(', ') + " | "}Credits: {courseInfo?.creditAmount}</p></CardFooter>
   </Card>)
@@ -89,7 +69,8 @@ const BrowserCourse = ({courseInfo, selectedCourses, setSelectedCourses}) => {
         <h3 className={styles.browser_course_title}>{courseInfo?.title}</h3>
       </ListGroupItem>
       <ListGroupItem>
-        <p>{courseInfo?.description || "No Description"}</p>
+        <p><b>PREREQUISITES: </b> {courseInfo?.prerequisites?.length === 0 && "NONE"}</p>
+        {courseInfo?.prerequisites?.length > 0 && <ul>{courseInfo?.prerequisites?.map((courseId) => <li>{courseId}</li>)}</ul>}
       </ListGroupItem>
     </ListGroup>
     <CardFooter><p><b>{courseInfo?.cores?.length > 0 && courseInfo?.cores?.join(', ') + " | "}Credits: {courseInfo?.creditAmount}</b></p></CardFooter>
@@ -101,8 +82,10 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   const [selectedCourses, setSelectedCourses] = useState([]);
   const [displayedCourses, setDisplayedCourses] = useState([]);
   const [searchQuery, setSearchQuery] = useState("");
-  // Will eventually replace the below filters with filters fetched from and defined by the server
-  const [appliedFilters, setAppliedFilters] = useState({Fall: false, Spring: false, Even: false, Odd: false, A: false, H: false, SS: false, S: false, O: false, GN: false, LINQ: false, CCAP: false, R: false, Q: false, LANG: false, CIE: false, DN: false});
+  // Filter logic; couldn't find a better way to initialize the core filters to false without a forEach loop. Spread operator wasn't working correctly
+  const INIT_FILTERS = {FALL: false, SPRING: false, EVEN: false, ODD: false}
+  cores.forEach((core) => INIT_FILTERS[core] = false);
+  const [appliedFilters, setAppliedFilters] = useState(INIT_FILTERS);
   // SemesterViewingId is the semester the user is currently viewing outside of the modal
   const [semester, selectSemester] = useState(semesterViewingId);
   const CONTAINER_SIZE = 50;
@@ -118,9 +101,13 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   const renderFilteredCourses = () => {
     // Checking whether the semester is an even or odd year and only adding courses that are offered in that year before applying filters
     const isEvenYear = parseInt(semester.charAt(semester.length-1)) % 2 === 0;
-    let filteredCatalog = courseCatalog.filter((courseInfo) => (courseInfo?.yearOffered === "Every" || courseInfo?.yearOffered === "") || (isEvenYear ? courseInfo?.yearOffered === "Even" : courseInfo?.yearOffered === "Odd"));
+    let filteredCatalog = courseCatalog.filter((courseInfo) => (courseInfo?.yearOffered === "EVERY") || (isEvenYear ? courseInfo?.yearOffered === "EVEN" : courseInfo?.yearOffered === "ODD"));
     
-    // Apply the filters that the client enabled
+    // Checking whether the semester is in the fall or the spring and adding courses offered in that season
+    const isFall = semester.charAt(0) === "F";
+    filteredCatalog = filteredCatalog.filter((courseInfo) => (courseInfo?.semesterOffered === "EVERY") || (isFall ? courseInfo?.semesterOffered  === "FALL" : courseInfo?.semesterOffered === "SPRING"));
+
+    // Apply the remaining filters that the client enabled
     const appliedKeys = Object.keys(appliedFilters).filter((key) => appliedFilters[key]);
     filteredCatalog = filteredCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo?.yearOffered === filterKey || courseInfo?.semesterOffered === filterKey || courseInfo?.cores?.includes(filterKey)));
     
@@ -138,12 +125,14 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
     setDisplayedCourses(filteredCatalog);
   }
 
+
   // Update the displayed courses each time a changed is made to the appliedFilters
   useEffect(renderFilteredCourses, [appliedFilters, courseCatalog, semester])
 
   const addCoursesAction = (e) => {
     e.preventDefault();
     addCourses(selectedCourses, semester)
+    setSelectedCourses([]); // Reset the selected courses after adding them
     toggleFunction();
   }
 
@@ -155,7 +144,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
             {/* Semester Dropdown */}
             <FormGroup>
               <Label for="selectSemester">Select Semester:</Label>
-              <Input type="select" name="select" id="selectSemester" defaultValue={semesterViewingId} onChange={e => selectSemester(e.target.value)}>{semesterKeys.map((semesterId) => <option>{semesterId}</option>)}</Input>
+              <Input type="select" name="select" id="selectSemester" defaultValue={semester} onChange={e => selectSemester(e.target.value)}>{semesterKeys.map((semesterId) => <option>{semesterId}</option>)}</Input>
             </FormGroup>
             {/* Filters */}
             <FormGroup check >
@@ -163,7 +152,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
                 {Object.keys(appliedFilters).map((filterKey) => (
                   <Col md={3}>
                     <Label check>
-                      <Input type="checkbox" onChange={(e) => setAppliedFilters({...appliedFilters, [filterKey]: e.target.checked})}></Input>{' '}{filterKey}
+                      <Input type="checkbox" defaultChecked={appliedFilters[filterKey]} onChange={(e) => setAppliedFilters({...appliedFilters, [filterKey]: e.target.checked})}></Input>{' '}{filterKey}
                     </Label>
                   </Col>
                 ))}

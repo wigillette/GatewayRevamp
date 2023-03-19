@@ -103,7 +103,7 @@
 .browser_course_id {
     float: left;
     font-size: 1rem;
-    width: 40%;
+    width: 50%;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
