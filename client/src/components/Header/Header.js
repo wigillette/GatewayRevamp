@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert, UncontrolledAlert } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
 
-const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
+const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
   // Storing form data in state
   const [email, setEmail] = useState();
   const [password, setPassword] = useState();
@@ -49,8 +49,8 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
     e.preventDefault();
     if (validateLogin()) {
       dispatch(loginAction(email, password))
-      .then(toggleModal)
-      .catch((err) => alert("Failed to register"));
+      .then((message) => !message && toggleModal())
+      .catch((err) => console.error(err));
     }
   };
 
@@ -59,8 +59,8 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
     e.preventDefault();
     if (validateRegistration()) {
       dispatch(registerAction(email, password, fName, lName, gradDate, major, headshot))
-      .then(toggleModal)
-      .catch((err) => alert("Failed to register"));
+      .then((message) => !message && toggleModal())
+      .catch((err) => console.error(err));
     }
   };
 
@@ -108,6 +108,7 @@ const Header = ({ isAuthenticated, user, dispatch }) => { // isAuthenticated is 
         {/* Login Modal Header */}
         <ModalHeader>
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>
+            {message && <Alert className={styles.message_notif} fade={false} color={valid ? "success" : "danger"}>{message}</Alert>}
         </ModalHeader>
         {/* Login Modal Body: this is where the login form will go */}
         <ModalBody>
@@ -207,10 +208,12 @@ Header.defaultProps = {};
 // Map the props in our component to the store's state so that the component
 // updates every time there is a change in the respective part of the store's state
 const mapStateToProps = (state) => {
-  const { authenticated, user } = state.authReducer;
+  const { authenticated, user, message, valid } = state.authReducer;
   return {
     isAuthenticated: authenticated,
-    user: user
+    user: user,
+    message: message,
+    valid: valid
   }
 }
 

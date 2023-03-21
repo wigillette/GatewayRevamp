@@ -1,17 +1,31 @@
+/* Entire Semester Component Styling */
 .Semester {
     width: 100%;
     height: 100%;
 }
 
+/* Semester Dropdown Element Styling */
 .semester_dropdown {
     float: right;
 }
 
+/* Global Text Labels */
 .course_id, .browser_course_title, .course_title, .semester_header {
     font-family: 'Roboto Slab', serif;
 }
 
-.course_id {
+.semester_label, .course_credits {
+    font-family: 'Open Sans', serif;
+}
+
+/* Plan Container Styling */
+/* Course ID Label */
+.plan_container {
+    float: left;
+    width: 100%;
+}
+
+.main_course_id {
     font-size: 2rem;
     float: left;
     margin-left: 5%;
@@ -22,10 +36,13 @@
     text-align: left;
 }
 
-.course_title {
+/* Course Title Label */
+.main_course_title {
     font-size: 1.5rem;
 }
 
+/* Semester Info Container */
+/* Header Styling */
 .semester_header {
     font-size: 2vw;
     font-weight: bold;
@@ -34,33 +51,30 @@
     width: 50%;
 }
 
-.semester_label, .course_credits {
-    font-family: 'Open Sans', serif;
-}
-
-.plan_container {
-    float: left;
-    width: 100%;
-}
-
-.course_label {
-    font-size: 1.75rem;
-}
-
+/* Plan Container Course Info Component */
+/* Credits Label */
 .course_credits {
     font-weight: bold;
     font-size: 1.5rem;
 }
 
+/* Card Styling */
 .course_info {
     float: left;
     margin-top: 2%;
     margin-bottom: 10%;
     margin-right: 5%;
     width: 100%;
-    /* height: 80% !important; */
 }
 
+/* Plan Header */
+/* Container Styling */
+.plan_header {
+    width: 100%;
+    height: 10%;
+}
+
+/* Browser Toggle and Remove Course Buttons Styling */
 .browser_toggle, .remove_course {
     float: right;
     margin-right: 3%;
@@ -71,11 +85,7 @@
     font-size: 1.5rem !important;
 }
 
-.plan_header {
-    width: 100%;
-    height: 10%;
-}
-
+/* Dividing Line Styling */
 .semester_divider {
     margin-left: auto;
     margin-right: auto;
@@ -85,6 +95,7 @@
     border: solid 1.5px rgb(160, 160, 160);
 }
 
+/* Notification Styling */
 .message_notif  {
     margin: 0 auto;
     width: 35%;
@@ -92,6 +103,8 @@
     font-size: 1.5rem;
 }
 
+/* Course Browser */
+/* Course Container Styling */
 .course_container {
     overflow-y: auto;
     border-radius: 3%;
@@ -100,6 +113,27 @@
     height: 30rem;
 }
 
+/* Title Styling */
+.course_container_title {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.25rem;
+    margin-left: 2%;
+    margin-top: 2%;
+}
+
+/* Filters Container Styling */
+.filters_container {
+    margin: 0 auto;
+}
+
+/* Header Title Styling */
+.browser_header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 1.5rem;
+}
+
+/* Browser Results Container Component */
+/* Course ID Styling */
 .browser_course_id {
     float: left;
     font-size: 1rem;
@@ -110,31 +144,18 @@
     text-align: left;
 }
 
+/* Course Selection Toggle Button Styling */
 .course_select_toggle {
     float: right;
     margin-left: 5%;
 }
 
-.course_container_title {
-    font-family: 'Roboto Slab', serif;
-    font-size: 1.25rem;
-    margin-left: 2%;
-    margin-top: 2%;
-}
-
-.filters_container {
-    margin: 0 auto;
-}
-
+/* Course Title Styling */
 .browser_course_title {
     font-size: 1rem;
 }
 
-.browser_header {
-    font-family: 'Roboto Slab', serif;
-    font-size: 1.5rem;
-}
-
+/* Browser Results Layout: Row Styling  */
 .course_container_row {
     margin-bottom: 3%;
 }

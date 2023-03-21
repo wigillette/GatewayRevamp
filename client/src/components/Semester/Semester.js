@@ -10,12 +10,12 @@ import cores from "../../shared/cores.json";
 const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
   const attemptCourseRemoval = (courseId) => {
     removeCourse(courseId, semesterKey)
-    .catch((err) => alert(err));
+    .catch((err) => { alert("Failed to remove course. | Unexpected error"); console.log(err); });
   }
 
   return (<Card className={styles.course_info}>
     <CardHeader>
-      <p className={styles.course_id}>{courseInfo?.id || "No Title"}</p> 
+      <p className={styles.main_course_id}>{courseInfo?.id || "No Title"}</p> 
       <Button className={styles.remove_course} size='lg' color='danger' onClick={() => courseInfo?.id !== null ? attemptCourseRemoval(courseInfo.id) : alert("Invalid Course")}>
         <span className ="fa fa-minus-circle fa-lg"></span>{'  '}REMOVE
       </Button>
@@ -23,7 +23,7 @@ const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
     
     <ListGroup flush>
       <ListGroupItem>
-        <h3 className={styles.course_title}>{courseInfo?.title}</h3>
+        <h3 className={styles.main_course_title}>{courseInfo?.title}</h3>
       </ListGroupItem>
       {courseInfo?.description?.length > 0 && <ListGroupItem>
         <p>{courseInfo?.description}</p>

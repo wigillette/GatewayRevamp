@@ -59,6 +59,15 @@
     margin-left: 7.5%;
 }
 
+/* Login/Registration Notification Styling */
+.message_notif  {
+    margin: 0 auto;
+    margin-top:2%;
+    width: 75%;
+    height: 50%;
+    font-size: 0.5rem;
+}
+
 /* Media query: header mobile view */
 @media screen and (max-width: 999px) {
     .header_title {
