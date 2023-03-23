@@ -18,15 +18,24 @@
 }
 
 .portal_title, .header_title {
-    display: inline-block;
     font-family: 'Roboto Slab', serif;
     text-shadow: 5% 5% 2% rgb(0,0,0);
 }
 
+.header_title {
+    display: inline-block;
+}
+
 /* Modal Portal Title */
 .portal_title {
+    float: left;
     color: rgb(0,0,0);
-    font-size: 3vh;
+    font-size: 1.5rem;
+    width: 40%;
+}
+
+.portal_header h5 {
+    width: 100%;
 }
 
 /* Button Positioning */
@@ -61,11 +70,11 @@
 
 /* Login/Registration Notification Styling */
 .message_notif  {
-    margin: 0 auto;
+    float: right;
     margin-top:2%;
-    width: 75%;
-    height: 50%;
-    font-size: 0.5rem;
+    width: 40%;
+    font-size: 1em;
+    text-align: center;
 }
 
 /* Media query: header mobile view */

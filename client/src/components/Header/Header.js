@@ -4,6 +4,8 @@ import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, 
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
+import majors from "../../shared/majors.json";
+import gradDates from "../../shared/gradDates.json";
 
 const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isAuthenticated is a prop that we mapped from the redux store
   // Storing form data in state
@@ -106,7 +108,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
       {/* Login Form Modal: conditionally display using the display boolean above */}
       <Modal isOpen={displayModal} toggle={toggleModal} fade={false}>
         {/* Login Modal Header */}
-        <ModalHeader>
+        <ModalHeader className={styles.portal_header}>
             <h4 className={styles.portal_title}>STUDENT PORTAL</h4>
             {message && <Alert className={styles.message_notif} fade={false} color={valid ? "success" : "danger"}>{message}</Alert>}
         </ModalHeader>
@@ -161,8 +163,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
                   <FormGroup>
                     <Label for="registerMajorSelect">Select your major:</Label>
                     <Input id="registerMajorSelect" name="select" type="select" onChange={e => setMajor(e.target.value)} required>
-                      <option>Computer Science</option>
-                      <option>Mathematics</option>
+                      {majors.map((major) => <option>{major}</option>)}
                     </Input>
                   </FormGroup>
                 </Col>
@@ -170,13 +171,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
                   <FormGroup>
                     <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
                     <Input id="anticipatedGraduationSelect" name="select" type="select" onChange={e => setGradDate(e.target.value)} required>
-                      <option>Spring 2023</option>
-                      <option>Fall 2023</option>
-                      <option>Spring 2024</option>
-                      <option>Fall 2024</option>
-                      <option>Spring 2025</option>
-                      <option>Fall 2025</option>
-                      <option>Spring 2026</option>
+                      {gradDates.map((date) => <option>{date}</option>)}
                     </Input>
                   </FormGroup>
                 </Col>

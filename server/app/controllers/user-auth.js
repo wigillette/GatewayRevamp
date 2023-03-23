@@ -11,32 +11,32 @@ exports.login = (req, res) => {
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     if (db) {
         let query = "SELECT * FROM Students WHERE email = ?";
-        db.run(query, [email], (err, dataEntry) => {
-            if (err) {
-                res.status(500).json({message: err.message});
-            } else {
-                if (dataEntry) {
-                    const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
-                    if (!passwordIsValid) {
-                        res.status(401).json({
-                            accessToken: null,
-                            message: "Invalid Password!"
-                        });
-                    } else {
-                        const userId = dataEntry.ID; // change to user Id in the database
-                        const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
-                        let refreshToken = createToken(userId);
-                        res.status(200).json({
-                            accessToken: token,
-                            email: email,
-                            refreshToken: refreshToken
-                        })
-                    }
+        db.serialize(() => {
+            db.all(query, [email], (err, rows) => {
+                if (err) {
+                    res.status(500).json({message: err.message});
                 } else {
-                    res.status(404).json({ message: "User not found!" });
+                    const dataEntry = rows[0];
+                    if (dataEntry) {
+                        const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
+                        if (!passwordIsValid) {
+                            res.status(401).json({message: "Invalid Password!"});
+                        } else {
+                            const userId = dataEntry.ID; // change to user Id in the database
+                            const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
+                            let refreshToken = createToken(userId);
+                            res.status(200).json({
+                                accessToken: token,
+                                email: email,
+                                refreshToken: refreshToken
+                            })
+                        }
+                    } else {
+                        res.status(404).json({ message: "User not found!" });
+                    }
                 }
-            }
-        });
+            });
+        })
     } else {
         res.status(404).json({ message: "Database not initialized!" });
     }
