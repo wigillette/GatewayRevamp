@@ -159,3 +159,8 @@
 .course_container_row {
     margin-bottom: 3%;
 }
+
+.load_spinner { 
+    height: 3vw;
+    width: 3vh;
+}

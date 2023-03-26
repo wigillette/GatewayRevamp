@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Semester.module.css';
-import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, Row, Col, Container } from 'reactstrap';
+import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, Row, Col, Container, Spinner } from 'reactstrap';
 import { connect } from 'react-redux';
 import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
 import cores from "../../shared/cores.json";
+import { redirect } from 'react-router-dom';
+import { logout } from '../../services/auth-service';
 
 /* CourseInfo Component
    Displays information about a respective course*/
@@ -203,7 +205,7 @@ class Semester extends React.Component {
   }
 
   componentDidMount() { // Using a class component here to fetch the initial plan upon mounting the semester component
-    this.props.fetchPlan();
+    this.props.authenticated ? this.props.fetchPlan() : logout(); // Log out the user if their token expired
   }
 
   render() {
@@ -225,7 +227,7 @@ class Semester extends React.Component {
         </div>
         <BrowserModal addCourses={this.props.addCourses} semesterViewingId={Object.keys(this.props.fullPlan)[this.state.semesterKey]} isBrowserActive={this.state.isBrowserActive} toggleFunction={this.toggleBrowser} semesterKeys={Object.keys(this.props.fullPlan)} courseCatalog={this.props.courseCatalog} />
       </div>) 
-    : <p>Failed to initialize the full semester plan or display the specified semester's plan.</p>
+    : <Spinner className={styles.load_spinner} color="primary" size="lg"> Loading...</Spinner>
   }
 }
 
@@ -234,10 +236,13 @@ Semester.defaultProps = {};
 
 const mapStateToProps = (state) => {
   const { fullPlan, message, courseCatalog } = state.planReducer;
+  const { authenticated, user } = state.authReducer;
   return {
     fullPlan: fullPlan,
     message: message,
-    courseCatalog: courseCatalog
+    courseCatalog: courseCatalog,
+    user: user,
+    authenticated: authenticated
   }
 }
 

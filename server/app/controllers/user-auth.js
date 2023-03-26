@@ -17,6 +17,7 @@ exports.login = (req, res) => {
                     res.status(500).json({message: err.message});
                 } else {
                     const dataEntry = rows[0];
+                    console.log(dataEntry);
                     if (dataEntry) {
                         const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
                         if (!passwordIsValid) {
@@ -27,7 +28,9 @@ exports.login = (req, res) => {
                             let refreshToken = createToken(userId);
                             res.status(200).json({
                                 accessToken: token,
-                                email: email,
+                                email: dataEntry.email,
+                                major: dataEntry.major,
+                                startDate: dataEntry.startDate,
                                 refreshToken: refreshToken
                             })
                         }
