@@ -11,4 +11,5 @@ module.exports = function(app) {
   });
 
   app.post("/assignCore", [authJwt.verifyToken], controller.assignCore);
+  app.get("/fetchAssignments", [authJwt.verifyToken], controller.fetchAssignments);
 };

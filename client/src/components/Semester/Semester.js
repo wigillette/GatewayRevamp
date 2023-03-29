@@ -4,15 +4,14 @@ import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, Uncontr
 import { connect } from 'react-redux';
 import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
 import cores from "../../shared/cores.json";
-import { redirect } from 'react-router-dom';
-import { logout } from '../../services/auth-service';
+import { logoutAction } from '../../redux/actions/auth';
 
 /* CourseInfo Component
    Displays information about a respective course*/
 const CourseInfo = ({courseInfo, semesterKey, removeCourse}) => {
   const attemptCourseRemoval = (courseId) => {
     removeCourse(courseId, semesterKey)
-    .catch((err) => { alert("Failed to remove course. | Unexpected error"); console.log(err); });
+    .catch((err) => alert("Failed to remove course. | Unexpected error"));
   }
 
   return (<Card className={styles.course_info}>
@@ -173,7 +172,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
               <p className={styles.course_container_title}>Course List</p>
               <Container fluid>
                 {displayedCourses.map((courseInfoRow) => 
-                  <Row className={styles.course_container_row}>{courseInfoRow.map((courseInfo) => <Col md={4}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
+                  <Row className={styles.course_container_row}>{courseInfoRow.map((courseInfo) => <Col md={12/COL_SIZE}><BrowserCourse courseInfo={courseInfo} selectedCourses={selectedCourses} setSelectedCourses={setSelectedCourses} /></Col>)}</Row>
                 )}
               </Container>
             </div>
@@ -205,7 +204,7 @@ class Semester extends React.Component {
   }
 
   componentDidMount() { // Using a class component here to fetch the initial plan upon mounting the semester component
-    this.props.authenticated ? this.props.fetchPlan() : logout(); // Log out the user if their token expired
+    this.props.authenticated ? this.props.fetchPlan() : this.props.dispatch(logoutAction); // Log out the user if their token expired
   }
 
   render() {
@@ -250,7 +249,8 @@ const mapDispatchToProps = (dispatch) => {
   return {
     fetchPlan: () => dispatch(fetchPlanAction()),
     removeCourse: (courseId, semesterKey) => dispatch(removeCourseAction(courseId, semesterKey)),
-    addCourses: (courseIdList, semesterKey) => dispatch(addCoursesAction(courseIdList, semesterKey))
+    addCourses: (courseIdList, semesterKey) => dispatch(addCoursesAction(courseIdList, semesterKey)),
+    logout: () => dispatch(logoutAction()),
   }
 }
 

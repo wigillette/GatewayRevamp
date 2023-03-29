@@ -1,28 +1,69 @@
 import React, { useState } from 'react';
 import styles from './Progress.module.css';
-import {Button, Form, Modal, Progress} from 'reactstrap';
-import { assignCore } from '../../services/progress-service';
+import {Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert} from 'reactstrap';
+import { connect } from 'react-redux';
+import { assignCoreAction, fetchAssignmentsAction } from '../../redux/actions/progress';
+import { logoutAction } from '../../redux/actions/auth';
 
-const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, selectCore}) => {
-  const [courseId, setCourseId] = useState(null);
-  const assignCoreAction = (e) => {
+const CourseInfo = ({id, setCourseId, selectedId}) => {
+  return <Card>
+    <CardHeader><p className={styles.course_info_title}>{id}</p></CardHeader>
+    <CardBody>
+      <Button onClick={(e) => {e.preventDefault(); setCourseId(id);}} color={id === selectedId ? "success" : "secondary"} className={styles.course_select} type="submit"><i className ="fa fa-plus-circle fa-lg"></i>{'  '}SELECT</Button>
+    </CardBody>
+  </Card>
+}
+
+
+const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, selectCore, coreRequirements, planMappings, assignCoreFunction}) => {
+  const [selectedCourseId, setCourseId] = useState(null);
+  const DEFAULT_CORE = 'A';
+  const PARTITION_SIZE = 3;
+  
+  const assignCoreEvent = (e) => {
     e.preventDefault();
-    if (courseId && selectedCoreId) {
-      assignCore(courseId, selectedCoreId);
-      selectCore("A");
+    if (selectedCourseId && selectedCoreId) {
+      assignCoreFunction(selectedCourseId, selectedCoreId);
+      selectCore(DEFAULT_CORE);
       toggleFunction();
     } else {
       alert("Invalid parameters");
     }
   }
 
+  const reshapeMappings = (filteredMappings) => {
+    const partitions = [];
+    while (filteredMappings.length) {
+      partitions.push(filteredMappings.splice(0, PARTITION_SIZE))
+    }
+    return partitions;
+  }
+
   return (<Modal isOpen={isAssignmentOpen} fade={false}>
-    <Form onSubmit={(e) => assignCoreAction(e)}></Form>
+    <Form onSubmit={(e) => assignCoreEvent(e)}>
+      <ModalHeader toggle={toggleFunction} className={styles.browser_header}>Core Requirement Assignment</ModalHeader>
+        <ModalBody>
+            {/* Core Requirements Dropdown */}
+            <FormGroup>
+              <Label for="selectCore">Select Core Requirement:</Label>
+              <Input type="select" name="select" id="selectCore" defaultValue={selectedCoreId} onChange={e => selectCore(e.target.value)}>{coreRequirements.map((coreId) => <option>{coreId}</option>)}</Input>
+            </FormGroup>
+            <br/>
+            {/* Course Container */}
+            <div className={styles.course_container}>
+              <p className={styles.course_container_title}>Course List</p>
+              <Container fluid>
+                {reshapeMappings(planMappings.filter((mapping) => mapping.coreId === selectedCoreId))
+                .map((courseRow) => <Row>{courseRow.map((course) => <Col md={12/PARTITION_SIZE}><CourseInfo id={course.courseId} setCourseId={setCourseId} selectedId={selectedCourseId}/></Col>)}</Row>)}
+              </Container>
+            </div>
+        </ModalBody>
+      <ModalFooter><Button color="primary" className={styles.assign_course} type="submit"><i className ="fa fa-link fa-lg"></i>{'  '}ASSIGN CORE</Button></ModalFooter>
+    </Form>
   </Modal>)
 }
 
 class ProgressContainer extends React.Component  {
-    
   constructor(props) {
     super(props);
     this.state = {isAssignmentOpen: false, currentCoreId: 'A'}
@@ -35,7 +76,11 @@ class ProgressContainer extends React.Component  {
   }
 
   toggleAssignment() {
-    this.setState({...this.state, toggleAssignment: !this.state.toggleAssignment})
+    this.setState({...this.state, isAssignmentOpen: !this.state.isAssignmentOpen})
+  }
+
+  componentDidMount() {
+    this.props.authenticated ? this.props.fetchAssignments() : this.props.logout(); // Log out the user if their token expired
   }
 
   render() {
@@ -45,11 +90,42 @@ class ProgressContainer extends React.Component  {
           <div className='text-center'>{`${Math.floor(100*this.props.totalCredits/128)}%`}</div>
           <Progress color="success" value={Math.floor(100*this.props.totalCredits/128)} />
         </div>
-        <Button color='primary' size="lg" onClick={this.toggleAssignment} className={styles.browser_toggle}><span className ="fa fa-plus-circle fa-lg"></span>{' '}ASSIGN REQUIREMENT</Button>
-        <CoreAssignmentForm isAssignmentOpen={this.state.isAssignmentOpen} toggleFunction={this.toggleAssignment} selectedCoreId={this.state.currentCoreId} selectCore={this.selectCore} />
+        <Button className={styles.assignent_toggle} color='primary' size="lg" onClick={this.toggleAssignment}><span className ="fa fa-plus-circle fa-lg"></span>{' '}ASSIGN REQUIREMENT</Button>
+        <hr className={styles.header_divider}></hr>
       </div>
+      <CoreAssignmentForm 
+          isAssignmentOpen={this.state.isAssignmentOpen} 
+          toggleFunction={this.toggleAssignment} 
+          selectedCoreId={this.state.currentCoreId} 
+          selectCore={this.selectCore} 
+          coreRequirements={Object.keys(this.props.coreAssignments)} 
+          planMappings={this.props.planMappings} 
+          assignCoreFunction={this.props.assignCore} 
+        />
+      {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
     </div>)
   }
 }
 
-export default ProgressContainer;
+const mapStateToProps = (state) => {
+  const { authenticated, user } = state.authReducer;
+  const { coreAssignments, planMappings, message } = state.progressReducer
+  return {
+    planMappings: planMappings,
+    message: message,
+    coreAssignments: coreAssignments,
+    user: user,
+    authenticated: authenticated,
+    totalCredits: 0,
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    fetchAssignments: () => dispatch(fetchAssignmentsAction()),
+    assignCore: (courseId, coreId) => dispatch(assignCoreAction(courseId, coreId)),
+    logout: () => dispatch(logoutAction())
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(ProgressContainer);

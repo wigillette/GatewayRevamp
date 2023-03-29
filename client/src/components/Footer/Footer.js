@@ -1,6 +1,6 @@
 import React from 'react';
 import styles from './Footer.module.css';
-import { Container, Row, Col, Navbar, NavbarBrand } from 'reactstrap';
+import { Container, Row, Col, Navbar } from 'reactstrap';
 
 const LinkTower = ({heading, linkList}) => (
   <Col className={styles.link_tower}>

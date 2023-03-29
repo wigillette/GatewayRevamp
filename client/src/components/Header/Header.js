@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert, UncontrolledAlert } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
