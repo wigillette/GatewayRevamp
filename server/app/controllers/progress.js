@@ -51,32 +51,18 @@ const isCourseAssignedCore = (studentId, courseId) => {
  * @param  {String} coreId   The name of the core requirement to assign - ex. "H", "DN"
  * @return 
  */
-export const assignCore = async (req, res) => {
+exports.assignCore = async (req, res) => {
     const [courseId, coreId] = Object.values(req.body);
     const userId = req.userId;
     const isAssignedCore = await isCourseAssignedCore(userId, courseId);
-    // Probably a better way to condense this using ternary operator
-    if (isAssignedCore) {
-        const query = 'UPDATE CourseSpecialCoreRequirements SET coreId = ? WHERE courseId = ? AND studentId = ?'
-        db.run(query, [coreId, courseId, userId], (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({message: err.message});
-            } else {
-                console.log(`Updated ${this.lastID}: studentId: ${studentId}, courseId: ${courseId}, and coreId: ${coreId}`)
-                res.status(200).json({message: `Successfully added ${courseId} to ${coreId}!`});
-            }
-        })
-    } else {
-        const query = 'INSERT INTO CourseSpecialCoreRequirements (studentId, courseId, coreId) VALUES (?, ?, ?)';
-        db.run(query, [userId, courseId, coreId], (err) => {
-            if (err) {
-                console.log(err);
-                res.status(500).json({message: err.message});
-            } else {
-                console.log(`Added ${this.lastID}: studentId: ${studentId}, courseId: ${courseId}, and coreId: ${coreId}`)
-                res.status(200).json({message: `Successfully added ${courseId} to ${coreId}!`});
-            }
-        })
-    }
+    const query = isAssignedCore ? 'UPDATE CourseSpecialCoreRequirements SET studentId = ? WHERE courseId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (studentId, courseId, coreId) VALUES (?, ?, ?)'
+    db.run(query, [userId, courseId, coreId], (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({message: err.message});
+        } else {
+            console.log(`Updated ${this.lastID}: studentId: ${studentId}, courseId: ${courseId}, and coreId: ${coreId}`)
+            res.status(200).json({message: `Successfully added ${courseId} to ${coreId}!`});
+        }
+    })
 }
