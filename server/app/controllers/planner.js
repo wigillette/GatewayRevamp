@@ -1,16 +1,21 @@
 // Planner.js Module: Handles changes to semester plans
 const { fetchDB } = require("../model");
 let COURSE_DATA = []
-const PLAN_TEMPLATE = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
-const SAMPLE_COURSE_IDS = ["CS-173", "CS-174", "MATH-112", "MATH-111", "MATH-211", "CS-274", "STAT-140", "MATH-236", "ART-150"]
-const SAMPLE_COURSES = SAMPLE_COURSE_IDS.map((id) => COURSE_DATA.find((course) => course.id && course.id.includes(id, 0))); 
-const TEST_TEMPLATE = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
+const DEFAULT_PLAN = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
 const db = fetchDB(); // Retrieve the database
+
+const createFullPlan = (dataEntries) => {
+    const newPlan = JSON.parse(JSON.stringify(DEFAULT_PLAN));
+    if (dataEntries && dataEntries.length > 0 && COURSE_DATA) {
+        let courseEntries = dataEntries.filter((dataEntry) => dataEntry && dataEntry.semester && dataEntry.courseId && Object.keys(COURSE_DATA).includes(dataEntry.courseId));
+        courseEntries = courseEntries.map((dataEntry) => [dataEntry.semester, COURSE_DATA[dataEntry.courseId]])
+        courseEntries.forEach((courseEntry) => newPlan[courseEntry[0]].push(courseEntry[1]))
+    }
+    return newPlan;
+}
 
 exports.removeCourse = (req, res) => {
     const [courseId, semesterKey] = Object.values(req.body);
-    console.log(courseId, semesterKey);
-    // TO-DO: fill this in
     const userId = req.userId;
     let query = 'DELETE FROM StudentCoursePlan WHERE studentId = ? AND courseId = ? AND semester = ?' 
     db.run(query, [userId, courseId, semesterKey], (err) => {
@@ -18,42 +23,59 @@ exports.removeCourse = (req, res) => {
             res.status(500).json({message: err.message});
             console.log(err);
         } else {
-            res.status(200).json({
-                fullPlan: {}, // fullPlan: {...TEST_TEMPLATE, [semesterKey]: [...TEST_TEMPLATE[semesterKey].filter((course) => course?.id !== courseId)]},
-                message: `Successfully removed course ${courseId} from ${semesterKey}!`
-            })
-            console.log(`Deleted row ${this.lastID} with student ID: ${userId}, courseId: ${courseId}, and semester: ${semesterKey}`)
+            getFullPlanFromDB(userId).then(
+                (newPlan) => res.status(200).json({fullPlan: newPlan, message: `Successfully removed course ${courseId} from ${semesterKey}!`}))
+                .catch((err) => res.status(404).json({fullPlan: formerPlan, message: err}))
         }
     })
-    
 }
 
-const addCourseToSemester = (studentId, course, semester) => {
+const addCourseToSemester = (studentId, course, semester, fullPlan) => {
     let query = 'INSERT INTO StudentCoursePlan (studentId, courseId, semester) VALUES (?, ?, ?)';
-    Promise((resolve, reject) => {
-        db.run(query, [studentId, course, semester], (err) => {
-            if (err) {
-                console.log(err);
-                reject(false)
+    return new Promise((resolve, reject) => {
+        const semesterDuplicates = Object.keys(fullPlan).filter((key) => fullPlan[key].filter((courseEntry) => courseEntry.id === course).length > 0);
+        if (semesterDuplicates <= 0) {
+            db.run(query, [studentId, course, semester], (err) => {
+                if (err) {
+                    console.log(err);
+                    reject(err.message)
+                } else {
+                    console.log(`Inserted a row with the ID: ${this.lastID} - ${course} for ${semester}`)
+                    resolve(true)
+                }
+            })
+        } else {
+            reject(`${course} is already planned for ${semesterDuplicates.join(",")}!`)
+        }
+    })
+}
+
+const getFullPlanFromDB = (userId) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
+        db.all(query, [userId], (err, dataEntries) => {
+            if (dataEntries) {
+                resolve(createFullPlan(dataEntries));
+            } else if (err) {
+                reject(err.message);
             } else {
-                console.log(`Inserted a row with the ID: ${this.lastID} - ${course} for ${semester}`)
-                resolve(true)
+                reject("User not found.");
             }
-        })
+        });
     })
 }
 
 exports.addCourses = (req, res) => {
     const [courseIdList, semesterKey] = Object.values(req.body);
     const userId = req.userId;
-    const promises = courseIdList.map((courseId) => addCourseToSemester(userId, courseId, semesterKey))
-    Promise.all(promises).then(() => {
-        res.status(200).json({
-            // TO-DO: replace TEST_TEMPLATE with the user's plan data in the database and SAMPLE_COURSES with the full list of all courses
-            fullPlan: {},//{...TEST_TEMPLATE, [semesterKey]: [...TEST_TEMPLATE[semesterKey], ...COURSE_DATA.filter((courseInfo) => courseIdList.includes(courseInfo?.id))]},
-            message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`
-        })
-    }).catch((err) => res.status(500).json({message: err.message}));
+    getFullPlanFromDB(userId).then((formerPlan) => {
+        const promises = courseIdList.map((courseId) => addCourseToSemester(userId, courseId, semesterKey, formerPlan))
+        Promise.all(promises).then(() => {
+            getFullPlanFromDB(userId).then((newPlan) => {
+                res.status(200).json({fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`})
+            }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))
+        }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))
+    }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))   
 }
 
 const getCourses = async () => {
@@ -61,8 +83,8 @@ const getCourses = async () => {
         db.all(`SELECT Courses.ID, Courses.title, Courses.description, 
         Courses.creditAmount, Courses.yearOffered, Courses.semesterOffered, Prereqs.prereqId as prereq, CourseCores.coreId as core FROM Courses 
         LEFT OUTER JOIN CoursePrerequisites AS Prereqs ON Prereqs.courseId == Courses.ID 
-        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == Courses.ID 
-    `, (error, rows) => {
+        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == Courses.ID`, 
+        (error, rows) => {
             if (error) {
                 reject(error.message)
             } else {
@@ -98,17 +120,15 @@ const fetchAllCourses = async () => {
             }
         }
     }
-    return Object.values(courseDict)
+    return courseDict
 }
 
 exports.fetchPlan = async (req, res) => {
-    // TO-DO: fill this in
     const userId = req.userId;
-
     COURSE_DATA = await fetchAllCourses();
     if (COURSE_DATA) {
-        // TO-DO: Replace TEST_TEMPLATE with the user's full course plan
-        res.status(200).json({fullPlan: TEST_TEMPLATE, courseCatalog: COURSE_DATA});
+        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
+        db.all(query, [userId], (err, dataEntries) => res.status(200).json({fullPlan: createFullPlan(dataEntries), courseCatalog: Object.values(COURSE_DATA)}));
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
