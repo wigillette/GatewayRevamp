@@ -9,7 +9,11 @@ const CourseInfo = ({id, setCourseId, selectedId}) => {
   return <Card>
     <CardHeader><p className={styles.course_info_title}>{id}</p></CardHeader>
     <CardBody>
-      <Button onClick={(e) => {e.preventDefault(); setCourseId(id);}} color={id === selectedId ? "success" : "secondary"} className={styles.course_select} type="submit"><i className ="fa fa-plus-circle fa-lg"></i>{'  '}SELECT</Button>
+      <Button onClick={(e) => {
+          e.preventDefault(); 
+          const newCourseId = id === selectedId ? null : id; 
+          setCourseId(newCourseId);
+        }} color={id === selectedId ? "success" : "secondary"} className={styles.course_select}><i className ="fa fa-plus-circle fa-lg"></i>{'  '}SELECT</Button>
     </CardBody>
   </Card>
 }
@@ -27,7 +31,7 @@ const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, s
       selectCore(DEFAULT_CORE);
       toggleFunction();
     } else {
-      alert("Invalid parameters");
+      alert("Must select a course!");
     }
   }
 

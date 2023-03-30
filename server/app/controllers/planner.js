@@ -17,15 +17,25 @@ const createFullPlan = (dataEntries) => {
 exports.removeCourse = (req, res) => {
     const [courseId, semesterKey] = Object.values(req.body);
     const userId = req.userId;
+    // Update the plan to remove the course
     let query = 'DELETE FROM StudentCoursePlan WHERE studentId = ? AND courseId = ? AND semester = ?' 
     db.run(query, [userId, courseId, semesterKey], (err) => {
         if (err) {
             res.status(500).json({message: err.message});
             console.log(err);
         } else {
-            getFullPlanFromDB(userId).then(
-                (newPlan) => res.status(200).json({fullPlan: newPlan, message: `Successfully removed course ${courseId} from ${semesterKey}!`}))
-                .catch((err) => res.status(404).json({fullPlan: formerPlan, message: err}))
+            // Update the core requirements assignments if the course is included there
+            query = 'DELETE FROM CourseSpecialCoreRequirements WHERE courseId = ? AND studentId = ?'
+            db.run(query, [userId, courseId], (err) => {
+                if (err) {
+                    res.status(500).json({message: err.message});
+                    console.log(err);
+                } else {
+                    getFullPlanFromDB(userId).then(
+                        (newPlan) => res.status(200).json({fullPlan: newPlan,  message: `Successfully removed course ${courseId} from ${semesterKey}!`}))
+                        .catch((err) => res.status(404).json({fullPlan: formerPlan, message: err}))
+                }
+            })
         }
     })
 }

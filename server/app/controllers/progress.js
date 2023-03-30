@@ -3,7 +3,6 @@ const { fetchDB } = require("../model");
 const db = fetchDB(); // Retrieve the database
 const CORES = require("../../../client/src/shared/cores.json");
 const DEFAULT_CORE_ASSIGNMENTS = CORES.reduce((assignments,coreId) => ({...assignments,[coreId]:null}), {});
-const PARTITION_SIZE = 3;
 
 /**
  * Checks if the core requirement is assigned to a student
@@ -49,8 +48,8 @@ const getAssignments = (studentId) => {
         db.all(query, [studentId], (err, coreAssignments) => {
             if (err) {
                 reject(err.message);
-            } else if (coreAssignments && coreAssignments.length >= 3) {
-                const assignmentsDict = coreAssignments.reduce((dictState, row) => ({...dictState, [row[1]]: row[2]}), {});                
+            } else if (coreAssignments && coreAssignments.length > 0) {
+                const assignmentsDict = {...DEFAULT_CORE_ASSIGNMENTS, ...coreAssignments.reduce((dictState, row) => ({...dictState, [row.coreId]: row.courseId}), {})};
                 resolve(assignmentsDict);
             } else {
                 resolve(DEFAULT_CORE_ASSIGNMENTS)
@@ -69,8 +68,9 @@ exports.assignCore = async (req, res) => {
     const [courseId, coreId] = Object.values(req.body);
     const userId = req.userId;
     const isAssignedCore = await isCourseAssignedCore(userId, courseId);
-    const query = isAssignedCore ? 'UPDATE CourseSpecialCoreRequirements SET studentId = ? WHERE courseId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (studentId, courseId, coreId) VALUES (?, ?, ?)'
-    db.run(query, [userId, courseId, coreId], (err) => {
+    // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
+    const query = isAssignedCore ? 'UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
+    db.run(query, [courseId, userId, coreId], (err) => {
         if (err) {
             console.log(err);
             res.status(500).json({message: err.message});
