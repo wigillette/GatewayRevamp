@@ -133,13 +133,24 @@ const fetchAllCourses = async () => {
     return courseDict
 }
 
+exports.fetchAllCourses = fetchAllCourses;
+
 exports.fetchPlan = async (req, res) => {
     const userId = req.userId;
     COURSE_DATA = await fetchAllCourses();
     if (COURSE_DATA) {
-        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) => res.status(200).json({fullPlan: createFullPlan(dataEntries), courseCatalog: Object.values(COURSE_DATA)}));
+        const data = await testAsync(userId)
+        res.status(200).json({fullPlan: createFullPlan(data), courseCatalog: Object.values(COURSE_DATA)})
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
+}
+
+const testAsync = (userId) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
+        db.all(query, [userId], (err, dataEntries) =>
+            resolve(dataEntries)
+        );
+    })
 }
