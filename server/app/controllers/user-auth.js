@@ -6,10 +6,48 @@ const { fetchDB } = require("../model");
 // User Authentication Module: Controls the encryption of user passwords and generates an authentication token for user login
 const db = fetchDB(); // Retrieve the database
 
+// Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
+const validateLogin = (email, password) => {
+    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
+    return emailValid && passwordValid;
+}
+
+// Check if the major exists in the majors table
+const validateMajor = (major) => {
+    if (db) {
+        let query = 'SELECT * FROM Majors WHERE ID = ?';
+        return new Promise((resolve, reject) => {
+            db.all(query, [major], (err, rows) => {
+                if (err) {
+                    reject(err.message)
+                } else if (rows.length > 0) {
+                    resolve(true)
+                } else {
+                    resolve(false)
+                }
+            })
+        })
+    }
+}
+
+// Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
+const validateRegistration = async (email, password, fName, lName, gradDate, major, headshot) => {
+    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
+    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
+    const fNameValid = fName.match(/[A-Za-z]/) !== null;
+    const lNameValid = lName.match(/[A-Za-z]/) !== null;
+    const gradDateValid = gradDate !== null && gradDate.length === 5 && ["F,S"].includes(gradDate.charAt(0)) && parseInt(gradDate.substring(1,gradDate.length)) !== NaN;
+    const majorValid = major !== null && await validateMajor(major);
+    const headshotValid = headshot !== null && [".png", ".jpg", ".jpeg"].includes(headshot.substring(headshot.length-4, headshot.length))
+    return emailValid && passwordValid && fNameValid && lNameValid && gradDateValid && majorValid && headshotValid;
+}
+
 exports.login = (req, res) => {
     const [email, password] = Object.values(req.body);
+    const validParameters = validateLogin(email,password);
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
-    if (db) {
+    if (db && validParameters) {
         let query = "SELECT * FROM Students WHERE email = ?";
         db.serialize(() => {
             db.all(query, [email], (err, rows) => {
@@ -45,11 +83,13 @@ exports.login = (req, res) => {
     }
 }
 
+
 exports.register = (req, res) => {
     const [email, password, fName, lName, gradDate, major, headshot] = Object.values(req.body);
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     // TO-DO: Check if a user already exists in the database with that email
-    if (db) {
+    const validParameters = validateRegistration(email, password, fName, lName, gradDate, major, headshot);
+    if (db && validParameters) {
         let query = 'INSERT INTO Students (fName, lName, email, password, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?)'
         db.serialize(() => {
             // Encrypt password

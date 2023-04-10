@@ -12,7 +12,7 @@ export const assignCoreAction = (courseId, coreId) => async (dispatch) => {
 
 export const fetchAssignmentsAction = () => async (dispatch) => {
     return fetchAssignments().then(
-        (res) => res.json().then((data) => dispatch({ type: FETCH_ASSIGNMENTS, payload: { coreAssignments: data.coreAssignments, planMappings: data.planMappings } }), 
+        (res) => res.json().then((data) => dispatch({ type: FETCH_ASSIGNMENTS, payload: { coreAssignments: data.coreAssignments, planMappings: data.planMappings, totalCredits: data.totalCredits } }), 
         (error) => dispatch(logoutAction())) // Added this for token expired errors
     );
 }

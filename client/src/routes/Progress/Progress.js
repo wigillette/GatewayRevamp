@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Progress.module.css';
-import {Button, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert} from 'reactstrap';
+import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, UncontrolledTooltip} from 'reactstrap';
 import { connect } from 'react-redux';
 import { assignCoreAction, fetchAssignmentsAction } from '../../redux/actions/progress';
 import { logoutAction } from '../../redux/actions/auth';
@@ -37,8 +37,9 @@ const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, s
 
   const reshapeMappings = (filteredMappings) => {
     const partitions = [];
-    while (filteredMappings.length) {
-      partitions.push(filteredMappings.splice(0, PARTITION_SIZE))
+    const mappingsCopy = JSON.parse(JSON.stringify(filteredMappings))
+    while (mappingsCopy.length) {
+      partitions.push(mappingsCopy.splice(0, PARTITION_SIZE))
     }
     return partitions;
   }
@@ -73,10 +74,12 @@ class ProgressContainer extends React.Component  {
     this.state = {isAssignmentOpen: false, currentCoreId: 'A'}
     this.toggleAssignment = this.toggleAssignment.bind(this);
     this.selectCore = this.selectCore.bind(this);
+    this.partitionRequirements = this.partitionRequirements.bind(this)
+    this.PARTITION_SIZE = 3
   }
 
   selectCore(coreId) {
-    this.setState({...this.state, currentCoreId: coreId})
+    return new Promise((resolve, reject) => {this.setState({...this.state, currentCoreId: coreId}); resolve(coreId);})
   }
 
   toggleAssignment() {
@@ -87,12 +90,23 @@ class ProgressContainer extends React.Component  {
     this.props.authenticated ? this.props.fetchAssignments() : this.props.logout(); // Log out the user if their token expired
   }
 
+  partitionRequirements() {
+    const coreIds = Object.entries(this.props.coreAssignments);
+    let partitions = []
+    while (coreIds.length) {
+      partitions.push(coreIds.splice(0, this.PARTITION_SIZE))
+    }
+
+    return partitions
+  }
+
   render() {
     return (<div className={styles.Progress}>
       <div className={styles.ProgressHeader}>
+        <h3 className={styles.header_title}>My Progress</h3>
         <div className={styles.ProgressBarContainer}>
           <div className='text-center'>{`${Math.floor(100*this.props.totalCredits/128)}%`}</div>
-          <Progress color="success" value={Math.floor(100*this.props.totalCredits/128)} />
+          <Progress animated color="success" value={Math.floor(100*this.props.totalCredits/128)}>{`${this.props.totalCredits}/128`}</Progress>
         </div>
         <Button className={styles.assignent_toggle} color='primary' size="lg" onClick={this.toggleAssignment}><span className ="fa fa-plus-circle fa-lg"></span>{' '}ASSIGN REQUIREMENT</Button>
         <hr className={styles.header_divider}></hr>
@@ -107,20 +121,35 @@ class ProgressContainer extends React.Component  {
           assignCoreFunction={this.props.assignCore} 
         />
       {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
+      <div className={styles.assignment_container}>
+        <h3>Core Requirements Progress:</h3>
+        {this.partitionRequirements().map((assignmentGroup) => 
+          <ButtonGroup vertical size='lg'>
+            {assignmentGroup.map((assignmentEntry) => <Button onClick={() => {
+                if (assignmentEntry[1]) {
+                  alert(assignmentEntry[1])
+                } else {
+                  this.selectCore(assignmentEntry[0]).then(() => this.toggleAssignment());
+                }
+              }
+            } className={styles.core_button} color={assignmentEntry[1] ? "success" : "danger"}>{assignmentEntry[0]}</Button>)}
+          </ButtonGroup>
+        )}
+      </div>
     </div>)
   }
 }
 
 const mapStateToProps = (state) => {
   const { authenticated, user } = state.authReducer;
-  const { coreAssignments, planMappings, message } = state.progressReducer
+  const { coreAssignments, planMappings, totalCredits, message } = state.progressReducer
   return {
     planMappings: planMappings,
     message: message,
     coreAssignments: coreAssignments,
     user: user,
     authenticated: authenticated,
-    totalCredits: 0,
+    totalCredits: totalCredits,
   }
 }
 
