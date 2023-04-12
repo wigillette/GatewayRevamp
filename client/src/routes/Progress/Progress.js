@@ -68,11 +68,19 @@ const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, s
   </Modal>)
 }
 
+const PopUpForm = ({isPopUpOpen, togglePopUp, coreId, courseId}) => { 
+  return <Modal isOpen={isPopUpOpen} fade={false}>
+    <ModalHeader toggle={togglePopUp} className={styles.browser_header}>{coreId} Assignment</ModalHeader>
+    <ModalBody><p className={styles.course_container_title}>{courseId}</p></ModalBody>
+  </Modal>
+}
+
 class ProgressContainer extends React.Component  {
   constructor(props) {
     super(props);
-    this.state = {isAssignmentOpen: false, currentCoreId: 'A'}
+    this.state = {isAssignmentOpen: false, currentCoreId: 'A', popUpCourseId: '', isPopUpOpen: false}
     this.toggleAssignment = this.toggleAssignment.bind(this);
+    this.togglePopUp = this.togglePopUp.bind(this);
     this.selectCore = this.selectCore.bind(this);
     this.partitionRequirements = this.partitionRequirements.bind(this)
     this.PARTITION_SIZE = 3
@@ -84,6 +92,14 @@ class ProgressContainer extends React.Component  {
 
   toggleAssignment() {
     this.setState({...this.state, isAssignmentOpen: !this.state.isAssignmentOpen})
+  }
+
+  togglePopUp() {
+    this.setState({...this.state, isPopUpOpen: !this.state.isPopUpOpen})
+  }
+
+  setPopUpCourseId(courseId) {
+    return new Promise((resolve, reject) => {this.setState({...this.state, popUpCourseId: courseId}); resolve(courseId);});
   }
 
   componentDidMount() {
@@ -119,18 +135,26 @@ class ProgressContainer extends React.Component  {
           coreRequirements={Object.keys(this.props.coreAssignments)} 
           planMappings={this.props.planMappings} 
           assignCoreFunction={this.props.assignCore} 
-        />
+      />
+      <PopUpForm
+        isPopUpOpen={this.state.isPopUpOpen}
+        togglePopUp={this.togglePopUp}
+        coreId={this.state.currentCoreId}
+        courseId={this.state.popUpCourseId}
+      />
       {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
       <div className={styles.assignment_container}>
         <h3>Core Requirements Progress:</h3>
         {this.partitionRequirements().map((assignmentGroup) => 
           <ButtonGroup vertical size='lg'>
             {assignmentGroup.map((assignmentEntry) => <Button onClick={() => {
-                if (assignmentEntry[1]) {
-                  alert(assignmentEntry[1])
-                } else {
-                  this.selectCore(assignmentEntry[0]).then(() => this.toggleAssignment());
-                }
+                this.selectCore(assignmentEntry[0]).then(() => {
+                  if (assignmentEntry[1]) {
+                    this.setPopUpCourseId(assignmentEntry[1]).then(this.togglePopUp);
+                  } else {
+                    this.toggleAssignment();
+                  }
+                })
               }
             } className={styles.core_button} color={assignmentEntry[1] ? "success" : "danger"}>{assignmentEntry[0]}</Button>)}
           </ButtonGroup>
