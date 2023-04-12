@@ -2,7 +2,7 @@
 const { fetchDB } = require("../model");
 let COURSE_DATA = []
 const DEFAULT_PLAN = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
-const db = fetchDB(); // Retrieve the database
+const NAME = "main.db"
 
 const createFullPlan = (dataEntries) => {
     const newPlan = JSON.parse(JSON.stringify(DEFAULT_PLAN));
@@ -14,7 +14,8 @@ const createFullPlan = (dataEntries) => {
     return newPlan;
 }
 
-exports.removeCourse = (req, res) => {
+exports.removeCourse = async (req, res) => {
+    let db = await fetchDB();
     const [courseId, semesterKey] = Object.values(req.body);
     const userId = req.userId;
     // Update the plan to remove the course
@@ -40,7 +41,8 @@ exports.removeCourse = (req, res) => {
     })
 }
 
-const addCourseToSemester = (studentId, course, semester, fullPlan) => {
+const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
+    const db = await fetchDB(); 
     let query = 'INSERT INTO StudentCoursePlan (studentId, courseId, semester) VALUES (?, ?, ?)';
     return new Promise((resolve, reject) => {
         const semesterDuplicates = Object.keys(fullPlan).filter((key) => fullPlan[key].filter((courseEntry) => courseEntry.id === course).length > 0);
@@ -89,6 +91,18 @@ exports.addCourses = (req, res) => {
 }
 
 const getCourses = async () => {
+    try {
+        let db = await fetchDB()
+        const query = `SELECT Courses.ID, Courses.title, Courses.description, 
+        Courses.creditAmount, Courses.yearOffered, Courses.semesterOffered, Prereqs.prereqId as prereq, CourseCores.coreId as core FROM Courses 
+        LEFT OUTER JOIN CoursePrerequisites AS Prereqs ON Prereqs.courseId == Courses.ID 
+        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == Courses.ID`
+        const res = await db.all(query)
+        return res
+    } catch (err) {
+        return []
+    }
+
     return new Promise((resolve, reject) => {
         db.all(`SELECT Courses.ID, Courses.title, Courses.description, 
         Courses.creditAmount, Courses.yearOffered, Courses.semesterOffered, Prereqs.prereqId as prereq, CourseCores.coreId as core FROM Courses 
@@ -136,21 +150,14 @@ const fetchAllCourses = async () => {
 exports.fetchAllCourses = fetchAllCourses;
 
 exports.fetchPlan = async (req, res) => {
+    const db = await fetchDB()
     const userId = req.userId;
     COURSE_DATA = await fetchAllCourses();
-    if (COURSE_DATA) {
-        const data = await testAsync(userId)
+    if (COURSE_DATA.length != 0) {
+        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
+        const data = await db.all(query, [userId]);
         res.status(200).json({fullPlan: createFullPlan(data), courseCatalog: Object.values(COURSE_DATA)})
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
-}
-
-const testAsync = (userId) => {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) =>
-            resolve(dataEntries)
-        );
-    })
 }
