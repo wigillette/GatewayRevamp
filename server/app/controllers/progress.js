@@ -24,21 +24,21 @@ const isCourseAssignedCore = (studentId, courseId) => {
     })
 }
 
-const getMappings = (studentId) => {
-    let query = `SELECT StudentCoursePlan.courseId, CourseCores.coreId  FROM StudentCoursePlan
-    LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == StudentCoursePlan.courseId 
-    WHERE StudentCoursePlan.studentId = ?`
-    return new Promise((resolve, reject) => {
-        db.all(query, [studentId], (err, courseCoreMappings) => {
-            if (err) {
-                reject(err.message);
-            } else if (courseCoreMappings) {
-                resolve(courseCoreMappings);                
-            } else {
-                resolve(DEFAULT_CORE_ASSIGNMENTS);
-            }
-        })
-    })
+const getMappings = async (studentId) => {
+    try {
+        const db = await fetchDB(); 
+        const query = `SELECT StudentCoursePlan.courseId, CourseCores.coreId  FROM StudentCoursePlan
+        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == StudentCoursePlan.courseId 
+        WHERE StudentCoursePlan.studentId = ?`
+        const courseCoreMappings = await db.all(query, [studentId])
+        if (courseCoreMappings) {
+            return courseCoreMappings
+        } else {
+            return DEFAULT_CORE_ASSIGNMENTS
+        }
+    } catch (err) {
+        return err.message
+    }
 }
 
 exports.getMappings = getMappings
@@ -83,28 +83,22 @@ exports.assignCore = async (req, res) => {
     })
 }
 
-const computeCreditsFromMappings = (mappings) => {
-    
-    const query = `SELECT Courses.ID, Courses.creditAmount FROM Courses`;
-    return new Promise((resolve, reject) => {
-        if (mappings) {
-            db.all(query, [], (err, rows) => {
-                if (err) {
-                    reject(err.message);
-                } else if (rows && rows.length > 0) {
-                    const mappingIds = mappings.map((mapping) => mapping.courseId);
-                    const plannedCreditInfo = rows.filter((row) => mappingIds.includes(row.ID));
-                    const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0);
-                    resolve(totalCredits);
-                } else {
-                    resolve(0);
-                }
-            })
+const computeCreditsFromMappings = async (mappings) => {
+    try {
+        const db = await fetchDB(); 
+        const query = `SELECT Courses.ID, Courses.creditAmount FROM Courses`;
+        const courseCreditsInfo = await db.all(query)
+        if (courseCreditsInfo) {
+            const mappingIds = mappings.map((mapping) => mapping.courseId);
+            const plannedCreditInfo = courseCreditsInfo.filter((courseCreditInfo) => mappingIds.includes(courseCreditInfo.ID));
+            const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0);
+            return totalCredits;
         } else {
-            reject("Failed to initialize")
+            return 0;
         }
-    });
-    
+    } catch (err) {
+        return err.message
+    }
 }
 
 /**
@@ -113,8 +107,15 @@ const computeCreditsFromMappings = (mappings) => {
  */
 exports.fetchAssignments = async (req, res) => {
     const studentId = req.userId;
-    getMappings(studentId).then((mappings) => {
-        getAssignments(studentId).then((assignments) => res.status(200).json({planMappings: mappings, coreAssignments: assignments}))
-        .catch((err) => res.status(500).json({message: err}));
-    }).catch((err) => res.status(500).json({message: err}));
+    const mappings = await getMappings(studentId);
+    const assignments = await getAssignments(studentId);
+    if (mappings && assignments && typeof(mappings) !== String && typeof(assignments) !== String) {
+        const totalCredits = await computeCreditsFromMappings(mappings);
+        if (typeof(totalCredits) === Number) {
+            res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits});
+        }
+    } else {
+        console.log("FAILURE");
+        res.status(500).json({message: "Failed to intiailize mappings and assignments."})
+    }
   }

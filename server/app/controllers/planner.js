@@ -36,7 +36,7 @@ const semesterKeyInterp = (startKey, endKey) => {
   }
   
 
-const createFullPlan = (dataEntries, startEndDates) => {
+const createFullPlan = async (dataEntries, startEndDates) => {
     let newPlan = DEFAULT_PLAN
     if (startEndDates && startEndDates.length === 2) {
         const sKeyList = semesterKeyInterp(startEndDates[0], startEndDates[1])
@@ -96,7 +96,6 @@ const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
         throw new Error(`${course} is already planned for ${semesterDuplicates.join(",")}!`)
     }
 }
-//TODO ///////tt/t/t/tt/t/t/t/t/t/t/
 exports.addCourseToSemester = addCourseToSemester
 
 const getFullPlanFromDB = async (userId) => {
@@ -110,22 +109,9 @@ const getFullPlanFromDB = async (userId) => {
         } else {
             throw new Error("User not found.")
         }
-    })
-}
-
-const getFullPlanFromDB = (userId) => {
-    return new Promise((resolve, reject) => {
-        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) => {
-            if (dataEntries) {
-                resolve(createFullPlan(dataEntries));
-            } else if (err) {
-                reject(err.message);
-            } else {
-                reject("User not found.");
-            }
-        });
-    })
+    } catch (err) {
+        throw new Error(err);
+    }
 }
 
 exports.getFullPlanFromDB = getFullPlanFromDB
@@ -158,9 +144,6 @@ const getCourses = async () => {
     }  
 }
 
-
-
-
 const fetchAllCourses = async () => {
     const courseDict = {}
     const results = await getCourses()
@@ -191,44 +174,44 @@ const fetchAllCourses = async () => {
 }
 
 const getStartEndKeys = async (userId) => {
-    return new Promise((resolve, reject) => {
-        let query = `SELECT * FROM Students WHERE ID = ?`
-        db.all(query, userId, (error, result) => {
-            if (error) {
-                reject(error.message)
-            } else if (result && result.length > 0) {
-                const row = result[0];
-                if (row && row.startDate && row.gradDate ) {
-                    resolve([row.startDate, row.gradDate])
-                } else {
-                    reject([]);
-                }
-            } else {
-                reject([]);
-            }
-        })
-    })
+    try {
+        const db = await fetchDB()
+        const query = `SELECT * FROM Students WHERE ID = ?`
+        const res = await db.all(query, [userId])
+        let toReturn = (res && res.length > 0 && res[0].startDate && res[0].gradDate) ? [res[0].startDate, res[0].gradDate] : []
+        return toReturn;
+    } catch (err) {
+        throw new Error(err.message)
+    }
 }
 
 exports.fetchAllCourses = fetchAllCourses;
 
 exports.fetchPlan = async (req, res) => {
-    const db = await fetchDB()
     const userId = req.userId;
     COURSE_DATA = await fetchAllCourses();
     if (COURSE_DATA) {
         const data = await testAsync(userId)
-        res.status(200).json({fullPlan: createFullPlan(data), courseCatalog: Object.values(COURSE_DATA)})
+        const startEndKeys = await getStartEndKeys(userId);
+        console.log("Start End Keys", startEndKeys);
+        if (startEndKeys && startEndKeys.length == 2) {
+            const fullPlan = await createFullPlan(data, startEndKeys);
+            res.status(200).json({fullPlan: fullPlan, courseCatalog: Object.values(COURSE_DATA)})
+        } else {
+            res.status(500).json({message: "Failed to initialize course data"})
+        }
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
 }
 
-const testAsync = (userId) => {
-    return new Promise((resolve, reject) => {
+const testAsync = async (userId) => {
+    try {
+        const db = await fetchDB()
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) =>
-            resolve(dataEntries)
-        );
-    })
+        const res = await db.all(query, [userId])
+        return res
+    } catch (err) {
+        throw new Error(err.message)
+    }
 }
