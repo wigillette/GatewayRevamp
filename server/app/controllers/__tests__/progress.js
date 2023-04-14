@@ -1,7 +1,5 @@
 const progressModule = require("../progress")
 
-const mockGetMappings = jest.spyOn(progressModule, "getMappings")
-
 describe('fetchAssignments', () => {
   it('should return status 200', async () => {
     const mReq = { userId: 1 };    

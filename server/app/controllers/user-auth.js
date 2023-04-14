@@ -4,62 +4,20 @@ const config = require("../config/auth-config");
 const { createToken } = require("./refresh-token");
 const { fetchDB } = require("../model");
 // User Authentication Module: Controls the encryption of user passwords and generates an authentication token for user login
-const db = fetchDB("main.db"); // Retrieve the database
-/*
-exports.login = (req, res) => {
-    const [email, password] = Object.values(req.body);
-    // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
-    if (db) {
-        let query = "SELECT * FROM Students WHERE email = ?";
-        db.serialize(() => {
-            db.all(query, [email], (err, rows) => {
-                if (err) {
-                    res.status(500).json({message: err.message});
-                } else {
-                    const dataEntry = rows[0];
-                    console.log(dataEntry);
-                    if (dataEntry) {
-                        const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
-                        if (!passwordIsValid) {
-                            res.status(401).json({message: "Invalid Password!"});
-                        } else {
-                            const userId = dataEntry.ID; // change to user Id in the database
-                            const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
-                            let refreshToken = createToken(userId);
-                            res.status(200).json({
-                                accessToken: token,
-                                email: dataEntry.email,
-                                major: dataEntry.major,
-                                startDate: dataEntry.startDate,
-                                refreshToken: refreshToken
-                            })
-                        }
-                    } else {
-                        res.status(404).json({ message: "User not found!" });
-                    }
-                }
-            });
-        })
-    } else {
-        res.status(404).json({ message: "Database not initialized!" });
-    }
-}
-*/
 
 exports.login = async (req, res) => {
+    /// TODO - Get the major from the Majors table
     try {
-        const db = await fetchDB("main.db"); 
+        const db = await fetchDB();
         const { email, password } = req.body;
-
-        
-        let query = "SELECT * FROM Students WHERE email = ?";
+        let query = "SELECT * FROM Students WHERE email = ?"
         const dataEntry = await db.get(query, [email])        
         if (dataEntry) {
-            const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
+            const passwordIsValid = bcrypt.compareSync(password, dataEntry.password)
             if (!passwordIsValid) {
-                res.status(401).json({message: "Invalid Password!"});
+                res.status(401).json({message: "Invalid Password!"})
             } else {
-                const userId = dataEntry.ID; // change to user Id in the database
+                const userId = dataEntry.ID; 
                 const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
                 let refreshToken = createToken(userId);
                 res.status(200).json({
@@ -77,44 +35,10 @@ exports.login = async (req, res) => {
         res.status(404).json({ message: err.message });
     }
 }
-/*
-exports.register = (req, res) => {
-    const [email, password, fName, lName, gradDate, major, headshot] = Object.values(req.body);
-    // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
-    // TO-DO: Check if a user already exists in the database with that email
-    if (db) {
-        let query = 'INSERT INTO Students (fName, lName, email, password, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?)'
-        db.serialize(() => {
-            // Encrypt password
-            const encryptedPassword = bcrypt.hashSync(password, 8)
-            db.run(query, [fName, lName, email, encryptedPassword, gradDate, headshot], 
-            (err) => {
-                if (err) {
-                    res.status(500).json({message: err.message, valid: false})
-                    console.error(err);
-                } else {
-                    let lastId = this.lastID || 0;
-                    console.log(`Inserted a row with the ID: ${lastId} - ${fName} ${lName}`)
-                    query = `INSERT INTO StudentMajors (studentId, majorId) VALUES (?, ?)`
-                    db.run(query, [lastId, major], (err) => {
-                        if (err) {
-                            res.status(500).json({message: err.message, valid: false})
-                        } else {
-                            console.log(`Inserted a major with the ID: ${this.lastID || 0} - ${fName} ${lName} - ${major} - ${lastId}`);
-                            res.status(200).json({message: "Account creation successful!", valid: true});
-                        }
-                    })
-                }
-            })
-        })
-    } else {
-        res.status(404).json({ message: "Database not initialized!" });
-    }
-}
-*/
+
 exports.register = async (req, res) => {
     try {
-        const db = await fetchDB("main.db"); 
+        const db = await fetchDB(); 
         const { email, password, fName, lName, gradDate, major, headshot } = req.body;
         const query = 'INSERT INTO Students (fName, lName, email, password, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?)'
         const encryptedPassword = bcrypt.hashSync(password, 8)

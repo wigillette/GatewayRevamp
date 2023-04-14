@@ -103,7 +103,6 @@ class Database {
   }
 
   get(...args) {
-    console.log("GET HERE")
     return new Promise((resolve, reject) => {
       if (!this.db) {
         return reject(new Error('Database.get: database is not open'));
