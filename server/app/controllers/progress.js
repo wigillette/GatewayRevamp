@@ -24,7 +24,7 @@ const getMappings = (studentId) => {
             } else if (courseCoreMappings && courseCoreMappings.length > 0) {
                 resolve(courseCoreMappings);                
             } else {
-                resolve(DEFAULT_CORE_ASSIGNMENTS);
+                resolve(Object.entries(DEFAULT_CORE_ASSIGNMENTS).map((entry) => {return {coreId: entry[0], courseId: null}}));
             }
         })
     })
@@ -107,21 +107,27 @@ exports.assignCore = async (req, res) => {
 }
 
 const computeCreditsFromMappings = (mappings) => {
+    
     const query = `SELECT Courses.ID, Courses.creditAmount FROM Courses`;
     return new Promise((resolve, reject) => {
-        db.all(query, [], (err, rows) => {
-            if (err) {
-                reject(err.message);
-            } else if (rows && rows.length > 0) {
-                const mappingIds = mappings.map((mapping) => mapping.courseId);
-                const plannedCreditInfo = rows.filter((row) => mappingIds.includes(row.ID));
-                const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0);
-                resolve(totalCredits);
-            } else {
-                resolve(0);
-            }
-        })
+        if (mappings) {
+            db.all(query, [], (err, rows) => {
+                if (err) {
+                    reject(err.message);
+                } else if (rows && rows.length > 0) {
+                    const mappingIds = mappings.map((mapping) => mapping.courseId);
+                    const plannedCreditInfo = rows.filter((row) => mappingIds.includes(row.ID));
+                    const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0);
+                    resolve(totalCredits);
+                } else {
+                    resolve(0);
+                }
+            })
+        } else {
+            reject("Failed to initialize")
+        }
     });
+    
 }
 
 /**

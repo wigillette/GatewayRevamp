@@ -11,7 +11,7 @@ export const login = (email, password) => {
   })
 } 
  
-export const register = (email, password, fName, lName, gradDate, major, headshot) => {
+export const register = (email, password, fName, lName, startDate, gradDate, major, headshot) => {
   major = major || "Mathematics";
   gradDate = gradDate || "2024";
   return fetch("http://localhost:3001/register", {
@@ -19,7 +19,7 @@ export const register = (email, password, fName, lName, gradDate, major, headsho
     headers: {
       'Content-Type': 'application/json'
     },
-    body: JSON.stringify({ email, password, fName, lName, gradDate, major, headshot })
+    body: JSON.stringify({ email, password, fName, lName, startDate, gradDate, major, headshot })
   })
 }
 

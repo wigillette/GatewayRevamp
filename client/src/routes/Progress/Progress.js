@@ -143,6 +143,10 @@ class ProgressContainer extends React.Component  {
         courseId={this.state.popUpCourseId}
       />
       {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
+      <div className={styles.information_container}>
+        <p className={styles.course_container_title}>{JSON.stringify(this.props.user)}</p>
+      </div>
+      
       <div className={styles.assignment_container}>
         <h3>Core Requirements Progress:</h3>
         {this.partitionRequirements().map((assignmentGroup) => 

@@ -13,7 +13,8 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
   const [password, setPassword] = useState();
   const [fName, setFName] = useState();
   const [lName, setLName] = useState();
-  const [gradDate, setGradDate] = useState();
+  const [gradDate, setGradDate] = useState(gradDates[gradDates.length-1]);
+  const [startDate, setStartDate] = useState(gradDates[0]);
   const [major, setMajor] = useState();
   const [headshot, setHeadshot] = useState();
 
@@ -60,7 +61,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
   const attemptRegister = (e) => {
     e.preventDefault();
     if (validateRegistration()) {
-      dispatch(registerAction(email, password, fName, lName, gradDate, major, headshot))
+      dispatch(registerAction(email, password, fName, lName, startDate, gradDate, major, headshot))
       .then((message) => !message && toggleModal())
       .catch((err) => console.error(err));
     }
@@ -159,7 +160,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
                 </Col>
               </Row>
               <Row>
-                <Col md={6}>
+                <Col md={3}>
                   <FormGroup>
                     <Label for="registerMajorSelect">Select your major:</Label>
                     <Input id="registerMajorSelect" name="select" type="select" onChange={e => setMajor(e.target.value)} required>
@@ -167,14 +168,23 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
                     </Input>
                   </FormGroup>
                 </Col>
-                <Col md={6}>
+                <Col md={4}>
+                  <FormGroup>
+                    <Label for="startDateSelect">Select your starting semester:</Label>
+                    <Input id="startDateSelect" name="select" type="select" onChange={e => setStartDate(e.target.value)} required>
+                      {gradDates.filter((date, i) => i <= gradDates.indexOf(gradDate)).map((date) => <option>{date}</option>)}
+                    </Input>
+                  </FormGroup>
+                </Col>
+                <Col md={5}>
                   <FormGroup>
                     <Label for="anticipatedGraduationSelect">Select your anticipated graduation year:</Label>
-                    <Input id="anticipatedGraduationSelect" name="select" type="select" onChange={e => setGradDate(e.target.value)} required>
+                    <Input id="anticipatedGraduationSelect" defaultValue={gradDates[gradDates.length-1]} name="select" type="select" onChange={e => setGradDate(e.target.value)} required>
                       {gradDates.map((date) => <option>{date}</option>)}
                     </Input>
                   </FormGroup>
                 </Col>
+                
               </Row>
               <FormGroup>
                 <Label for="headshotUpload">Upload your Avatar:</Label>

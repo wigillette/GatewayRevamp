@@ -4,12 +4,53 @@ let COURSE_DATA = []
 const DEFAULT_PLAN = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
 const db = fetchDB(); // Retrieve the database
 
-const createFullPlan = (dataEntries) => {
-    const newPlan = JSON.parse(JSON.stringify(DEFAULT_PLAN));
-    if (dataEntries && dataEntries.length > 0 && COURSE_DATA) {
-        let courseEntries = dataEntries.filter((dataEntry) => dataEntry && dataEntry.semester && dataEntry.courseId && Object.keys(COURSE_DATA).includes(dataEntry.courseId));
-        courseEntries = courseEntries.map((dataEntry) => [dataEntry.semester, COURSE_DATA[dataEntry.courseId]])
-        courseEntries.forEach((courseEntry) => newPlan[courseEntry[0]].push(courseEntry[1]))
+const semesterKeyInterp = (startKey, endKey) => {
+    // Validate input format
+    const formatRegex = /^[FS]\d{4}$/;
+    const semesterKeys = [];
+    if (formatRegex.test(startKey) && formatRegex.test(endKey)) {
+        // Extract the semester season and year from the start and end keys
+        const startSeason = startKey.substring(0, 1);
+        const startYear = parseInt(startKey.substring(1));
+        const endSeason = endKey.substring(0, 1);
+        const endYear = parseInt(endKey.substring(1));
+    
+        // Determine the number of semesters between start and end
+        const semesters = (endYear - startYear) * 2 + (endSeason === "S" ? 1 : 0) - (startSeason === "F" ? 1 : 0);
+    
+        // Generate the list of semester keys
+        let currentYear = startYear;
+        let currentSeason = startSeason;
+        for (let i = 0; i < semesters; i++) {
+            semesterKeys.push(currentSeason + currentYear.toString().padStart(4, "0"));
+        
+            // Update the current season and year
+            if (currentSeason === "F") {
+                currentSeason = "S";
+                currentYear++;
+            } else {
+                currentSeason = "F";
+            }
+        }
+    }
+    return semesterKeys;
+  }
+  
+
+const createFullPlan = (dataEntries, startEndDates) => {
+    let newPlan = DEFAULT_PLAN
+    if (startEndDates && startEndDates.length === 2) {
+        const sKeyList = semesterKeyInterp(startEndDates[0], startEndDates[1])
+        newPlan = Object.fromEntries(sKeyList.map(sKey => [sKey, []])); //JSON.parse(JSON.stringify(DEFAULT_PLAN));
+        if (dataEntries && dataEntries.length > 0 && COURSE_DATA) {
+            let courseEntries = dataEntries.filter((dataEntry) => dataEntry && dataEntry.semester && dataEntry.courseId && Object.keys(COURSE_DATA).includes(dataEntry.courseId));
+            courseEntries = courseEntries.map((dataEntry) => [dataEntry.semester, COURSE_DATA[dataEntry.courseId]])
+            courseEntries.forEach((courseEntry) => {
+                if (Object.keys(newPlan).includes(courseEntry[0])) {
+                    newPlan[courseEntry[0]].push(courseEntry[1])
+                }
+            })
+        }
     }
     return newPlan;
 }
@@ -63,9 +104,14 @@ const addCourseToSemester = (studentId, course, semester, fullPlan) => {
 const getFullPlanFromDB = (userId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) => {
+        db.all(query, [userId], async (err, dataEntries) => {
             if (dataEntries) {
-                resolve(createFullPlan(dataEntries));
+                const startEndDates = await getStartEndKeys(userId);
+                if (startEndDates && startEndDates.length === 2) {
+                    resolve(createFullPlan(dataEntries, startEndDates));
+                } else {
+                    reject("Failed to get start and end dates")
+                }
             } else if (err) {
                 reject(err.message);
             } else {
@@ -104,6 +150,9 @@ const getCourses = async () => {
     })  
 }
 
+
+
+
 const fetchAllCourses = async () => {
     const courseDict = {}
     const results = await getCourses()
@@ -133,6 +182,26 @@ const fetchAllCourses = async () => {
     return courseDict
 }
 
+const getStartEndKeys = async (userId) => {
+    return new Promise((resolve, reject) => {
+        let query = `SELECT * FROM Students WHERE ID = ?`
+        db.all(query, userId, (error, result) => {
+            if (error) {
+                reject(error.message)
+            } else if (result && result.length > 0) {
+                const row = result[0];
+                if (row && row.startDate && row.gradDate ) {
+                    resolve([row.startDate, row.gradDate])
+                } else {
+                    reject([]);
+                }
+            } else {
+                reject([]);
+            }
+        })
+    })
+}
+
 exports.fetchAllCourses = fetchAllCourses;
 
 exports.fetchPlan = async (req, res) => {
@@ -140,17 +209,28 @@ exports.fetchPlan = async (req, res) => {
     COURSE_DATA = await fetchAllCourses();
     if (COURSE_DATA) {
         const data = await testAsync(userId)
-        res.status(200).json({fullPlan: createFullPlan(data), courseCatalog: Object.values(COURSE_DATA)})
+        const startEndDates = await getStartEndKeys(userId);
+        if (data && startEndDates && startEndDates.length === 2) {
+            res.status(200).json({fullPlan: createFullPlan(data, startEndDates), courseCatalog: Object.values(COURSE_DATA)})
+        } else {
+            res.status(500).json({message: "Failed to initialize course data."})
+        }
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
 }
 
-const testAsync = (userId) => {
+
+
+const testAsync = async (userId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) =>
-            resolve(dataEntries)
-        );
+        db.all(query, [userId], (err, dataEntries) => {
+            if (err) {
+                reject(err.message);
+            } else {
+                resolve(dataEntries)
+            }
+        });
     })
 }

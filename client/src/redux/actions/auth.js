@@ -1,8 +1,8 @@
 import { LOGIN_SUCCESS, LOGIN_FAIL, REGISTER_SUCCESS, REGISTER_FAIL, LOGOUT } from "./types";
 import {register, login, logout} from "../../services/auth-service";
 
-export const registerAction = (email, password, fName, lName, gradDate, major, headshot) => async (dispatch) => {
-    return register(email, password, fName, lName, gradDate, major, headshot).then(
+export const registerAction = (email, password, fName, lName, startDate, gradDate, major, headshot) => async (dispatch) => {
+    return register(email, password, fName, lName, startDate, gradDate, major, headshot).then(
     (res) => res.json().then((data) => {
         if (data && data.message) {
             if (data.valid) {
