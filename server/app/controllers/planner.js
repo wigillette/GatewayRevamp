@@ -2,7 +2,6 @@
 const { fetchDB } = require("../model");
 let COURSE_DATA = []
 const DEFAULT_PLAN = {F2019: [], S2020: [], F2020: [], S2021: [], F2021: [], S2022: [], F2022: [], S2023: []}
-const db = fetchDB(); // Retrieve the database
 
 const semesterKeyInterp = (startKey, endKey) => {
     // Validate input format
@@ -55,7 +54,8 @@ const createFullPlan = (dataEntries, startEndDates) => {
     return newPlan;
 }
 
-exports.removeCourse = (req, res) => {
+exports.removeCourse = async (req, res) => {
+    let db = await fetchDB();
     const [courseId, semesterKey] = Object.values(req.body);
     const userId = req.userId;
     // Update the plan to remove the course
@@ -81,22 +81,34 @@ exports.removeCourse = (req, res) => {
     })
 }
 
-const addCourseToSemester = (studentId, course, semester, fullPlan) => {
-    let query = 'INSERT INTO StudentCoursePlan (studentId, courseId, semester) VALUES (?, ?, ?)';
-    return new Promise((resolve, reject) => {
-        const semesterDuplicates = Object.keys(fullPlan).filter((key) => fullPlan[key].filter((courseEntry) => courseEntry.id === course).length > 0);
-        if (semesterDuplicates <= 0) {
-            db.run(query, [studentId, course, semester], (err) => {
-                if (err) {
-                    console.log(err);
-                    reject(err.message)
-                } else {
-                    console.log(`Inserted a row with the ID: ${this.lastID} - ${course} for ${semester}`)
-                    resolve(true)
-                }
-            })
+const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
+    const db = await fetchDB(); 
+    const semesterDuplicates = Object.keys(fullPlan).filter((key) => fullPlan[key].filter((courseEntry) => courseEntry.id === course).length > 0);
+    if (semesterDuplicates <= 0) {
+        try {
+            const query = 'INSERT INTO StudentCoursePlan (studentId, courseId, semester) VALUES (?, ?, ?)'
+            const result = await db.run(query, [studentId, course, semester])
+            console.log(`Inserted a row with the ID: ${result.lastID} - ${course} for ${semester}`)
+        } catch (err) {
+            throw new Error(err.message)
+        }
+    } else {
+        throw new Error(`${course} is already planned for ${semesterDuplicates.join(",")}!`)
+    }
+}
+//TODO ///////tt/t/t/tt/t/t/t/t/t/t/
+exports.addCourseToSemester = addCourseToSemester
+
+const getFullPlanFromDB = async (userId) => {
+    try {
+        const db = await fetchDB(); 
+        const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?'
+        const entries = await db.all(query, [userId])
+
+        if (entries && entries.length) {
+            return createFullPlan(entries)
         } else {
-            reject(`${course} is already planned for ${semesterDuplicates.join(",")}!`)
+            throw new Error("User not found.")
         }
     })
 }
@@ -104,14 +116,9 @@ const addCourseToSemester = (studentId, course, semester, fullPlan) => {
 const getFullPlanFromDB = (userId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], async (err, dataEntries) => {
+        db.all(query, [userId], (err, dataEntries) => {
             if (dataEntries) {
-                const startEndDates = await getStartEndKeys(userId);
-                if (startEndDates && startEndDates.length === 2) {
-                    resolve(createFullPlan(dataEntries, startEndDates));
-                } else {
-                    reject("Failed to get start and end dates")
-                }
+                resolve(createFullPlan(dataEntries));
             } else if (err) {
                 reject(err.message);
             } else {
@@ -121,33 +128,34 @@ const getFullPlanFromDB = (userId) => {
     })
 }
 
-exports.addCourses = (req, res) => {
-    const [courseIdList, semesterKey] = Object.values(req.body);
+exports.getFullPlanFromDB = getFullPlanFromDB
+
+exports.addCourses = async (req, res) => {
+    const { courseIdList, semesterKey } = req.body
     const userId = req.userId;
-    getFullPlanFromDB(userId).then((formerPlan) => {
+    try {
+        const formerPlan = await getFullPlanFromDB(userId)
         const promises = courseIdList.map((courseId) => addCourseToSemester(userId, courseId, semesterKey, formerPlan))
-        Promise.all(promises).then(() => {
-            getFullPlanFromDB(userId).then((newPlan) => {
-                res.status(200).json({fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`})
-            }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))
-        }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))
-    }).catch((err) => res.status(500).json({fullPlan: formerPlan, message: err}))   
+        await promises
+        const newPlan = await getFullPlanFromDB(userId)
+        res.status(200).json({fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`})
+    } catch (err) {
+        res.status(500).json({fullPlan: formerPlan, message: err})
+    }
 }
 
 const getCourses = async () => {
-    return new Promise((resolve, reject) => {
-        db.all(`SELECT Courses.ID, Courses.title, Courses.description, 
+    try {
+        const db = await fetchDB()
+        const query = `SELECT Courses.ID, Courses.title, Courses.description, 
         Courses.creditAmount, Courses.yearOffered, Courses.semesterOffered, Prereqs.prereqId as prereq, CourseCores.coreId as core FROM Courses 
         LEFT OUTER JOIN CoursePrerequisites AS Prereqs ON Prereqs.courseId == Courses.ID 
-        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == Courses.ID`, 
-        (error, rows) => {
-            if (error) {
-                reject(error.message)
-            } else {
-                resolve(rows)
-            }
-        })
-    })  
+        LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == Courses.ID`
+        const res = await db.all(query)
+        return res
+    } catch (err) {
+        throw new Error(err.message)
+    }  
 }
 
 
@@ -205,32 +213,22 @@ const getStartEndKeys = async (userId) => {
 exports.fetchAllCourses = fetchAllCourses;
 
 exports.fetchPlan = async (req, res) => {
+    const db = await fetchDB()
     const userId = req.userId;
     COURSE_DATA = await fetchAllCourses();
     if (COURSE_DATA) {
         const data = await testAsync(userId)
-        const startEndDates = await getStartEndKeys(userId);
-        if (data && startEndDates && startEndDates.length === 2) {
-            res.status(200).json({fullPlan: createFullPlan(data, startEndDates), courseCatalog: Object.values(COURSE_DATA)})
-        } else {
-            res.status(500).json({message: "Failed to initialize course data."})
-        }
+        res.status(200).json({fullPlan: createFullPlan(data), courseCatalog: Object.values(COURSE_DATA)})
     } else {
         res.status(500).json({message: "Failed to initialize course data."})
     }
 }
 
-
-
-const testAsync = async (userId) => {
+const testAsync = (userId) => {
     return new Promise((resolve, reject) => {
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?';
-        db.all(query, [userId], (err, dataEntries) => {
-            if (err) {
-                reject(err.message);
-            } else {
-                resolve(dataEntries)
-            }
-        });
+        db.all(query, [userId], (err, dataEntries) =>
+            resolve(dataEntries)
+        );
     })
 }

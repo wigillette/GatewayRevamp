@@ -6,79 +6,10 @@ const { fetchDB } = require("../model");
 // User Authentication Module: Controls the encryption of user passwords and generates an authentication token for user login
 const db = fetchDB(); // Retrieve the database
 
-// Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
-const validateLogin = (email, password) => {
-    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
-    return emailValid && passwordValid;
-}
-
-// Check if the major exists in the majors table
-const validateMajor = (major) => {
-    if (db) {
-        let query = 'SELECT * FROM Majors WHERE ID = ?';
-        return new Promise((resolve, reject) => {
-            db.all(query, [major], (err, rows) => {
-                if (err) {
-                    reject(err.message)
-                } else if (rows.length > 0) {
-                    resolve(true)
-                } else {
-                    resolve(false)
-                }
-            })
-        })
-    }
-}
-
-const validateSemesterKeys = (startKey, endKey) => {
-    // Validate input format
-    const formatRegex = /^[FS]\d{4}$/;
-    let validated = true;
-    if (!formatRegex.test(startKey) || !formatRegex.test(endKey)) {
-        validated = false;
-    } else {
-        // Extract the semester season and year from the start and end keys
-        const startSeason = startKey.substring(0, 1);
-        const startYear = startKey.substring(1);
-        const endSeason = endKey.substring(0, 1);
-        const endYear = endKey.substring(1);
-    
-        // Compare the year first
-        if (startYear >= endYear) {
-            validated = false;
-        } else {
-            // Compare the season if the years are different
-            if (startSeason === "F" && endSeason === "F") {
-                validated =  startYear < endYear;
-            } else if (startSeason === "S" && endSeason === "S") {
-                validated = startYear < endYear;
-            } else if (startSeason !== "F" || endSeason !== "S") {
-                validated = false;
-            }
-        }
-    }
-    return validated;
-  }
-  
-
-// Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
-const validateRegistration = async (email, password, fName, lName, startDate, gradDate, major, headshot) => {
-    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
-    const fNameValid = fName.match(/[A-Za-z]/) !== null;
-    const lNameValid = lName.match(/[A-Za-z]/) !== null;
-    const datesValidated = validateSemesterKeys(startDate, gradDate);
-    const majorValid = major !== null && await validateMajor(major);
-    const headshotValid = headshot !== null && [".png", ".jpg", ".jpeg"].includes(headshot.substring(headshot.length-4, headshot.length))
-    return emailValid && passwordValid && fNameValid && lNameValid && datesValidated && majorValid && headshotValid;
-}
-
 exports.login = (req, res) => {
     const [email, password] = Object.values(req.body);
-    const validParameters = validateLogin(email,password);
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
-    if (db && validParameters) {
+    if (db) {
         let query = "SELECT * FROM Students WHERE email = ?";
         db.serialize(() => {
             db.all(query, [email], (err, rows) => {
@@ -86,6 +17,7 @@ exports.login = (req, res) => {
                     res.status(500).json({message: err.message});
                 } else {
                     const dataEntry = rows[0];
+                    console.log(dataEntry);
                     if (dataEntry) {
                         const passwordIsValid = bcrypt.compareSync(password, dataEntry.password);
                         if (!passwordIsValid) {
@@ -98,9 +30,7 @@ exports.login = (req, res) => {
                                 accessToken: token,
                                 email: dataEntry.email,
                                 major: dataEntry.major,
-                                fName: dataEntry.fName,
-                                lName: dataEntry.lName,
-                                headshot: dataEntry.headshot,
+                                startDate: dataEntry.startDate,
                                 refreshToken: refreshToken
                             })
                         }
@@ -117,16 +47,15 @@ exports.login = (req, res) => {
 
 
 exports.register = (req, res) => {
-    const [email, password, fName, lName, startDate, gradDate, major, headshot] = Object.values(req.body);
+    const [email, password, fName, lName, gradDate, major, headshot] = Object.values(req.body);
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     // TO-DO: Check if a user already exists in the database with that email
-    const validParameters = validateRegistration(email, password, fName, lName, startDate, gradDate, major, headshot);
-    if (db && validParameters) {
-        let query = 'INSERT INTO Students (fName, lName, email, password, startDate, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?, ?)'
+    if (db) {
+        let query = 'INSERT INTO Students (fName, lName, email, password, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?)'
         db.serialize(() => {
             // Encrypt password
             const encryptedPassword = bcrypt.hashSync(password, 8)
-            db.run(query, [fName, lName, email, encryptedPassword, startDate, gradDate, headshot], 
+            db.run(query, [fName, lName, email, encryptedPassword, gradDate, headshot], 
             (err) => {
                 if (err) {
                     res.status(500).json({message: err.message, valid: false})
@@ -158,3 +87,4 @@ exports.refreshToken = async (req, res) => {
         return res.status(403).json({ message: "Refresh Token is required" });
     }
 }
+

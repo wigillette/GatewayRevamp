@@ -1,15 +1,26 @@
 // Planner.js Module: Handles course assignments to core requirements
-const { fetchDB } = require("../model");
-const db = fetchDB(); // Retrieve the database
+const { fetchDB } = require("../model"); 
 const CORES = require("../../../client/src/shared/cores.json");
 const DEFAULT_CORE_ASSIGNMENTS = CORES.reduce((assignments,coreId) => ({...assignments,[coreId]:null}), {});
 
-const removeAssignment = (studentId, courseId) => {
-    const query = 'DELETE FROM CourseSpecialCoreRequirements WHERE studentId = ? AND courseId = ?'
-    db.run(query, [studentId, courseId], (err) => {
-        if (err) {
-            console.log(err.message);
-        }
+/**
+ * Checks if the core requirement is assigned to a student
+ * @param  {number} studentId  A student id
+ * @param  {String} courseId   A course to update - ex. "MATH-111"
+ * @return {Promise<bool>}  A Promise of whether the category is already assigmed
+ */
+const isCourseAssignedCore = (studentId, courseId) => {
+    return new Promise((resolve, reject) => {
+        const query = 'SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ? AND courseId = ?'
+        db.get(query, [studentId, courseId], (err, row) => {
+            if (err) {
+                reject(false)
+            } else if (row) {
+                resolve(true)
+            } else {
+                resolve(false)
+            }
+        })
     })
 }
 
@@ -21,59 +32,31 @@ const getMappings = (studentId) => {
         db.all(query, [studentId], (err, courseCoreMappings) => {
             if (err) {
                 reject(err.message);
-            } else if (courseCoreMappings && courseCoreMappings.length > 0) {
+            } else if (courseCoreMappings) {
                 resolve(courseCoreMappings);                
             } else {
-                resolve(Object.entries(DEFAULT_CORE_ASSIGNMENTS).map((entry) => {return {coreId: entry[0], courseId: null}}));
+                resolve(DEFAULT_CORE_ASSIGNMENTS);
             }
         })
     })
 }
 
-const getAssignments = (studentId) => {
-    const query = `SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ?`
-    return new Promise((resolve, reject) => {
-        db.all(query, [studentId], (err, coreAssignments) => {
-            if (err) {
-                reject(err.message);
-            } else if (coreAssignments && coreAssignments.length > 0) {
-                const assignmentsDict = {...DEFAULT_CORE_ASSIGNMENTS, ...coreAssignments.reduce((dictState, row) => ({...dictState, [row.coreId]: row.courseId}), {})};
-                resolve(assignmentsDict);
-            } else {
-                resolve(DEFAULT_CORE_ASSIGNMENTS)
-            }
-        })
-    })
-}
+exports.getMappings = getMappings
 
-const assertFulfillment = (courseId, coreId) => {
-    const query = 'SELECT * FROM CourseCoreRequirements WHERE courseId = ? AND coreId = ?';
-    return new Promise((resolve, reject) => {
-        db.all(query, [courseId, coreId], (err, rows) => {
-            if (err) {
-                reject(err.message);
-            } else if (rows && rows.length > 0) {
-                resolve(true)
-            } else {
-                resolve(false);
-            }
-        })
-    });
-}
-
-const isCoreFilled = (coreId, studentId) => {
-    const query = `SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ? AND coreId = ?`;
-    return new Promise((resolve, reject) => {
-        db.get(query, [studentId, coreId], (err, rows) => {
-            if (err) {
-                reject(false);
-            } else if (rows && rows.length > 0) {
-                resolve(true)
-            } else {
-                resolve(false);
-            }
-        });
-    });
+const getAssignments = async (studentId) => {
+    try {
+        const db = await fetchDB(); 
+        const query = `SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ?`
+        const coreAssignments = await db.all(query, [studentId])
+        if (coreAssignments && coreAssignments.length > 0) {
+            const assignmentsDict = {...DEFAULT_CORE_ASSIGNMENTS, ...coreAssignments.reduce((dictState, row) => ({...dictState, [row.coreId]: row.courseId}), {})};
+            return assignmentsDict
+        } else {
+            return DEFAULT_CORE_ASSIGNMENTS
+        }
+    } catch (err) {
+        return err.message
+    }
 }
 
 /**
@@ -85,25 +68,19 @@ const isCoreFilled = (coreId, studentId) => {
 exports.assignCore = async (req, res) => {
     const [courseId, coreId] = Object.values(req.body);
     const userId = req.userId;
-    removeAssignment(userId, courseId); // Delete the old entry where the core was assigned to make room for the new one (need to change to reflect core requirements where it can fulfill multiple)
-    const isFilled = await isCoreFilled(coreId, userId); // whether the core requirement is filled with an existing course
-    const query = isFilled ? 'UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
-    assertFulfillment(courseId, coreId).then((hasCore) => { // assert that the course fulfills the specified core requirement
-        if (hasCore) {
-            db.run(query, [courseId, userId, coreId], (err) => {
-                if (err) {
-                    console.log(err);
-                    res.status(500).json({message: err.message});
-                } else {
-                    console.log(`Updated ${this.lastID}: studentId: ${userId}, courseId: ${courseId}, and coreId: ${coreId}`)
-                    getAssignments(userId).then((assignments) => res.status(200).json({coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!`}))
-                    .catch((err) => res.status(500).json({message: err}));
-                }
-            })
+    const isAssignedCore = await isCourseAssignedCore(userId, courseId);
+    // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
+    const query = isAssignedCore ? 'UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
+    db.run(query, [courseId, userId, coreId], (err) => {
+        if (err) {
+            console.log(err);
+            res.status(500).json({message: err.message});
         } else {
-            res.status(200).json({message: `${courseId} does not fulfill ${coreId}!`});
-        }            
-    }).catch((err) => res.status(500).json({message: err}));
+            console.log(`Updated ${this.lastID}: studentId: ${userId}, courseId: ${courseId}, and coreId: ${coreId}`)
+            getAssignments(userId).then((assignments) => res.status(200).json({coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!`}))
+            .catch((err) => res.status(500).json({message: err}));
+        }
+    })
 }
 
 const computeCreditsFromMappings = (mappings) => {
@@ -137,10 +114,7 @@ const computeCreditsFromMappings = (mappings) => {
 exports.fetchAssignments = async (req, res) => {
     const studentId = req.userId;
     getMappings(studentId).then((mappings) => {
-        getAssignments(studentId).then((assignments) => {
-            computeCreditsFromMappings(mappings).then((totalCredits) => {
-                res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits})
-            }).catch((err) => res.status(500).json({message: err}));
-        }).catch((err) => res.status(500).json({message: err}));
+        getAssignments(studentId).then((assignments) => res.status(200).json({planMappings: mappings, coreAssignments: assignments}))
+        .catch((err) => res.status(500).json({message: err}));
     }).catch((err) => res.status(500).json({message: err}));
   }
