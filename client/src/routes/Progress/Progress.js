@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Progress.module.css';
-import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, UncontrolledTooltip} from 'reactstrap';
+import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, ButtonToolbar} from 'reactstrap';
 import { connect } from 'react-redux';
 import { assignCoreAction, fetchAssignmentsAction } from '../../redux/actions/progress';
 import { logoutAction } from '../../redux/actions/auth';
@@ -83,7 +83,7 @@ class ProgressContainer extends React.Component  {
     this.togglePopUp = this.togglePopUp.bind(this);
     this.selectCore = this.selectCore.bind(this);
     this.partitionRequirements = this.partitionRequirements.bind(this)
-    this.PARTITION_SIZE = 3
+    this.PARTITION_SIZE = 4
   }
 
   selectCore(coreId) {
@@ -147,23 +147,27 @@ class ProgressContainer extends React.Component  {
         <p className={styles.course_container_title}>{JSON.stringify(this.props.user)}</p>
       </div>
       
-      <div className={styles.assignment_container}>
+      {/* <div className={styles.assignment_container}> */}
         <h3>Core Requirements Progress:</h3>
-        {this.partitionRequirements().map((assignmentGroup) => 
-          <ButtonGroup vertical size='lg'>
-            {assignmentGroup.map((assignmentEntry) => <Button onClick={() => {
-                this.selectCore(assignmentEntry[0]).then(() => {
-                  if (assignmentEntry[1]) {
-                    this.setPopUpCourseId(assignmentEntry[1]).then(this.togglePopUp);
-                  } else {
-                    this.toggleAssignment();
+        <ButtonGroup className='btn-primary-group'  size='lg'>
+          {this.partitionRequirements().map((assignmentGroup) => (
+            <ButtonToolbar>
+              <ButtonGroup size='lg' vertical>
+                {assignmentGroup.map((assignmentEntry) => <Button onClick={() => {
+                    this.selectCore(assignmentEntry[0]).then(() => {
+                      if (assignmentEntry[1]) {
+                        this.setPopUpCourseId(assignmentEntry[1]).then(this.togglePopUp);
+                      } else {
+                        this.toggleAssignment();
+                      }
+                    })
                   }
-                })
-              }
-            } className={styles.core_button} color={assignmentEntry[1] ? "success" : "danger"}>{assignmentEntry[0]}</Button>)}
-          </ButtonGroup>
-        )}
-      </div>
+                } className={styles.core_button} color={assignmentEntry[1] ? "success" : "danger"}>{assignmentEntry[0]}</Button>)}
+              </ButtonGroup>
+            </ButtonToolbar>)
+          )}
+        </ButtonGroup>
+      {/* </div> */}
     </div>)
   }
 }

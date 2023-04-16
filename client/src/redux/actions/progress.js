@@ -25,6 +25,6 @@ export const fetchAssignmentsAction = () => async (dispatch) => {
                 dispatch({ type: FETCH_ASSIGNMENTS, payload: { coreAssignments: data.coreAssignments, planMappings: data.planMappings, totalCredits: data.totalCredits } })
             }
         }, 
-        (error) => dispatch(logoutAction())) // Added this for token expired errors
+        (error) => {console.log(error); dispatch(logoutAction())}) // Added this for token expired errors
     );
 }

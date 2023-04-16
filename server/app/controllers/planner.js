@@ -59,26 +59,23 @@ exports.removeCourse = async (req, res) => {
     const [courseId, semesterKey] = Object.values(req.body);
     const userId = req.userId;
     // Update the plan to remove the course
-    let query = 'DELETE FROM StudentCoursePlan WHERE studentId = ? AND courseId = ? AND semester = ?' 
-    db.run(query, [userId, courseId, semesterKey], (err) => {
-        if (err) {
-            res.status(500).json({message: err.message});
+    try {
+        const formerPlan = await getFullPlanFromDB(userId)
+        let query = 'DELETE FROM StudentCoursePlan WHERE studentId = ? AND courseId = ? AND semester = ?' 
+        let response = db.run(query, [userId, courseId, semesterKey])
+        query = 'DELETE FROM CourseSpecialCoreRequirements WHERE courseId = ? AND studentId = ?'
+        try {
+            response = await db.run(query, [userId, courseId])
+            const newPlan = await getFullPlanFromDB(userId);
+            res.status(200).json({fullPlan: newPlan,  message: `Successfully removed course ${courseId} from ${semesterKey}!`})
+        } catch (err) {
+            res.status(500).json({fullPlan: formerPlan, message: err})
             console.log(err);
-        } else {
-            // Update the core requirements assignments if the course is included there
-            query = 'DELETE FROM CourseSpecialCoreRequirements WHERE courseId = ? AND studentId = ?'
-            db.run(query, [userId, courseId], (err) => {
-                if (err) {
-                    res.status(500).json({message: err.message});
-                    console.log(err);
-                } else {
-                    getFullPlanFromDB(userId).then(
-                        (newPlan) => res.status(200).json({fullPlan: newPlan,  message: `Successfully removed course ${courseId} from ${semesterKey}!`}))
-                        .catch((err) => res.status(404).json({fullPlan: formerPlan, message: err}))
-                }
-            })
         }
-    })
+    } catch (err) {
+        res.status(500).json({message: err.message});
+        console.log(err);
+    }
 }
 
 const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
@@ -104,8 +101,9 @@ const getFullPlanFromDB = async (userId) => {
         const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?'
         const entries = await db.all(query, [userId])
 
-        if (entries && entries.length) {
-            return createFullPlan(entries)
+        if (entries) {
+            const startEndDates = await getStartEndKeys(userId);
+            return createFullPlan(entries, startEndDates)
         } else {
             throw new Error("User not found.")
         }
@@ -119,10 +117,11 @@ exports.getFullPlanFromDB = getFullPlanFromDB
 exports.addCourses = async (req, res) => {
     const { courseIdList, semesterKey } = req.body
     const userId = req.userId;
+    const formerPlan = await getFullPlanFromDB(userId)
     try {
-        const formerPlan = await getFullPlanFromDB(userId)
-        const promises = courseIdList.map((courseId) => addCourseToSemester(userId, courseId, semesterKey, formerPlan))
-        await promises
+        await Promise.all(courseIdList.map(async (courseId) => {
+            await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
+        }))
         const newPlan = await getFullPlanFromDB(userId)
         res.status(200).json({fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(", ")} to ${semesterKey}!`})
     } catch (err) {

@@ -9,19 +9,15 @@ const DEFAULT_CORE_ASSIGNMENTS = CORES.reduce((assignments,coreId) => ({...assig
  * @param  {String} courseId   A course to update - ex. "MATH-111"
  * @return {Promise<bool>}  A Promise of whether the category is already assigmed
  */
-const isCourseAssignedCore = (studentId, courseId) => {
-    return new Promise((resolve, reject) => {
+const isCourseAssignedCore = async (studentId, courseId) => {
+    const db = await fetchDB();
+    try {
         const query = 'SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ? AND courseId = ?'
-        db.get(query, [studentId, courseId], (err, row) => {
-            if (err) {
-                reject(false)
-            } else if (row) {
-                resolve(true)
-            } else {
-                resolve(false)
-            }
-        })
-    })
+        const result = await db.get(query, [studentId, courseId])
+        return result && result.length > 0;
+    } catch (err) {
+        return false;
+    }
 }
 
 const getMappings = async (studentId) => {
@@ -68,19 +64,18 @@ const getAssignments = async (studentId) => {
 exports.assignCore = async (req, res) => {
     const [courseId, coreId] = Object.values(req.body);
     const userId = req.userId;
-    const isAssignedCore = await isCourseAssignedCore(userId, courseId);
     // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
-    const query = isAssignedCore ? 'UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?' : 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
-    db.run(query, [courseId, userId, coreId], (err) => {
-        if (err) {
-            console.log(err);
-            res.status(500).json({message: err.message});
-        } else {
-            console.log(`Updated ${this.lastID}: studentId: ${userId}, courseId: ${courseId}, and coreId: ${coreId}`)
-            getAssignments(userId).then((assignments) => res.status(200).json({coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!`}))
-            .catch((err) => res.status(500).json({message: err}));
-        }
-    })
+    try {
+        const isAssignedCore = await isCourseAssignedCore(userId, courseId);
+        const db = await fetchDB();
+        // DATABASE IS NOT UPDATING HERE
+        const query = isAssignedCore ? `UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?` : `INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)`
+        await db.run(query, [courseId, userId, coreId])
+        const assignments = await getAssignments(userId);
+        res.status(200).json({coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!`})
+    } catch (err) {
+        res.status(500).json({message: err})
+    }
 }
 
 const computeCreditsFromMappings = async (mappings) => {
@@ -111,11 +106,8 @@ exports.fetchAssignments = async (req, res) => {
     const assignments = await getAssignments(studentId);
     if (mappings && assignments && typeof(mappings) !== String && typeof(assignments) !== String) {
         const totalCredits = await computeCreditsFromMappings(mappings);
-        if (typeof(totalCredits) === Number) {
-            res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits});
-        }
+        res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits});
     } else {
-        console.log("FAILURE");
         res.status(500).json({message: "Failed to intiailize mappings and assignments."})
     }
   }
