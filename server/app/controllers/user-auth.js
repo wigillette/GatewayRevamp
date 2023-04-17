@@ -20,14 +20,19 @@ exports.login = async (req, res) => {
                 if (!passwordIsValid) {
                     res.status(401).json({message: "Invalid Password!"});
                 } else {
+                    query = `SELECT * FROM StudentMajors WHERE studentId = ?`
                     const userId = dataEntry.ID;
+                    const majorInfo = await db.all(query, [userId])
                     const token = jwt.sign({ id: userId }, config.secret, {expiresIn: config.jwtExpiration} );
                     let refreshToken = createToken(userId);
                     res.status(200).json({
                         accessToken: token,
                         email: dataEntry.email,
-                        major: dataEntry.major,
+                        major: majorInfo[0] ? majorInfo[0].majorId : "UNDEFINED",
                         startDate: dataEntry.startDate,
+                        headshot: dataEntry.headshot,
+                        fName: dataEntry.fName,
+                        lName: dataEntry.lName,
                         refreshToken: refreshToken
                     })
                 }
@@ -44,20 +49,22 @@ exports.login = async (req, res) => {
 
 
 exports.register = async (req, res) => {
-    const [email, password, fName, lName, gradDate, major, headshot] = Object.values(req.body);
+    const [email, password, fName, lName, startDate, gradDate, major, headshot] = Object.values(req.body);
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     // TO-DO: Check if a user already exists in the database with that email
     const db = await fetchDB(); // Retrieve the database
     // Encrypt password
     const encryptedPassword = bcrypt.hashSync(password, 8)
     try { 
-        let query = 'INSERT INTO Students (fName, lName, email, password, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?)'
-        const res1 = await db.run(query, [fName, lName, email, encryptedPassword, gradDate, headshot])
+        let query = 'INSERT INTO Students (fName, lName, email, password, startDate, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        const res1 = await db.run(query, [fName, lName, email, encryptedPassword, startDate, gradDate, headshot])
+        console.log(res1);
         query = `INSERT INTO StudentMajors (studentId, majorId) VALUES (?, ?)`
-        const res2 = await db.run(query, [lastId, major])
+        const res2 = await db.run(query, [res1.lastID, major])
         res.status(200).json({message: "Account creation successful!", valid: true});
     } catch (error) {
-        res.status(500).json({message: err.message, valid: false})
+        console.log(error);
+        res.status(500).json({message: error, valid: false})
     }
 }
 

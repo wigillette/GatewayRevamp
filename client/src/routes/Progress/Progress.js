@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Progress.module.css';
-import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, ButtonToolbar} from 'reactstrap';
+import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, ButtonToolbar, Media} from 'reactstrap';
 import { connect } from 'react-redux';
 import { assignCoreAction, fetchAssignmentsAction } from '../../redux/actions/progress';
 import { logoutAction } from '../../redux/actions/auth';
@@ -143,13 +143,19 @@ class ProgressContainer extends React.Component  {
         courseId={this.state.popUpCourseId}
       />
       {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
-      <div className={styles.information_container}>
-        <p className={styles.course_container_title}>{JSON.stringify(this.props.user)}</p>
-      </div>
-      
-      {/* <div className={styles.assignment_container}> */}
-        <h3>Core Requirements Progress:</h3>
-        <ButtonGroup className='btn-primary-group'  size='lg'>
+      {this.props.user && this.props.user.fName && this.props.user.major && this.props.user.lName && this.props.user.headshot && this.props.user.email && <div className={styles.information_container}>
+        <Media>
+          <Media left top href="#"><Media object data-src={this.props.user.headshot} alt='Headshot' /></Media>
+          <Media body>
+            <Media heading><p className={styles.information_header}>STUDENT INFORMATION:</p></Media>
+            <p className={styles.information_full_name}><b>{this.props.user.fName + " " + this.props.user.lName}</b>, {this.props.user.email}</p>
+            <p className={styles.information_major}><b>Major:</b> {this.props.user.major}</p>
+          </Media>
+        </Media>
+      </div>}
+      <div className={styles.assignment_container}>
+        <h3 className={styles.assignment_header}>CORE REQUIREMENTS:</h3>
+        <ButtonGroup className='btn-primary-group' size='lg'>
           {this.partitionRequirements().map((assignmentGroup) => (
             <ButtonToolbar>
               <ButtonGroup size='lg' vertical>
@@ -167,7 +173,7 @@ class ProgressContainer extends React.Component  {
             </ButtonToolbar>)
           )}
         </ButtonGroup>
-      {/* </div> */}
+      </div>
     </div>)
   }
 }

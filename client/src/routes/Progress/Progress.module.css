@@ -44,7 +44,27 @@
 }
 
 .assignment_container {
-    width: 90%;
-    height: 80%;
-    margin: 0 auto;
+    width: 40%;
+    float: right;
+}
+
+.information_header, .assignment_header {
+    font-family: 'Roboto Slab', serif;
+    font-size: 2rem;
+}
+
+.information_container {
+    width: 40%;
+    float: left;
+}
+
+
+.information_full_name, .information_major {
+    font-family: 'Open Sans', serif;
+    font-size: 1.5rem;
+    text-align: right;
+}
+
+.information_header {
+    text-align: right;
 }
