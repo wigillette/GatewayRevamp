@@ -6,7 +6,8 @@
   "scripts": {
     "test": "jest server",
     "start": "node server/index.js",
-    "build": "cd client && npm install && npm run watch"
+    "build": "cd client && npm install && npm run watch",
+    "build_once": "npm install && cd client && npm install"
   },
   "keywords": [],
   "author": "",
