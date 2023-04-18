@@ -7,41 +7,6 @@ beforeEach(async () => {
   await setUpTestDB("dev.db", "dev_test.db")
 })
 
-describe('fetchAssignments', () => {
-  it('should return status 200', async () => {
-    const mReq = { userId: 1 };    
-    const mRes = { 
-      status: jest.fn().mockReturnThis(), 
-      json: jest.fn().mockReturnThis() 
-    }
-
-    await progressModule.fetchAssignments(mReq, mRes)
-    
-    expect(mRes.status).toBeCalledWith(200);
-    expect(mRes.json).toBeCalledWith(
-      expect.objectContaining({
-       //planMappings: [], // array? or obj? [{"courseId: "CS-174", coreId: null }]
-       coreAssignments: {
-        A: null,
-        H: null,
-        SS: null,
-        S: null,
-        O: null,
-        GN: null,
-        LINQ: null,
-        CCAP: null,
-        R: null,
-        Q: null,
-        L: null,
-        CIE: null,
-        DN: null
-      }
-      }),
-    );
-  });
-});
-
-
 describe('isCourseAssignedCore', () => {
   it('check course is not assigned to core requirements', async () => {
     const studentId = 1
@@ -115,7 +80,8 @@ describe('assignCore', () => {
           Q: null,
           L: null,
           CIE: null,
-          DN: courseId
+          DN: courseId,
+          XLP: null,
         }
       }),
     );
@@ -158,6 +124,7 @@ describe('assignCore', () => {
           L: null,
           CIE: null,
           DN: null,
+          XLP: null,
         }
       }),
     );
@@ -234,7 +201,8 @@ describe('getAssignments', () => {
           Q: null,
           L: null,
           CIE: null,
-          DN: null
+          DN: null,
+          XLP: null,
         }
       )
     )
@@ -277,7 +245,8 @@ describe('getAssignments', () => {
           Q: null,
           L: null,
           CIE: null,
-          DN: courseId
+          DN: courseId,
+          XLP: null,
         }
       )
     )
@@ -285,7 +254,7 @@ describe('getAssignments', () => {
 })
 
 describe('fetchAssignments', () => {
-  it.only('fetches everything correctly for the assignments', async () => {
+  it('fetches everything correctly for the assignments', async () => {
     const studentId = 1
     const courseId = "GWSS-126-A"
     const coreId = "DN"
@@ -325,7 +294,6 @@ describe('fetchAssignments', () => {
     expect(mRes2.status).toBeCalledWith(200);
     expect(mRes2.json).toBeCalledWith(
       expect.objectContaining({
-
        planMappings: [
         { courseId: 'MATH-111', coreId: 'Q' },
         { courseId: 'MATH-111', coreId: 'R' },
@@ -348,6 +316,7 @@ describe('fetchAssignments', () => {
         L: null,
         CIE: null,
         DN: courseId,
+        XLP: null,
       },
       totalCredits: 8,
       }),

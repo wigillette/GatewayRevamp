@@ -52,7 +52,7 @@ exports.login = async (req, res) => {
 
 
 exports.register = async (req, res) => {
-    const { email, password, fName, lName, gradDate, major, headshot } = req.body;
+    const { email, password, fName, lName, gradDate, major, headshot, startDate } = req.body;
     // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
     // TO-DO: Check if a user already exists in the database with that email
     const db = await fetchDB(); // Retrieve the database
@@ -66,6 +66,7 @@ exports.register = async (req, res) => {
         const res2 = await db.run(query, [res1.lastID, major])
         res.status(200).json({message: "Account creation successful!", valid: true});
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: err.message, valid: false})
     }
 }

@@ -7,7 +7,8 @@ const mockBody = {
   lName: "Ka", 
   email,
   password: "password123",
-  gradDate: "F2025",
+  startDate: "F2021",
+  gradDate: "S2025",
   major: "Mathematics",
   headshot: "headshot"
 }
