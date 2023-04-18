@@ -10,28 +10,26 @@ const DEFAULT_CORE_ASSIGNMENTS = CORES.reduce((assignments,coreId) => ({...assig
  * @return {Promise<bool>}  A Promise of whether the category is already assigmed
  */
 const isCourseAssignedCore = async (studentId, courseId) => {
-    const db = await fetchDB();
     try {
+        const db = await fetchDB();
         const query = 'SELECT * FROM CourseSpecialCoreRequirements WHERE studentId = ? AND courseId = ?'
         const result = await db.get(query, [studentId, courseId])
-        return result && result.length > 0;
+        return result != undefined
     } catch (err) {
-        return false;
+        throw new Error(err.message)
     }
 }
+
+exports.isCourseAssignedCore = isCourseAssignedCore
 
 const getMappings = async (studentId) => {
     try {
         const db = await fetchDB(); 
-        const query = `SELECT StudentCoursePlan.courseId, CourseCores.coreId  FROM StudentCoursePlan
+        const query = `SELECT StudentCoursePlan.courseId, CourseCores.coreId FROM StudentCoursePlan
         LEFT OUTER JOIN CourseCoreRequirements AS CourseCores ON CourseCores.courseID == StudentCoursePlan.courseId 
         WHERE StudentCoursePlan.studentId = ?`
         const courseCoreMappings = await db.all(query, [studentId])
-        if (courseCoreMappings) {
-            return courseCoreMappings
-        } else {
-            return DEFAULT_CORE_ASSIGNMENTS
-        }
+        return courseCoreMappings
     } catch (err) {
         return err.message
     }
@@ -55,6 +53,8 @@ const getAssignments = async (studentId) => {
     }
 }
 
+exports.getAssignments = getAssignments
+
 /**
  * Assigns a core requirement 
  * @param  {String} courseId  A course to delete - ex. "MATH-111"
@@ -62,18 +62,24 @@ const getAssignments = async (studentId) => {
  * @return 
  */
 exports.assignCore = async (req, res) => {
-    const [courseId, coreId] = Object.values(req.body);
+    const db = await fetchDB();
+    const { courseId, coreId } = req.body;
     const userId = req.userId;
     // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
     try {
         const isAssignedCore = await isCourseAssignedCore(userId, courseId);
-        const db = await fetchDB();
         // DATABASE IS NOT UPDATING HERE
-        const query = isAssignedCore ? `UPDATE CourseSpecialCoreRequirements SET courseId = ? WHERE studentId = ? AND coreId = ?` : `INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)`
-        await db.run(query, [courseId, userId, coreId])
+        if (isAssignedCore) {
+            const updateQuery = 'UPDATE CourseSpecialCoreRequirements SET coreId = ? WHERE studentId = ? AND courseId = ?'
+            const _ = await db.run(updateQuery, [coreId, userId, courseId])
+        } else {
+            const insertQuery = `INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)`
+            await db.run(insertQuery, [courseId, userId, coreId])
+        }
         const assignments = await getAssignments(userId);
         res.status(200).json({coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!`})
     } catch (err) {
+        console.log(err)
         res.status(500).json({message: err})
     }
 }
@@ -96,18 +102,25 @@ const computeCreditsFromMappings = async (mappings) => {
     }
 }
 
+exports.computeCreditsFromMappings = computeCreditsFromMappings
+
 /**
  * Returns all the core requirements for all the courses in the student schedule
  * @return {Promise<{ courseId, coreId }[]>} A list of objects which contains courseId and coreId
  */
 exports.fetchAssignments = async (req, res) => {
     const studentId = req.userId;
-    const mappings = await getMappings(studentId);
-    const assignments = await getAssignments(studentId);
-    if (mappings && assignments && typeof(mappings) !== String && typeof(assignments) !== String) {
-        const totalCredits = await computeCreditsFromMappings(mappings);
-        res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits});
-    } else {
-        res.status(500).json({message: "Failed to intiailize mappings and assignments."})
+    try {
+        const mappings = await getMappings(studentId);
+        const assignments = await getAssignments(studentId);
+        if (mappings && assignments && typeof(mappings) !== String && typeof(assignments) !== String) {
+            const totalCredits = await computeCreditsFromMappings(mappings);
+            res.status(200).json({planMappings: mappings, coreAssignments: assignments, totalCredits: totalCredits});
+        } else {
+            res.status(500).json({message: "Failed to intiailize mappings and assignments."})
+        }
+    } catch (err) {
+        console.log(err)
+        res.status(500).json({message: err.message})
     }
   }
