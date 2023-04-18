@@ -7,21 +7,19 @@ const semesterKeyInterp = (startKey, endKey) => {
     // Validate input format
     const formatRegex = /^[FS]\d{4}$/;
     const semesterKeys = [];
+    let start = startKey;
     if (formatRegex.test(startKey) && formatRegex.test(endKey)) {
         // Extract the semester season and year from the start and end keys
         const startSeason = startKey.substring(0, 1);
         const startYear = parseInt(startKey.substring(1));
-        const endSeason = endKey.substring(0, 1);
-        const endYear = parseInt(endKey.substring(1));
-    
-        // Determine the number of semesters between start and end
-        const semesters = (endYear - startYear) * 2 + (endSeason === "S" ? 1 : 0) - (startSeason === "F" ? 1 : 0);
     
         // Generate the list of semester keys
         let currentYear = startYear;
         let currentSeason = startSeason;
-        for (let i = 0; i < semesters; i++) {
-            semesterKeys.push(currentSeason + currentYear.toString().padStart(4, "0"));
+        while (start != endKey) {
+            let semester = currentSeason + currentYear.toString().padStart(4, "0")
+            start = semester
+            semesterKeys.push(semester);
         
             // Update the current season and year
             if (currentSeason === "F") {
@@ -33,10 +31,11 @@ const semesterKeyInterp = (startKey, endKey) => {
         }
     }
     return semesterKeys;
-  }
-  
+}
 
-const createFullPlan = async (dataEntries, startEndDates) => {
+exports.semesterKeyInterp = semesterKeyInterp
+
+const createFullPlan = (dataEntries, startEndDates) => {
     let newPlan = DEFAULT_PLAN
     if (startEndDates && startEndDates.length === 2) {
         const sKeyList = semesterKeyInterp(startEndDates[0], startEndDates[1])
@@ -54,9 +53,11 @@ const createFullPlan = async (dataEntries, startEndDates) => {
     return newPlan;
 }
 
+exports.createFullPlan = createFullPlan
+
 exports.removeCourse = async (req, res) => {
     let db = await fetchDB();
-    const [courseId, semesterKey] = Object.values(req.body);
+    const { courseId, semesterKey } = req.body;
     const userId = req.userId;
     // Update the plan to remove the course
     try {
@@ -67,7 +68,7 @@ exports.removeCourse = async (req, res) => {
         try {
             response = await db.run(query, [userId, courseId])
             const newPlan = await getFullPlanFromDB(userId);
-            res.status(200).json({fullPlan: newPlan,  message: `Successfully removed course ${courseId} from ${semesterKey}!`})
+            res.status(200).json({fullPlan: newPlan, message: `Successfully removed course ${courseId} from ${semesterKey}!`})
         } catch (err) {
             res.status(500).json({fullPlan: formerPlan, message: err})
             console.log(err);
@@ -172,19 +173,26 @@ const fetchAllCourses = async () => {
     return courseDict
 }
 
+exports.fetchAllCourses = fetchAllCourses;
+
 const getStartEndKeys = async (userId) => {
     try {
         const db = await fetchDB()
         const query = `SELECT * FROM Students WHERE ID = ?`
-        const res = await db.all(query, [userId])
-        let toReturn = (res && res.length > 0 && res[0].startDate && res[0].gradDate) ? [res[0].startDate, res[0].gradDate] : []
+        const res = await db.get(query, [userId])
+        let toReturn;
+        if (res && res.startDate && res.gradDate) {
+            toReturn = [res.startDate, res.gradDate]
+        } else {
+            toReturn = []
+        }
         return toReturn;
     } catch (err) {
         throw new Error(err.message)
     }
 }
 
-exports.fetchAllCourses = fetchAllCourses;
+exports.getStartEndKeys = getStartEndKeys
 
 exports.fetchPlan = async (req, res) => {
     const userId = req.userId;
@@ -195,6 +203,7 @@ exports.fetchPlan = async (req, res) => {
         console.log("Start End Keys", startEndKeys);
         if (startEndKeys && startEndKeys.length == 2) {
             const fullPlan = await createFullPlan(data, startEndKeys);
+            console.log(fullPlan)
             res.status(200).json({fullPlan: fullPlan, courseCatalog: Object.values(COURSE_DATA)})
         } else {
             res.status(500).json({message: "Failed to initialize course data"})
@@ -204,6 +213,7 @@ exports.fetchPlan = async (req, res) => {
     }
 }
 
+// TODO change name getStudentCoursePlan
 const testAsync = async (userId) => {
     try {
         const db = await fetchDB()
@@ -214,3 +224,5 @@ const testAsync = async (userId) => {
         throw new Error(err.message)
     }
 }
+
+exports.testAsync = testAsync

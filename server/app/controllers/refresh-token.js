@@ -11,5 +11,4 @@ exports.createToken = (user) => {
 
     return _token;
 }
-
-exports.verifyExpiration = (token) =>  token.expiryDate.getTime() < new Date().getTime();
+//exports.verifyExpiration = (token) => token.expiryDate.getTime() < new Date().getTime();
