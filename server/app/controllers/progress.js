@@ -108,6 +108,39 @@ const computeCreditsFromMappings = async (mappings) => {
 exports.computeCreditsFromMappings = computeCreditsFromMappings
 
 /**
+ * Returns a boolean on whether a core is a special core requirement
+ * @return {boolean} Whether the core is special
+ */
+const isSpecialCore = core => {
+  const specialCoreRequirements = ['DN', 'O', 'GN']
+  return specialCoreRequirements.includes(core)
+}
+
+exports.isSpecialCore = isSpecialCore
+
+/**
+ * Combines the core and special core requirements results
+ */
+const addMappingsToAssignments = (mappings, assignments) => {
+  const totalSpecialCores = {}
+  for (const core of mappings) {
+    if (isSpecialCore(core.coreId)) {
+      if (totalSpecialCores[core.courseId]) {
+        totalSpecialCores[core.courseId] += 1
+      } else {
+        totalSpecialCores[core.courseId] = 1
+      }
+    }
+  }
+  for (const core of mappings) {
+    if (!isSpecialCore(core.coreId) || totalSpecialCores[core.courseId] < 2) {
+      assignments[core.coreId] = core.courseId
+    }
+  }
+}
+
+exports.addMappingsToAssignments = addMappingsToAssignments
+/**
  * Returns all the core requirements for all the courses in the student schedule
  * @return {Promise<{ courseId, coreId }[]>} A list of objects which contains courseId and coreId
  */
@@ -116,6 +149,7 @@ exports.fetchAssignments = async (req, res) => {
   try {
     const mappings = await getMappings(studentId)
     const assignments = await getAssignments(studentId)
+    addMappingsToAssignments(mappings, assignments)
     if (mappings && assignments && typeof (mappings) !== 'string' && typeof (assignments) !== 'string') {
       const totalCredits = await computeCreditsFromMappings(mappings)
       res.status(200).json({ planMappings: mappings, coreAssignments: assignments, totalCredits })
