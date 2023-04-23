@@ -31,6 +31,7 @@ const getMappings = async (studentId) => {
     const courseCoreMappings = await db.all(query, [studentId])
     return courseCoreMappings
   } catch (err) {
+    console.log(err)
     return err.message
   }
 }
@@ -49,6 +50,7 @@ const getAssignments = async (studentId) => {
       return DEFAULT_CORE_ASSIGNMENTS
     }
   } catch (err) {
+    console.log(err)
     return err.message
   }
 }
@@ -98,6 +100,7 @@ const computeCreditsFromMappings = async (mappings) => {
       return 0
     }
   } catch (err) {
+    console.log(err)
     return err.message
   }
 }

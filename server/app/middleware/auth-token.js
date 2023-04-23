@@ -19,6 +19,7 @@ const verifyToken = (req, res, next) => {
   } else {
     jwt.verify(token, config.secret, (err, decoded) => {
       if (err) {
+        console.log(err)
         return catchError(err, res)
       }
       req.userId = decoded.id
