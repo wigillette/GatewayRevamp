@@ -55,6 +55,20 @@ const getAssignments = async (studentId) => {
 
 exports.getAssignments = getAssignments
 
+/*
+  Checks if a course fulfills a designated core requirement
+*/
+const courseFulfillsCore = async (courseId, coreId) => {
+  try {
+    const db = await fetchDB()
+    const query = 'SELECT * FROM CourseCoreRequirements WHERE courseId = ? AND coreId = ?'
+    const res = await db.all(query, [courseId, coreId])
+    return res.length > 0
+  } catch (err) {
+    return err.message
+  }
+}
+
 /**
  * Assigns a core requirement
  * @param  {String} courseId  A course to delete - ex. "MATH-111"
@@ -67,17 +81,22 @@ exports.assignCore = async (req, res) => {
   const userId = req.userId
   // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
   try {
-    const isAssignedCore = await isCourseAssignedCore(userId, courseId)
-    // DATABASE IS NOT UPDATING HERE
-    if (isAssignedCore) {
-      const updateQuery = 'UPDATE CourseSpecialCoreRequirements SET coreId = ? WHERE studentId = ? AND courseId = ?'
-      await db.run(updateQuery, [coreId, userId, courseId])
+    const courseHasCore = await courseFulfillsCore(courseId, coreId)
+    const originalAssignments = await getAssignments(userId)
+    if (courseHasCore) {
+      const isAssignedCore = await isCourseAssignedCore(userId, courseId)
+      if (isAssignedCore) {
+        const updateQuery = 'UPDATE CourseSpecialCoreRequirements SET coreId = ? WHERE studentId = ? AND courseId = ?'
+        await db.run(updateQuery, [coreId, userId, courseId])
+      } else {
+        const insertQuery = 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
+        await db.run(insertQuery, [courseId, userId, coreId])
+      }
+      const assignments = await getAssignments(userId)
+      res.status(200).json({ coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!` })
     } else {
-      const insertQuery = 'INSERT INTO CourseSpecialCoreRequirements (courseId, studentId, coreId) VALUES (?, ?, ?)'
-      await db.run(insertQuery, [courseId, userId, coreId])
+      res.status(200).json({ coreAssignments: originalAssignments, message: `${courseId} does not fulfill the ${coreId} core requirement!`})
     }
-    const assignments = await getAssignments(userId)
-    res.status(200).json({ coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!` })
   } catch (err) {
     console.log(err)
     res.status(500).json({ message: err })

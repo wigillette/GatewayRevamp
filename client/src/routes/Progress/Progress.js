@@ -51,7 +51,7 @@ const CoreAssignmentForm = ({isAssignmentOpen, toggleFunction, selectedCoreId, s
             {/* Core Requirements Dropdown */}
             <FormGroup>
               <Label for="selectCore">Select Core Requirement:</Label>
-              <Input type="select" name="select" id="selectCore" defaultValue={selectedCoreId} onChange={e => selectCore(e.target.value)}>{coreRequirements.map((coreId) => <option>{coreId}</option>)}</Input>
+              <Input type="select" name="select" id="selectCore" defaultValue={selectedCoreId} onChange={e => {selectCore(e.target.value); setCourseId(null);}}>{coreRequirements.map((coreId) => <option>{coreId}</option>)}</Input>
             </FormGroup>
             <br/>
             {/* Course Container */}
