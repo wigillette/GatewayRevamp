@@ -119,14 +119,18 @@ exports.addCourses = async (req, res) => {
   const { courseIdList, semesterKey } = req.body
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
-  try {
-    await Promise.all(courseIdList.map(async (courseId) => {
-      await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
-    }))
-    const newPlan = await getFullPlanFromDB(userId)
-    res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
-  } catch (err) {
-    res.status(500).json({ fullPlan: formerPlan, message: err })
+  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
+    try {
+      await Promise.all(courseIdList.map(async (courseId) => {
+        await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
+      }))
+      const newPlan = await getFullPlanFromDB(userId)
+      res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
+    } catch (err) {
+      res.status(500).json({ fullPlan: formerPlan, message: err })
+    }
+  } else {
+    res.status(200).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
   }
 }
 

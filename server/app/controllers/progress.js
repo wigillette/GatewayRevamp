@@ -143,7 +143,7 @@ exports.isSpecialCore = isSpecialCore
 const addMappingsToAssignments = (mappings, assignments) => {
   const totalSpecialCores = {}
   for (const core of mappings) {
-    if (isSpecialCore(core.coreId)) {
+    if (core.coreId && isSpecialCore(core.coreId)) {
       if (totalSpecialCores[core.courseId]) {
         totalSpecialCores[core.courseId] += 1
       } else {
@@ -152,7 +152,7 @@ const addMappingsToAssignments = (mappings, assignments) => {
     }
   }
   for (const core of mappings) {
-    if (!isSpecialCore(core.coreId) || totalSpecialCores[core.courseId] < 2) {
+    if (core.coreId && (!isSpecialCore(core.coreId) || totalSpecialCores[core.courseId] < 2)) {
       assignments[core.coreId] = core.courseId
     }
   }
