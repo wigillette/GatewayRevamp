@@ -68,3 +68,7 @@ body {
     width: 45vw;
     height: 50vh;
 }
+
+#repo, #demo {
+    margin: 0 auto;
+}
