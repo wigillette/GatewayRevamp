@@ -58,8 +58,8 @@ const getAssignments = async (studentId) => {
 exports.getAssignments = getAssignments
 
 /*
-  Checks if a course fulfills a designated core requirement
-*/
+ *  Checks if a course fulfills a designated core requirement
+ */
 const courseFulfillsCore = async (courseId, coreId) => {
   try {
     const db = await fetchDB()
@@ -70,6 +70,8 @@ const courseFulfillsCore = async (courseId, coreId) => {
     return err.message
   }
 }
+
+exports.courseFulfillsCore = courseFulfillsCore
 
 /**
  * Assigns a core requirement
@@ -97,7 +99,7 @@ exports.assignCore = async (req, res) => {
       const assignments = await getAssignments(userId)
       res.status(200).json({ coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!` })
     } else {
-      res.status(200).json({ coreAssignments: originalAssignments, message: `${courseId} does not fulfill the ${coreId} core requirement!`})
+      res.status(409).json({ coreAssignments: originalAssignments, message: `${courseId} does not fulfill the ${coreId} core requirement!` })
     }
   } catch (err) {
     console.log(err)
@@ -110,14 +112,10 @@ const computeCreditsFromMappings = async (mappings) => {
     const db = await fetchDB()
     const query = 'SELECT Courses.ID, Courses.creditAmount FROM Courses'
     const courseCreditsInfo = await db.all(query)
-    if (courseCreditsInfo) {
-      const mappingIds = mappings.map((mapping) => mapping.courseId)
-      const plannedCreditInfo = courseCreditsInfo.filter((courseCreditInfo) => mappingIds.includes(courseCreditInfo.ID))
-      const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0)
-      return totalCredits
-    } else {
-      return 0
-    }
+    const mappingIds = mappings.map((mapping) => mapping.courseId)
+    const plannedCreditInfo = courseCreditsInfo.filter((courseCreditInfo) => mappingIds.includes(courseCreditInfo.ID))
+    const totalCredits = plannedCreditInfo.reduce((acc, curr) => acc + curr.creditAmount, 0)
+    return totalCredits
   } catch (err) {
     console.log(err)
     return err.message
@@ -173,7 +171,7 @@ exports.fetchAssignments = async (req, res) => {
       const totalCredits = await computeCreditsFromMappings(mappings)
       res.status(200).json({ planMappings: mappings, coreAssignments: assignments, totalCredits })
     } else {
-      res.status(500).json({ message: 'Failed to intiailize mappings and assignments.' })
+      res.status(500).json({ message: 'Failed to initialize mappings and assignments.' })
     }
   } catch (err) {
     console.log(err)
