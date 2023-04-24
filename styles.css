@@ -71,4 +71,5 @@ body {
 
 #repo, #demo {
     margin: 0 auto;
+    width: 50%;
 }
