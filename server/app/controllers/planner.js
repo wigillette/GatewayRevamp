@@ -130,7 +130,7 @@ exports.addCourses = async (req, res) => {
       res.status(500).json({ fullPlan: formerPlan, message: err })
     }
   } else {
-    res.status(200).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
+    res.status(409).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
   }
 }
 
@@ -147,6 +147,8 @@ const getCourses = async () => {
     throw new Error(err.message)
   }
 }
+
+exports.getCourses = getCourses
 
 const fetchAllCourses = async () => {
   const courseDict = {}
@@ -202,12 +204,12 @@ exports.fetchPlan = async (req, res) => {
   const userId = req.userId
   COURSE_DATA = await fetchAllCourses()
   if (COURSE_DATA) {
-    const data = await testAsync(userId)
+    const data = await getStudentCoursePlan(userId)
     const startEndKeys = await getStartEndKeys(userId)
     console.log('Start End Keys', startEndKeys)
     if (startEndKeys && startEndKeys.length === 2) {
       const fullPlan = await createFullPlan(data, startEndKeys)
-      console.log(fullPlan)
+      // console.log(fullPlan)
       res.status(200).json({ fullPlan, courseCatalog: Object.values(COURSE_DATA) })
     } else {
       res.status(200).json({ message: 'Start and End keys are invalid. Please create a new account.' })
@@ -218,7 +220,7 @@ exports.fetchPlan = async (req, res) => {
 }
 
 // TODO change name getStudentCoursePlan
-const testAsync = async (userId) => {
+const getStudentCoursePlan = async (userId) => {
   try {
     const db = await fetchDB()
     const query = 'SELECT * FROM StudentCoursePlan WHERE studentId = ?'
@@ -229,4 +231,4 @@ const testAsync = async (userId) => {
   }
 }
 
-exports.testAsync = testAsync
+exports.getStudentCoursePlan = getStudentCoursePlan

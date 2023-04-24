@@ -31,7 +31,7 @@ describe('semesterKeyInterp', () => {
 describe('getStudentCoursePlan', () => {
   it('should fetch empty student plan', async () => {
     const userId = 1
-    const res = await plannerModule.testAsync(userId)
+    const res = await plannerModule.getStudentCoursePlan(userId)
     expect(res).toEqual([])
   })
 
@@ -44,7 +44,7 @@ describe('getStudentCoursePlan', () => {
       await plannerModule.addCourseToSemester(userId, course, semester, {})
     }
 
-    const res = await plannerModule.testAsync(userId)
+    const res = await plannerModule.getStudentCoursePlan(userId)
     expect(res).toEqual([
       { ID: 1, studentId: 1, courseId: 'MATH-111', semester: 'F2022' },
       { ID: 2, studentId: 1, courseId: 'DANC-330', semester: 'F2022' }
@@ -80,6 +80,27 @@ describe('addCourses', () => {
       expect.objectContaining({
         // fullPlan: null,
         message: 'Successfully added courses MATH-111, CS-174 to F2022!'
+      })
+    )
+  })
+
+  it('should addCourses with status 409 due to maximum course load', async () => {
+    const mReq = {
+      userId: 1,
+      body: {
+        courseIdList: ['MATH-111', 'CS-174', 'DANC-100', 'DANC-330', 'MATH-112'],
+        semesterKey: 'S2023'
+      }
+    }
+    const mRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+    await plannerModule.addCourses(mReq, mRes)
+    expect(mRes.status).toBeCalledWith(409)
+    expect(mRes.json).toBeCalledWith(
+      expect.objectContaining({
+        message: 'Only a maximum of four courses can be added to a semester\'s plan!'
       })
     )
   })

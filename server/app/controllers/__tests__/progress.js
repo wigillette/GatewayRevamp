@@ -7,17 +7,33 @@ beforeEach(async () => {
   await setUpTestDB('dev.db', 'dev_test.db')
 })
 
+describe('courseFulfillsCore', () => {
+  it('course fulfills core', async () => {
+    const courseId = 'MATH-111'
+    const coreId = 'R'
+    const res = await progressModule.courseFulfillsCore(courseId, coreId)
+    expect(res).toBe(true)
+  })
+
+  it('course does not fulfill core', async () => {
+    const courseId = 'MATH-111'
+    const coreId = 'H'
+    const res = await progressModule.courseFulfillsCore(courseId, coreId)
+    expect(res).toBe(false)
+  })
+})
+
 describe('isCourseAssignedCore', () => {
   it('check course is not assigned to core requirements', async () => {
     const studentId = 1
-    const courseId = 'GWSS-126-A'
+    const courseId = 'HIST-126'
     const res = await progressModule.isCourseAssignedCore(studentId, courseId)
     expect(res).toBe(false)
   })
-
+  // TODO FIX THIS ONE
   it('check course is assigned to core requirement', async () => {
     const studentId = 1
-    const courseId = 'GWSS-126-A'
+    const courseId = 'HIST-126'
     const coreId = 'DN'
 
     const mReq = {
@@ -43,7 +59,7 @@ describe('isCourseAssignedCore', () => {
 describe('assignCore', () => {
   it('assigns core requirements and then changes it', async () => {
     const studentId = 1
-    const courseId = 'GWSS-126-A'
+    const courseId = 'HIST-126'
     const coreId = 'DN'
 
     const mReq = {
@@ -91,7 +107,7 @@ describe('assignCore', () => {
       status: jest.fn().mockReturnThis(),
       json: jest.fn().mockReturnThis()
     }
-    const coreId2 = 'O'
+    const coreId2 = 'GN'
     const mReq2 = {
       body: {
         courseId,
@@ -111,7 +127,50 @@ describe('assignCore', () => {
           H: null,
           SS: null,
           S: null,
-          O: courseId,
+          O: null,
+          GN: courseId,
+          LINQ: null,
+          CCAP: null,
+          R: null,
+          Q: null,
+          L: null,
+          CIE: null,
+          DN: null,
+          XLP: null
+        }
+      })
+    )
+  })
+
+  it('cannot assign core requirement if course doesn\'t contain it', async () => {
+    const studentId = 1
+    const courseId = 'HIST-126'
+    const badCore = 'O'
+
+    const mReq = {
+      body: {
+        courseId,
+        coreId: badCore
+      },
+      userId: studentId
+    }
+
+    const mRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+
+    await progressModule.assignCore(mReq, mRes)
+    expect(mRes.status).toBeCalledWith(409)
+    expect(mRes.json).toBeCalledWith(
+      expect.objectContaining({
+        message: `${courseId} does not fulfill the ${badCore} core requirement!`,
+        coreAssignments: {
+          A: null,
+          H: null,
+          SS: null,
+          S: null,
+          O: null,
           GN: null,
           LINQ: null,
           CCAP: null,
@@ -205,7 +264,7 @@ describe('getAssignments', () => {
 
   it('gets the assignments if courses are planned', async () => {
     const studentId = 1
-    const courseId = 'GWSS-126-A'
+    const courseId = 'HIST-126'
     const coreId = 'DN'
 
     const mReq = {
@@ -252,7 +311,7 @@ describe('fetchAssignments', () => {
     const studentId = 1
     const MATH = 'MATH-111'
     const DANCE = 'DANC-330'
-    const GWSS = 'GWSS-126-A'
+    const HIST = 'HIST-126'
     const coreId = 'O'
     const semester = 'F2022'
     const toAddCourses = [MATH, DANCE]
@@ -263,7 +322,7 @@ describe('fetchAssignments', () => {
 
     const mReq = {
       body: {
-        courseId: GWSS,
+        courseId: HIST,
         coreId
       },
       userId: studentId
@@ -302,7 +361,7 @@ describe('fetchAssignments', () => {
           H: DANCE,
           SS: null,
           S: null,
-          O: GWSS,
+          O: null,
           GN: null,
           LINQ: DANCE,
           CCAP: null,
