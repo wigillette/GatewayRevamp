@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { startTransition, useState } from 'react';
 import styles from './Header.module.css';
 import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert } from "reactstrap";
 import logo from "../../images/UCLogo.png";
@@ -15,7 +15,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
   const [lName, setLName] = useState();
   const [gradDate, setGradDate] = useState(gradDates[gradDates.length-1]);
   const [startDate, setStartDate] = useState(gradDates[0]);
-  const [major, setMajor] = useState();
+  const [major, setMajor] = useState(majors[0]);
   const [headshot, setHeadshot] = useState();
 
   // Using state to handle the login form's visibility
@@ -42,9 +42,28 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
     const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
     const fNameValid = fName.match(/[A-Za-z]/) !== null;
     const lNameValid = lName.match(/[A-Za-z]/) !== null;
-    const gradDateValid = gradDate !== null;
-    const majorValid = major !== null;
-    return emailValid && passwordValid && fNameValid && lNameValid && gradDateValid && majorValid;
+    const gradDateValid = gradDate !== null && gradDates.includes(gradDate);
+    const startDateValid = startDate !== null && gradDates.includes(startDate);
+    const majorValid = major !== null && majors.includes(major);
+    const headshotValid = headshot !== null && /\.(png|jpe?g)$/i.test(headshot);
+    const fieldsValidation = {
+      'Email': emailValid,
+      'Password': passwordValid,
+      'First Name': fNameValid,
+      'Last Name': lNameValid,
+      'Grad Date': gradDateValid,
+      'Start Date': startDateValid,
+      'Major': majorValid,
+      'Headshot': headshotValid
+    }
+    
+    Object.entries(fieldsValidation).forEach((fieldInfo) => {
+      if (!fieldInfo[1]) {
+        alert(`${fieldInfo[0]} is in an invalid format!`)
+      }
+    })
+
+    return emailValid && passwordValid && fNameValid && lNameValid && gradDateValid && majorValid && startDateValid && headshotValid;
   }
 
   // Calls the login function in the auth-action
