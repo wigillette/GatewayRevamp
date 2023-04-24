@@ -12,7 +12,7 @@ const majors = require('../../../client/src/shared/majors.json')
 const validateLogin = (email, password) => {
   const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null
   const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null
-  return emailValid && passwordValid;
+  return emailValid && passwordValid
 }
 
 // Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
@@ -48,11 +48,10 @@ exports.login = async (req, res) => {
             const token = jwt.sign({ id: userId }, config.secret, { expiresIn: config.jwtExpiration })
             const refreshToken = createToken(userId)
             const major = await db.get('SELECT StudentMajors.majorId from StudentMajors WHERE studentId = ?', [userId])
-            console.log(major)
             res.status(200).json({
               accessToken: token,
               email: dataEntry.email,
-              major: major.majorId,
+              major: major ? major.majorId : 'NULL',
               startDate: dataEntry.startDate,
               headshot: dataEntry.headshot,
               fName: dataEntry.fName,
@@ -70,7 +69,6 @@ exports.login = async (req, res) => {
       res.status(500).json({ message: 'Invalid password!' })
     }
   } catch (err) {
-    console.log(err)
     res.status(500).json({ message: err.message })
   }
 }
@@ -93,7 +91,6 @@ exports.register = async (req, res) => {
       res.status(404).json({ message: 'At least one field was invalid!' })
     }
   } catch (err) {
-    console.log(err)
     res.status(500).json({ message: err.message, valid: false })
   }
 }

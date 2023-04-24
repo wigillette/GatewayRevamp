@@ -10,3 +10,9 @@
     margin-left: auto !important;
     margin-right: auto !important;
 } 
+
+.carousel_image {
+    height: 35rem !important; /* Set the height of the images */
+    width: 60rem !important;
+    object-fit: cover !important; /* Ensure the images fill the container */
+  }

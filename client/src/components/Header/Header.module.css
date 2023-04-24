@@ -45,11 +45,11 @@
 }
 
 /* Header Link Styling */
-.nav_link {
+.planner_nav_link, .progress_nav_link, .home_nav_link  {
     white-space: nowrap;
 }
 
-.nav_link span {
+.planner_nav_link span, .progress_nav_link span, .home_nav_link span {
     font-size: 3.5vh;
 }
 

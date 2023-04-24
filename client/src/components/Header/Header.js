@@ -1,6 +1,6 @@
-import React, { startTransition, useState } from 'react';
+import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert, UncontrolledTooltip } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
@@ -111,16 +111,18 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
             {/* Navbar Links */}
             <Nav className="me-auto" navbar>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
+                <NavLink className={styles.home_nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
+                <UncontrolledTooltip placement="bottom" target={`.${styles.home_nav_link}`}>Home Page</UncontrolledTooltip>
               </NavItem>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
+                <NavLink className={styles.progress_nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
+                <UncontrolledTooltip placement="bottom" target={`.${styles.progress_nav_link}`}>My Progress</UncontrolledTooltip>
               </NavItem>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.nav_link} href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
+                <NavLink className={styles.planner_nav_link}  href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
+                <UncontrolledTooltip placement="bottom" target={`.${styles.planner_nav_link}`}>Degree Builder</UncontrolledTooltip>
               </NavItem>
             </Nav>
-            {/* Sign in Form Button/Sign out Button: use state to toggle it and conditionally change the onClick function */}
           </Collapse>
           
         </Container>

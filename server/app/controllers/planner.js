@@ -210,10 +210,10 @@ exports.fetchPlan = async (req, res) => {
       console.log(fullPlan)
       res.status(200).json({ fullPlan, courseCatalog: Object.values(COURSE_DATA) })
     } else {
-      res.status(500).json({ message: 'Failed to initialize course data' })
+      res.status(200).json({ message: 'Start and End keys are invalid. Please create a new account.' })
     }
   } else {
-    res.status(500).json({ message: 'Failed to initialize course data.' })
+    res.status(200).json({ message: 'Failed to initialize course data.' })
   }
 }
 
