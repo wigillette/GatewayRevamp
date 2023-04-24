@@ -250,10 +250,12 @@ describe('getAssignments', () => {
 describe('fetchAssignments', () => {
   it('fetches everything correctly for the assignments', async () => {
     const studentId = 1
-    const courseId = 'GWSS-126-A'
-    const coreId = 'DN'
+    const MATH = 'MATH-111'
+    const DANCE = 'DANC-330'
+    const GWSS = 'GWSS-126-A'
+    const coreId = 'O'
     const semester = 'F2022'
-    const toAddCourses = ['MATH-111', 'DANC-330']
+    const toAddCourses = [MATH, DANCE]
 
     for (const course of toAddCourses) {
       await plannerModule.addCourseToSemester(studentId, course, semester, {})
@@ -261,7 +263,7 @@ describe('fetchAssignments', () => {
 
     const mReq = {
       body: {
-        courseId,
+        courseId: GWSS,
         coreId
       },
       userId: studentId
@@ -296,22 +298,142 @@ describe('fetchAssignments', () => {
           { courseId: 'DANC-330', coreId: 'LINQ' }
         ],
         coreAssignments: {
-          A: null,
-          H: null,
+          A: DANCE,
+          H: DANCE,
           SS: null,
           S: null,
-          O: null,
+          O: GWSS,
           GN: null,
-          LINQ: null,
+          LINQ: DANCE,
           CCAP: null,
-          R: null,
-          Q: null,
+          R: MATH,
+          Q: MATH,
           L: null,
           CIE: null,
-          DN: courseId,
+          DN: DANCE,
           XLP: null
         },
         totalCredits: 8
+      })
+    )
+  })
+})
+
+describe('isSpecialCore', () => {
+  it('is special core requirement', () => {
+    const dn = progressModule.isSpecialCore('DN')
+    expect(dn).toBe(true)
+
+    const gn = progressModule.isSpecialCore('GN')
+    expect(gn).toBe(true)
+
+    const o = progressModule.isSpecialCore('O')
+    expect(o).toBe(true)
+  })
+
+  it('is not special core requirement', () => {
+    const h = progressModule.isSpecialCore('H')
+    expect(h).toBe(false)
+    const linq = progressModule.isSpecialCore('LINQ')
+    expect(linq).toBe(false)
+  })
+})
+
+describe('addMappingsToAssignments', () => {
+  it('adds core requirements mappings to the assignments', () => {
+    const DANCE = 'DANC-330'
+    const MATH = 'MATH-111'
+    const mockMappings = [
+      { courseId: 'MATH-111', coreId: 'Q' },
+      { courseId: 'MATH-111', coreId: 'R' },
+      { courseId: 'DANC-330', coreId: 'A' },
+      { courseId: 'DANC-330', coreId: 'DN' },
+      { courseId: 'DANC-330', coreId: 'H' },
+      { courseId: 'DANC-330', coreId: 'LINQ' }
+    ]
+
+    const mockAssignments = {
+      A: null,
+      H: null,
+      SS: null,
+      S: null,
+      O: null,
+      GN: null,
+      LINQ: null,
+      CCAP: null,
+      R: null,
+      Q: null,
+      L: null,
+      CIE: null,
+      DN: null,
+      XLP: null
+    }
+
+    progressModule.addMappingsToAssignments(mockMappings, mockAssignments)
+
+    expect(mockAssignments).toEqual(
+      expect.objectContaining({
+        A: DANCE,
+        H: DANCE,
+        SS: null,
+        S: null,
+        O: null,
+        GN: null,
+        LINQ: DANCE,
+        CCAP: null,
+        R: MATH,
+        Q: MATH,
+        L: null,
+        CIE: null,
+        DN: DANCE,
+        XLP: null
+      })
+    )
+  })
+
+  it('does not assign if conflict', () => {
+    const HIST = 'HIST-126'
+    const mockMappings = [
+      { courseId: HIST, coreId: 'DN' },
+      { courseId: HIST, coreId: 'GN' },
+      { courseId: HIST, coreId: 'H' }
+    ]
+
+    const mockAssignments = {
+      A: null,
+      H: null,
+      SS: null,
+      S: null,
+      O: null,
+      GN: null,
+      LINQ: null,
+      CCAP: null,
+      R: null,
+      Q: null,
+      L: null,
+      CIE: null,
+      DN: null,
+      XLP: null
+    }
+
+    progressModule.addMappingsToAssignments(mockMappings, mockAssignments)
+
+    expect(mockAssignments).toEqual(
+      expect.objectContaining({
+        A: null,
+        H: HIST,
+        SS: null,
+        S: null,
+        O: null,
+        GN: null,
+        LINQ: null,
+        CCAP: null,
+        R: null,
+        Q: null,
+        L: null,
+        CIE: null,
+        DN: null,
+        XLP: null
       })
     )
   })
