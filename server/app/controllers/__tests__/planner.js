@@ -84,7 +84,7 @@ describe('addCourses', () => {
     )
   })
 
-  it('should addCourses with status 409 due to maximum course load', async () => {
+  it('should addCourses with status 401 due to maximum course load', async () => {
     const mReq = {
       userId: 1,
       body: {
@@ -97,7 +97,7 @@ describe('addCourses', () => {
       json: jest.fn().mockReturnThis()
     }
     await plannerModule.addCourses(mReq, mRes)
-    expect(mRes.status).toBeCalledWith(409)
+    expect(mRes.status).toBeCalledWith(401)
     expect(mRes.json).toBeCalledWith(
       expect.objectContaining({
         message: 'Only a maximum of four courses can be added to a semester\'s plan!'
@@ -138,6 +138,25 @@ describe('fetchPlan', () => {
           semesterOffered: 'SPRING',
           prerequisites: ['MATH-112']
         }])
+      })
+    )
+  })
+
+  it('fail to fetch plan due to key error', async () => {
+    const mReq = { userId: 1 }
+    const mRes = {
+      status: jest.fn().mockReturnThis(),
+      json: jest.fn().mockReturnThis()
+    }
+    const db = await fetchDB()
+    const query = 'UPDATE Students SET startDate = NULL WHERE ID = ?'
+    await db.run(query, [mReq.userId])
+
+    await plannerModule.fetchPlan(mReq, mRes)
+    expect(mRes.status).toBeCalledWith(200)
+    expect(mRes.json).toBeCalledWith(
+      expect.objectContaining({
+        message: 'Start and End keys are invalid. Please create a new account.'
       })
     )
   })
