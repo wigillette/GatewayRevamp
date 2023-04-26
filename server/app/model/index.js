@@ -13,7 +13,7 @@ const fetchDB = async () => {
   if (db) {
     return db
   } else {
-    const db = await Database.open(filepath)
+    db = await Database.open(filepath)
     return db
   }
 }

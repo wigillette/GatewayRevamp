@@ -79,6 +79,13 @@ exports.removeCourse = async (req, res) => {
   }
 }
 
+/**
+* A helper method that adds a single course to a semester's plan
+* @param studentId The respective user's ID
+* @param course The course to add (MATH-111, MATH-310, etc.)
+* @param semester The respective semester key (F2022, S2023, etc.)
+* @param fullPlan An object of the full plan
+*/
 const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
   const db = await fetchDB()
   const semesterDuplicates = Object.keys(fullPlan).filter((key) => fullPlan[key].filter((courseEntry) => courseEntry.id === course).length > 0)
@@ -96,6 +103,10 @@ const addCourseToSemester = async (studentId, course, semester, fullPlan) => {
 }
 exports.addCourseToSemester = addCourseToSemester
 
+/**
+* Retrieves the user's full degree plan from the database
+* @param userId The ID of the user from which to fetch the plan
+*/
 const getFullPlanFromDB = async (userId) => {
   try {
     const db = await fetchDB()
@@ -115,12 +126,17 @@ const getFullPlanFromDB = async (userId) => {
 
 exports.getFullPlanFromDB = getFullPlanFromDB
 
+/**
+* Adds multiple courses to a specified semester plan, checking various base cases such as duplicates, max of four courses/plan, etc.
+* @param courseIdList [MATH-111, MATH-112, ...]
+* @param semesterKey "F2022", "S2023", etc.
+*/
 exports.addCourses = async (req, res) => {
   const { courseIdList, semesterKey } = req.body
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
   if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
-    const coursesPlanned = Object.values(formerPlan).map((plan) => plan.map((courseInfo) => courseInfo.id))
+    const coursesPlanned = Object.values(formerPlan).map((semesterPlan) => semesterPlan.map((courseInfo) => courseInfo.id))
     const isCourseDuplicate = coursesPlanned.some((semesterPlan) => semesterPlan.some((courseId) => courseIdList.includes(courseId)))
     if (!isCourseDuplicate) {
       try {
@@ -130,7 +146,7 @@ exports.addCourses = async (req, res) => {
         const newPlan = await getFullPlanFromDB(userId)
         res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
       } catch (err) {
-        res.status(500).json({ fullPlan: formerPlan, message: err })
+        res.status(500).json({ fullPlan: formerPlan, message: err.message })
       }
     } else {
       res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${courseIdList.join(', ')} is already planned for this or another semester!` })
@@ -140,6 +156,10 @@ exports.addCourses = async (req, res) => {
   }
 }
 
+/**
+* Returns the courses from the database linked with the prerequisites and core requirements
+* @return Information for each course including prerequisites and core requirements
+*/
 const getCourses = async () => {
   try {
     const db = await fetchDB()
@@ -156,6 +176,10 @@ const getCourses = async () => {
 
 exports.getCourses = getCourses
 
+/**
+* Fetches all the courses in the database
+* @return A dictionary with all the relevant information for each course (courseInfo[])
+*/
 const fetchAllCourses = async () => {
   const courseDict = {}
   const results = await getCourses()
@@ -187,6 +211,11 @@ const fetchAllCourses = async () => {
 
 exports.fetchAllCourses = fetchAllCourses
 
+/**
+* Returns the full user course plan
+* @param userId The respective user's ID
+* @return The user's start end keys (i.e. [F2022, S2025])
+*/
 const getStartEndKeys = async (userId) => {
   try {
     const db = await fetchDB()
@@ -206,6 +235,10 @@ const getStartEndKeys = async (userId) => {
 
 exports.getStartEndKeys = getStartEndKeys
 
+/**
+* Returns the full user course plan
+* @return Full Course Plan {F2022: courseInfo[], S2023: courseInfo: [], ...}
+*/
 exports.fetchPlan = async (req, res) => {
   const userId = req.userId
   COURSE_DATA = await fetchAllCourses()
@@ -215,7 +248,6 @@ exports.fetchPlan = async (req, res) => {
     console.log('Start End Keys', startEndKeys)
     if (startEndKeys && startEndKeys.length === 2) {
       const fullPlan = await createFullPlan(data, startEndKeys)
-      // console.log(fullPlan)
       res.status(200).json({ fullPlan, courseCatalog: Object.values(COURSE_DATA) })
     } else {
       res.status(200).json({ message: 'Start and End keys are invalid. Please create a new account.' })
@@ -225,7 +257,11 @@ exports.fetchPlan = async (req, res) => {
   }
 }
 
-// TODO change name getStudentCoursePlan
+/**
+* Returns the user's course plan
+* @param userId The respective user's ID to make queries with
+* @return Course Plan {F2022: courseInfo[], S2023: courseInfo: [], ...}
+*/
 const getStudentCoursePlan = async (userId) => {
   try {
     const db = await fetchDB()

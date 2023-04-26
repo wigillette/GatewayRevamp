@@ -22,6 +22,10 @@ const isCourseAssignedCore = async (studentId, courseId) => {
 
 exports.isCourseAssignedCore = isCourseAssignedCore
 
+/**
+*  Returns assignments in format (courseId, coreId)
+*  @param studentId The user's student ID
+*/
 const getMappings = async (studentId) => {
   try {
     const db = await fetchDB()
@@ -38,6 +42,11 @@ const getMappings = async (studentId) => {
 
 exports.getMappings = getMappings
 
+/**
+* Returns what a user has assigned to core requirements
+* in the format {Q: null, R: courseObj, S: null, ...}
+* @param studentId The user's student ID
+*/
 const getAssignments = async (studentId) => {
   try {
     const db = await fetchDB()
@@ -57,9 +66,11 @@ const getAssignments = async (studentId) => {
 
 exports.getAssignments = getAssignments
 
-/*
- *  Checks if a course fulfills a designated core requirement
- */
+/**
+* Checks if a course fulfills a designated core requirement
+* @param courseId The respective course ID to check
+* @param coreId The core requirement to check if the respective course fulfills
+*/
 const courseFulfillsCore = async (courseId, coreId) => {
   try {
     const db = await fetchDB()
@@ -83,7 +94,7 @@ exports.assignCore = async (req, res) => {
   const db = await fetchDB()
   const { courseId, coreId } = req.body
   const userId = req.userId
-  // TO-DO: Check if the course has the requested core requirement in the database and remove it from the original assignment (i.e. cannot have both SS and GN)
+
   try {
     const courseHasCore = await courseFulfillsCore(courseId, coreId)
     const originalAssignments = await getAssignments(userId)
@@ -107,6 +118,12 @@ exports.assignCore = async (req, res) => {
   }
 }
 
+/**
+* Loops through all the courses in the plan and accumulates the credit total
+* to compute the user's total credits based on planned courses
+* @param mappings {courseId: ..., coreId: ...} array
+* @return The credit total
+*/
 const computeCreditsFromMappings = async (mappings) => {
   try {
     const db = await fetchDB()
