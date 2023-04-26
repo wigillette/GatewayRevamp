@@ -120,7 +120,9 @@ exports.addCourses = async (req, res) => {
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
   if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
-    if (!formerPlan[semesterKey].map((course) => course.courseId).some(item => courseIdList.includes(item))) {
+    const coursesPlanned = Object.values(formerPlan).map((plan) => plan.map((courseInfo) => courseInfo.id))
+    const isCourseDuplicate = coursesPlanned.some((semesterPlan) => semesterPlan.some((courseId) => courseIdList.includes(courseId)))
+    if (!isCourseDuplicate) {
       try {
         await Promise.all(courseIdList.map(async (courseId) => {
           await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
@@ -131,7 +133,7 @@ exports.addCourses = async (req, res) => {
         res.status(500).json({ fullPlan: formerPlan, message: err })
       }
     } else {
-      res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${courseIdList.join(', ')} is already planned for ${semesterKey}!` })
+      res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${courseIdList.join(', ')} is already planned for this or another semester!` })
     }
   } else {
     res.status(401).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
