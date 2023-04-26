@@ -119,7 +119,7 @@ exports.addCourses = async (req, res) => {
   const { courseIdList, semesterKey } = req.body
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
-  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
+  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4 && !formerPlan[semesterKey].map((course) => course.courseId).some(item => courseIdList.includes(item))) {
     try {
       await Promise.all(courseIdList.map(async (courseId) => {
         await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
