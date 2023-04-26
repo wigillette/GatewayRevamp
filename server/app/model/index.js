@@ -7,7 +7,7 @@ let db
 const fetchDB = async () => {
   let dbName = 'main.db'
   if (process.env.NODE_ENV === 'test') {
-    dbName = 'dev.db'
+    dbName = 'dev_test.db'
   }
   const filepath = path.resolve(__dirname, dbName)
   if (db) {
