@@ -198,10 +198,10 @@ describe('login', () => {
       json: jest.fn().mockReturnThis()
     }
     await userAuth.login(mReq, mRes)
-    expect(mRes.status).toBeCalledWith(404)
+    expect(mRes.status).toBeCalledWith(500)
     expect(mRes.json).toBeCalledWith(
       expect.objectContaining({
-        message: 'At least one field was invalid!'
+        message: 'Database Error!'
       })
     )
   })
