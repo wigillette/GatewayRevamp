@@ -119,18 +119,22 @@ exports.addCourses = async (req, res) => {
   const { courseIdList, semesterKey } = req.body
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
-  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4 && !formerPlan[semesterKey].map((course) => course.courseId).some(item => courseIdList.includes(item))) {
-    try {
-      await Promise.all(courseIdList.map(async (courseId) => {
-        await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
-      }))
-      const newPlan = await getFullPlanFromDB(userId)
-      res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
-    } catch (err) {
-      res.status(500).json({ fullPlan: formerPlan, message: err })
+  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
+    if (!formerPlan[semesterKey].map((course) => course.courseId).some(item => courseIdList.includes(item))) {
+      try {
+        await Promise.all(courseIdList.map(async (courseId) => {
+          await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
+        }))
+        const newPlan = await getFullPlanFromDB(userId)
+        res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
+      } catch (err) {
+        res.status(500).json({ fullPlan: formerPlan, message: err })
+      }
+    } else {
+      res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${courseIdList.join(', ')} is already planned for ${semesterKey}!` })
     }
   } else {
-    res.status(409).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
+    res.status(401).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })
   }
 }
 
