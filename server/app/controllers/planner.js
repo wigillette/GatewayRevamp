@@ -133,23 +133,24 @@ exports.getFullPlanFromDB = getFullPlanFromDB
 */
 exports.addCourses = async (req, res) => {
   const { courseIdList, semesterKey } = req.body
+  const uniqueIdList = [...new Set(courseIdList)]
   const userId = req.userId
   const formerPlan = await getFullPlanFromDB(userId)
-  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + courseIdList.length <= 4) {
+  if (Object.keys(formerPlan).includes(semesterKey) && formerPlan[semesterKey].length + uniqueIdList.length <= 4) {
     const coursesPlanned = Object.values(formerPlan).map((semesterPlan) => semesterPlan.map((courseInfo) => courseInfo.id))
-    const isCourseDuplicate = coursesPlanned.some((semesterPlan) => semesterPlan.some((courseId) => courseIdList.includes(courseId)))
+    const isCourseDuplicate = coursesPlanned.some((semesterPlan) => semesterPlan.some((courseId) => uniqueIdList.includes(courseId)))
     if (!isCourseDuplicate) {
       try {
-        await Promise.all(courseIdList.map(async (courseId) => {
+        await Promise.all(uniqueIdList.map(async (courseId) => {
           await addCourseToSemester(userId, courseId, semesterKey, formerPlan)
         }))
         const newPlan = await getFullPlanFromDB(userId)
-        res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${courseIdList.join(', ')} to ${semesterKey}!` })
+        res.status(200).json({ fullPlan: newPlan, message: `Successfully added courses ${uniqueIdList.join(', ')} to ${semesterKey}!` })
       } catch (err) {
         res.status(500).json({ fullPlan: formerPlan, message: err.message })
       }
     } else {
-      res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${courseIdList.join(', ')} is already planned for this or another semester!` })
+      res.status(401).json({ fullPlan: formerPlan, message: `At least one of ${uniqueIdList.join(', ')} is already planned for this or another semester!` })
     }
   } else {
     res.status(401).json({ fullPlan: formerPlan, message: 'Only a maximum of four courses can be added to a semester\'s plan!' })

@@ -51,9 +51,9 @@ const SemesterDropdown = ({keyList, activeIndex, setSemesterKey}) => (
 const BrowserCourse = ({courseInfo, selectedCourses, setSelectedCourses}) => { 
   const updateSelection = (isSelected) => {
     if (isSelected) {
-      setSelectedCourses([...selectedCourses, courseInfo.id])
-    } else if (selectedCourses.includes(courseInfo.id)) {
-      setSelectedCourses((prevSelected) => prevSelected.filter((id) => id !== courseInfo.id))
+      setSelectedCourses([...new Set([...selectedCourses, courseInfo.id])])
+    } else {
+      setSelectedCourses([...new Set(selectedCourses.filter((id) => id !== courseInfo.id))]);
     }
   }
 
@@ -62,7 +62,7 @@ const BrowserCourse = ({courseInfo, selectedCourses, setSelectedCourses}) => {
     <CardHeader>
       <p className={styles.browser_course_id}>{courseInfo?.id || "No Title"}</p>
       <FormGroup check className={styles.course_select_toggle}>
-        <Label check><Input type="checkbox" onChange={(e) => updateSelection(e.target.checked)}></Input>{' '}Select</Label>
+        <Label check><Input type="checkbox" defaultChecked={false} onChange={(e) => updateSelection(e.target.checked)}></Input>{' '}Select</Label>
       </FormGroup>
     </CardHeader>
     <ListGroup flush>
@@ -100,6 +100,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
 
   // Updates the displayedCourses by applying the selected filters and search queries
   const renderFilteredCourses = () => {
+    setSelectedCourses([])
     // Checking whether the semester is an even or odd year and only adding courses that are offered in that year before applying filters
     const isEvenYear = parseInt(semester.charAt(semester.length-1)) % 2 === 0;
     let filteredCatalog = courseCatalog.filter((courseInfo) => (courseInfo?.yearOffered === "EVERY") || (isEvenYear ? courseInfo?.yearOffered === "EVEN" : courseInfo?.yearOffered === "ODD"));
@@ -133,14 +134,18 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   const addCoursesAction = (e) => {
     e.preventDefault();
     addCourses(selectedCourses, semester)
-    setSelectedCourses([]); // Reset the selected courses after adding them
+    resetModal()
+  }
+  
+  const resetModal = () => {
+    setSelectedCourses([]);
     toggleFunction();
   }
 
   return (
-    <Modal isOpen={isBrowserActive} toggle={toggleFunction} fade={false}>
+    <Modal isOpen={isBrowserActive} toggle={resetModal} fade={false}>
       <Form onSubmit={(e) => addCoursesAction(e)}>
-        <ModalHeader toggle={toggleFunction} className={styles.browser_header}>Course Browser</ModalHeader>
+        <ModalHeader toggle={resetModal} className={styles.browser_header}>Course Browser</ModalHeader>
         <ModalBody>
             {/* Semester Dropdown */}
             <FormGroup>
@@ -226,7 +231,7 @@ class Semester extends React.Component {
         </div>
         <BrowserModal addCourses={this.props.addCourses} semesterViewingId={Object.keys(this.props.fullPlan)[this.state.semesterKey]} isBrowserActive={this.state.isBrowserActive} toggleFunction={this.toggleBrowser} semesterKeys={Object.keys(this.props.fullPlan)} courseCatalog={this.props.courseCatalog} />
       </div>) 
-    : <Spinner className={styles.load_spinner} color="primary" size="lg"> Loading...</Spinner>
+    : <Spinner className={styles.load_spinner} color="primary" size="lg">{this.props.message || "Loading.."}</Spinner>
   }
 }
 
