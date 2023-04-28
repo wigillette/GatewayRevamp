@@ -4,9 +4,8 @@
 
 .contentWrapper {
     width: 90%;
-    height: 60vh;
+    min-height: 70vh;
     margin: 0 auto;
+    display: flex;
     margin-top: 5%;
-    /* margin-top: 10%;
-    margin-bottom: 10%; */
 }
