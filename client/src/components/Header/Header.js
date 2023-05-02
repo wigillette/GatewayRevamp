@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Header.module.css';
-import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert, UncontrolledTooltip } from "reactstrap";
+import { Row, Col, Container, Nav, Navbar, NavbarToggler, NavbarBrand, NavLink, Collapse, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Input, Label, FormText, NavItem, Alert, UncontrolledTooltip, Tooltip } from "reactstrap";
 import logo from "../../images/UCLogo.png";
 import { loginAction, registerAction, logoutAction } from '../../redux/actions/auth';
 import { connect } from 'react-redux';
@@ -28,13 +28,6 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
 
   // Toggler for navbar links
   const [isNavOpen, setIsNavOpen] = useState(false);
-
-  // Validate that the login matches the patterns so that we do not make unnecessary HTTP requests
-  const validateLogin = () => {
-    const emailValid = email.match(/^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/) !== null;
-    const passwordValid = password.match(/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{6,15}$/) !== null;
-    return emailValid && passwordValid;
-  }
 
   // Validate that the registration matches the patterns so that we do not make unnecessary HTTP requests
   const validateRegistration = () => {
@@ -69,11 +62,9 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
   // Calls the login function in the auth-action
   const attemptLogin = (e) => {
     e.preventDefault();
-    if (validateLogin()) {
-      dispatch(loginAction(email, password))
-      .then((message) => !message && toggleModal())
-      .catch((err) => console.error(err));
-    }
+    dispatch(loginAction(email, password))
+    .then((message) => !message && toggleModal())
+    .catch((err) => console.error(err));
   };
 
   // Calls the register function in the auth-action
@@ -103,7 +94,7 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
             <h4 className={styles.header_title}>STUDENT ACCESS PORTAL</h4>
           </NavbarBrand>
           <NavbarToggler className={styles.menu_toggler} onClick={() => setIsNavOpen(!isNavOpen)} aria-controls="basic-navbar-nav" />
-          <Button variant="primary" size="lg" className={styles.login_button} onClick={isAuthenticated ? attemptLogout :  toggleModal}>
+          <Button color="primary" size="lg" className={styles.login_button} onClick={isAuthenticated ? attemptLogout :  toggleModal}>
             <span className ="fa fa-sign-in fa-lg"></span>{' '}
             {isAuthenticated ? "LOGOUT" : "LOGIN"}
           </Button>
@@ -111,16 +102,16 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
             {/* Navbar Links */}
             <Nav className="me-auto" navbar>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.home_nav_link} href="/home"><span className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4></NavLink>
-                <UncontrolledTooltip placement="bottom" target={`.${styles.home_nav_link}`}>Home Page</UncontrolledTooltip>
+                <NavLink className={styles.home_nav_link} href="/home"><span id="homeIcon" title='Home Page' className = "fa fa-home fa-lg"></span><h4 className={styles.link_title}>Home</h4>
+                </NavLink>
               </NavItem>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.progress_nav_link} href="/progress"><span className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4></NavLink>
-                <UncontrolledTooltip placement="bottom" target={`.${styles.progress_nav_link}`}>My Progress</UncontrolledTooltip>
+                <NavLink className={styles.progress_nav_link} href="/progress"><span id="progressIcon" title='My Progress' className = "fa fa-graduation-cap fa-lg"></span><h4 className={styles.link_title}>My Progress</h4>
+                </NavLink>
               </NavItem>
               <NavItem className={styles.link_item}>
-                <NavLink className={styles.planner_nav_link}  href="/planner"><span className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4></NavLink>
-                <UncontrolledTooltip placement="bottom" target={`.${styles.planner_nav_link}`}>Degree Builder</UncontrolledTooltip>
+                <NavLink className={styles.planner_nav_link}  href="/planner"><span id="plannerIcon" title='Degree Builder' className = "fa fa-calendar fa-lg"></span><h4 className={styles.link_title}>Degree Builder</h4>
+                </NavLink>
               </NavItem>
             </Nav>
           </Collapse>
@@ -142,13 +133,13 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
             <Form className="form" onSubmit={attemptLogin} >
               <FormGroup floating>
                 <Input type="email" name="email" id="loginEmail" placeholder="example@example.com" onChange={e => setEmail(e.target.value)} required/>
-                <Label for="loginEmail">Username</Label>
+                <Label for="loginEmail">Email</Label>
               </FormGroup>
               <FormGroup floating>
                 <Input type="password" name="password" id="loginPassword" placeholder="********" onChange={e => setPassword(e.target.value)} required/>
                 <Label for="loginPassword">Password</Label>
               </FormGroup>
-              <Button type="submit">LOGIN</Button>
+              <Button color="primary" type="submit">LOGIN</Button>
             </Form> : 
             // Register Form:
             <Form className="form" onSubmit={attemptRegister} >
@@ -212,14 +203,14 @@ const Header = ({ isAuthenticated, user, message, valid, dispatch }) => { // isA
                 <Input id="headshotUpload" name="file" type="file" onChange={e => setHeadshot(e.target.value)} required/>
                 <FormText>Please upload your headshot.</FormText>
               </FormGroup>
-              <Button type="submit">REGISTER</Button>
+              <Button color="primary" type="submit">REGISTER</Button>
             </Form>
           }
         </ModalBody>
         {/* Login Modal Footer: this is where the submit and registration buttons will go */}
         <ModalFooter>
           {/* Login Modal Login Button */}
-          <Button variant="danger" onClick={() => {toggleRegister()}}>
+          <Button onClick={() => {toggleRegister()}}>
             {isViewingRegister ? "VIEW LOGIN" : "VIEW REGISTER"}
           </Button>
         </ModalFooter>

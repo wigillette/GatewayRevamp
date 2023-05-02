@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import styles from './Progress.module.css';
-import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, ButtonToolbar, Media} from 'reactstrap';
+import {Button, ButtonGroup, Card, CardBody, CardHeader, Col, Container, Form, FormGroup, Input, Label, Modal, ModalBody, ModalFooter, ModalHeader, Progress, Row, UncontrolledAlert, ButtonToolbar, Media, Alert} from 'reactstrap';
 import { connect } from 'react-redux';
 import { assignCoreAction, fetchAssignmentsAction } from '../../redux/actions/progress';
 import { logoutAction } from '../../redux/actions/auth';
@@ -142,7 +142,7 @@ class ProgressContainer extends React.Component  {
         coreId={this.state.currentCoreId}
         courseId={this.state.popUpCourseId}
       />
-      {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
+      {this.props.message && this.props.message.length > 0 && <Alert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</Alert>}
       {this.props.user && this.props.user.fName && this.props.user.major && this.props.user.lName && this.props.user.headshot && this.props.user.email && <div className={styles.information_container}>
         <Media>
           <Media left top href="#"><Media object data-src={this.props.user.headshot} alt='Headshot' /></Media>

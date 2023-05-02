@@ -44,7 +44,7 @@ exports.login = async (req, res) => {
         if (dataEntry) {
           const passwordIsValid = bcrypt.compareSync(password, dataEntry.password)
           if (!passwordIsValid) {
-            res.status(401).json({ message: 'Invalid Password!' })
+            res.status(401).json({ message: 'Invalid password!' })
           } else {
             query = 'SELECT * FROM StudentMajors WHERE studentId = ?'
             const userId = dataEntry.ID
@@ -78,20 +78,25 @@ exports.login = async (req, res) => {
 
 exports.register = async (req, res) => {
   const { email, password, fName, lName, gradDate, major, headshot, startDate } = req.body
-  // Add database checks: https://github.com/bezkoder/node-js-jwt-auth/blob/master/app/controllers/auth.controller.js
-  // TO-DO: Check if a user already exists in the database with that email
   const db = await fetchDB() // Retrieve the database
   // Encrypt password
   const encryptedPassword = bcrypt.hashSync(password, 8)
   try {
     if (validateRegistration(email, password, fName, lName, gradDate, startDate, major, headshot)) {
-      let query = 'INSERT INTO Students (fName, lName, email, password, startDate, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?, ?)'
-      const insertResult = await db.run(query, [fName, lName, email, encryptedPassword, startDate, gradDate, headshot])
-      query = 'INSERT INTO StudentMajors (studentId, majorId) VALUES (?, ?)'
-      await db.run(query, [insertResult.lastID, major])
-      res.status(200).json({ message: 'Account creation successful!', valid: true })
+      // Check if a user already exists in the database with that email
+      let query = 'SELECT * FROM Students WHERE email = ?'
+      const existingEmails = await db.all(query, [email])
+      if (existingEmails.length == 0) { 
+        query = 'INSERT INTO Students (fName, lName, email, password, startDate, gradDate, headshot) VALUES (?, ?, ?, ?, ?, ?, ?)'
+        const insertResult = await db.run(query, [fName, lName, email, encryptedPassword, startDate, gradDate, headshot])
+        query = 'INSERT INTO StudentMajors (studentId, majorId) VALUES (?, ?)'
+        await db.run(query, [insertResult.lastID, major])
+        res.status(200).json({ message: 'Account creation successful!', valid: true })
+      } else {
+        res.status(401).json({ message: 'An existing user has that email!', valid: false })
+      }
     } else {
-      res.status(404).json({ message: 'At least one field was invalid!', valid: false })
+      res.status(401).json({ message: 'At least one field was invalid!', valid: false })
     }
   } catch (err) {
     res.status(500).json({ message: err.message, valid: false })

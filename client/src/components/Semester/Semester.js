@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import styles from './Semester.module.css';
-import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, Row, Col, Container, Spinner } from 'reactstrap';
+import { Card, CardHeader, ListGroup, ListGroupItem, Button, CardFooter, UncontrolledButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem, UncontrolledAlert, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, InputGroup, Row, Col, Container, Spinner, Alert } from 'reactstrap';
 import { connect } from 'react-redux';
 import { removeCourseAction, addCoursesAction, fetchPlanAction } from '../../redux/actions/planner';
 import cores from "../../shared/cores.json";
@@ -111,6 +111,7 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
 
     // Apply the remaining filters that the client enabled
     const appliedKeys = Object.keys(appliedFilters).filter((key) => appliedFilters[key]);
+    console.log(appliedKeys);
     filteredCatalog = filteredCatalog.filter((courseInfo) => appliedKeys.every((filterKey) => courseInfo?.yearOffered === filterKey || courseInfo?.semesterOffered === filterKey || courseInfo?.cores?.includes(filterKey)));
     
     // Apply the client's search query
@@ -138,6 +139,9 @@ const BrowserModal = ({addCourses, semesterViewingId, isBrowserActive, toggleFun
   }
   
   const resetModal = () => {
+    setAppliedFilters(INIT_FILTERS)
+    setSearchQuery("")
+    selectSemester(semesterViewingId);
     setSelectedCourses([]);
     toggleFunction();
   }
@@ -221,7 +225,7 @@ class Semester extends React.Component {
           <Button color='primary' size="lg" onClick={this.toggleBrowser} className={styles.browser_toggle}><span className ="fa fa-search fa-lg"></span>{'  '}COURSE BROWSER</Button>
           <hr className={styles.semester_divider}></hr>
         </div>
-        {this.props.message && this.props.message.length > 0 && <UncontrolledAlert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</UncontrolledAlert>}
+        {this.props.message && this.props.message.length > 0 && <Alert className={styles.message_notif} color="warning" fade={false}>{this.props.message}</Alert>}
         <div className={styles.plan_container}>
           <Row>
             {this.props.fullPlan[Object.keys(this.props.fullPlan)[this.state.semesterKey]].map((courseInfo) => 
