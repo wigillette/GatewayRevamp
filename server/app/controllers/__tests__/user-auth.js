@@ -121,7 +121,7 @@ describe('register', () => {
 
     await userAuth.register(mReq, mRes)
 
-    expect(mRes.status).toBeCalledWith(404)
+    expect(mRes.status).toBeCalledWith(401)
     expect(mRes.json).toBeCalledWith(
       expect.objectContaining({ message: 'At least one field was invalid!', valid: false })
     )
@@ -233,7 +233,7 @@ describe('login', () => {
     expect(mRes2.status).toBeCalledWith(401)
     expect(mRes2.json).toBeCalledWith(
       expect.objectContaining({
-        message: 'Invalid Password!'
+        message: 'Invalid password!'
       })
     )
   })
