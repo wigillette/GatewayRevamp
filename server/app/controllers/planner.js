@@ -66,7 +66,7 @@ exports.removeCourse = async (req, res) => {
     await db.run(query, [userId, courseId, semesterKey])
     query = 'DELETE FROM CourseSpecialCoreRequirements WHERE courseId = ? AND studentId = ?'
     try {
-      await db.run(query, [userId, courseId])
+      await db.run(query, [courseId, userId])
       const newPlan = await getFullPlanFromDB(userId)
       res.status(200).json({ fullPlan: newPlan, message: `Successfully removed course ${courseId} from ${semesterKey}!` })
     } catch (err) {

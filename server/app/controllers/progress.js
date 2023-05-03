@@ -94,6 +94,7 @@ exports.assignCore = async (req, res) => {
   const db = await fetchDB()
   const { courseId, coreId } = req.body
   const userId = req.userId
+  const mappings = await getMappings(userId)
 
   try {
     const courseHasCore = await courseFulfillsCore(courseId, coreId)
@@ -108,8 +109,10 @@ exports.assignCore = async (req, res) => {
         await db.run(insertQuery, [courseId, userId, coreId])
       }
       const assignments = await getAssignments(userId)
+      addMappingsToAssignments(mappings, assignments)
       res.status(200).json({ coreAssignments: assignments, message: `Successfully assigned ${courseId} to ${coreId}!` })
     } else {
+      addMappingsToAssignments(mappings, originalAssignments)
       res.status(409).json({ coreAssignments: originalAssignments, message: `${courseId} does not fulfill the ${coreId} core requirement!` })
     }
   } catch (err) {
